@@ -1,4 +1,4 @@
-package com.group.KGMS.form;
+package com.group.KGMS.entity;
 
 import lombok.Data;
 

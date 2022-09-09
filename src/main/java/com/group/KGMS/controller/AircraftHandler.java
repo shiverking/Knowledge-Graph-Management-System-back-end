@@ -1,7 +1,7 @@
 package com.group.KGMS.controller;
 
 import com.group.KGMS.entity.T_aircraft;
-import com.group.KGMS.form.RuleForm;
+import com.group.KGMS.entity.RuleForm;
 import com.group.KGMS.repository.AircraftRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
