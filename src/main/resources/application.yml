@@ -4,6 +4,8 @@ spring:
     username: root
     password: Sicdp2021fkfd@
     driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      max-lifetime: 500000
   jpa:
     show-sql: true
     properties:
@@ -26,6 +28,17 @@ spring:
     validate-on-migrate: true
     # 当迁移发现数据库非空且存在没有元数据的表时，自动执行基准迁移，新建schema_version表
     baseline-on-migrate: true
+    # redis配置
+  redis:
+    database: 0
+    port: 6379
+    password:
+    jedis:
+      pool:
+        # 最大连接数量
+        max-active: 20
+    # 超时
+    connect-timeout: 1000
 mybatis:
   mapper-locations: classpath:project/mapper/*.xml
 server:

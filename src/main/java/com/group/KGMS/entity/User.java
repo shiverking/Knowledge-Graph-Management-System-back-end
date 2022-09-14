@@ -37,7 +37,7 @@ public class User implements UserDetails {
     private Boolean enabled;
     //账号是是否锁定
     private Boolean locked;
-
+    private List<String> permissions;
     //账户是否过期
     @Override
     @JsonIgnore

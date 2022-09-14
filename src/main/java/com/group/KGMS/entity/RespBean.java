@@ -1,8 +1,13 @@
 package com.group.KGMS.entity;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * @作者 yca
  */
+@Data
 public class RespBean {
     private Integer status;
     private String msg;
