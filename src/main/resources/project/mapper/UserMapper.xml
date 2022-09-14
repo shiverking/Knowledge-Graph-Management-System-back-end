@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.group.KGMS.repository.UserMapper">
+    <resultMap id="UserResultMap" type="com.group.KGMS.entity.User">
+        <result column="id" property="id"/>
+        <result column="username" property="username" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="headurl" property="headurl"/>
+    </resultMap>
+    <insert id="insertUser">
+        insert into user (id,username, password, headurl) values (
+        #{id},#{username},#{password},#{headurl}
+        );
+    </insert>
+    <update id="changePassWordById">
+        update user
+        <set>
+            password = #{password}
+        </set>
+        where id=#{id};
+    </update>
+    <update id="updateHeadUrlById">
+        update user
+        <set>
+            headurl = #{headurl}
+        </set>
+        where id = #{id}
+    </update>
+    <update id="changePasswordByUsername">
+        update user
+        <set>
+            password = #{password}
+        </set>
+        where username = #{username}
+    </update>
+
+    <select id="findUserByUsername" resultMap="UserResultMap" parameterType="String">
+        select * from user where username = #{username}
+    </select>
+    
+    <select id="getAllUsers" resultType="com.group.KGMS.entity.User">
+        select * from user
+    </select>
+
+    <delete id="deleteUserByUsername" parameterType="com.group.KGMS.entity.User">
+        delete from user where username=#{username}
+    </delete>
+    
+    <select id="isUsernameExist" resultType="java.lang.Boolean">
+        <![CDATA[ select count(id)
+        from user where username = #{username}]]>
+    </select>
+    
+    <select id="getLastId" resultType="java.lang.Integer">
+        select max(id) from user;
+    </select>
+    
+    <select id="loadUserByUsername" resultType="com.group.KGMS.entity.User">
+         select * from user where username=#{username}
+    </select>
+    
+    <select id="getUserRolesByUid" resultType="com.group.KGMS.entity.Role">
+        select * from role r,user_role ur where r.id=ur.rid and ur.uid=#{id}
+    </select>
+
+    <select id="findPasswordById" resultType="java.lang.String">
+        select password from user where id=#{id}
+    </select>
+
+    <select id="findUserById" resultType="com.group.KGMS.entity.User">
+        select * from user where id = #{id}
+    </select>
+        
+    <select id="getUserByRid" resultType="com.group.KGMS.entity.User">
+        select * from user u,user_role ur where u.id=ur.uid and ur.rid=#{rid}
+    </select>
+        
+    <select id="getUsernameById" resultType="java.lang.String">
+        select username from user where id=#{id}
+    </select>
+
+    <select id="getIdByUserName" resultType="java.lang.Integer">
+        select id from user where username=#{username}
+    </select>
+
+    <select id="getHeadurlById" resultType="java.lang.String">
+        select headurl from user where id=#{id}
+    </select>
+
+    <select id="getUserById" resultType="com.group.KGMS.entity.User">
+        select * from user where id=#{id}
+    </select>
+    <delete id="deleteUserById" parameterType="com.group.KGMS.entity.User">
+        delete from user where id = #{id}
+    </delete>
+
+    <select id="getUserList" resultType="com.group.KGMS.entity.User">
+        select u.id,username,telephone,email,location from user u,user_role ur where u.id=ur.uid and ur.rid <![CDATA[ < ]]> 1
+    </select>
+
+    <select id="getAdminList" resultType="com.group.KGMS.entity.User">
+        select u.id,username from user u,user_role ur where u.id=ur.uid and ur.rid=2
+    </select>
+
+    <select id="searchUser" resultType="com.group.KGMS.entity.User">
+        select * from user u,user_role ur
+        <where>
+            1=1
+            and u.id = ur.uid
+            and ur.rid<![CDATA[ < ]]>1
+            <if test="username!=null and username!=''">and u.username=#{username}</if>
+            <if test="rid!=null and rid!=0">and ur.rid=#{rid}</if>
+        </where>
+    </select>
+
+    <select id="searchAdmin" resultType="com.group.KGMS.entity.User">
+        select * from user u,user_role ur
+        <where>
+            1=1
+            and u.id = ur.uid
+            and ur.rid = 2
+            <if test="username!=null and username!=''">and u.username=#{username}</if>
+        </where>
+    </select>
+
+    <select id="getUserCount" resultType="int">
+        select count(*) from user
+    </select>
+
+    <select id="getAllUserId" resultType="java.lang.Integer">
+        select uid from user_role a,user b where a.uid = b.id and a.rid=1;
+    </select>
+
+    <update id="updateUserInfo" >
+        update user
+        <set>
+            username = #{username},
+            password = #{password}
+        </set>
+        where id=#{id};
+    </update>
+
+</mapper>
