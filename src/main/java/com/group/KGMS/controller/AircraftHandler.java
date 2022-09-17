@@ -27,7 +27,7 @@ public class AircraftHandler {
     }
     @GetMapping("/search")
     public Page<T_aircraft> search(RuleForm ruleForm){
-        PageRequest request = PageRequest.of(ruleForm.getPage()-1, ruleForm.getSize()-0);
+        PageRequest request = PageRequest.of(ruleForm.getPage()-1, ruleForm.getSize());
         Page<T_aircraft> aircraft = aircraftRepository.findAll(new Specification<T_aircraft>() {
             @Override
             public Predicate toPredicate(Root<T_aircraft> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {

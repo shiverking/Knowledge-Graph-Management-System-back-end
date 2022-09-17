@@ -1,6 +1,7 @@
 package com.group.KGMS.entity;
 
 import lombok.Data;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,7 +12,7 @@ import javax.persistence.Id;
 public class T_aircraft {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String aircraft_id;
+    private Integer id;
     private String aircraft_name;
     private String picture;
     private String description;
