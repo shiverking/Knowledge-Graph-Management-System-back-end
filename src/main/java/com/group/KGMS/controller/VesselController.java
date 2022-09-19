@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/vessel")
-public class VesselHandler {
+public class VesselController {
     @Autowired
     private VesselRepository vesselRepository;
 

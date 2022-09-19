@@ -19,49 +19,6 @@ public class UserController {
     UserService userService;
     @Autowired
     RoleService roleService;
-
-//    @ResponseBody
-//    @GetMapping("/hello")
-//    public String hello(){
-//        return "hello";
-//    }
-    
-    /**
-     * 注册方法,添加一个用户
-     */
-//    @ResponseBody
-//    @RequestMapping("/user/register")
-//    public RespBean test(@RequestBody Map<String, Object> info, BindingResult bindingResult) throws ServiceException {
-//        Map<String, Object> map = new HashMap<>();
-//        if (bindingResult.hasErrors()) {
-//            StringBuffer sb = new StringBuffer();
-//            sb.append(bindingResult.getAllErrors().get(0).getDefaultMessage());
-//            return RespBean.error(sb.toString());
-//        } else {
-//            User user = new User();
-//            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-//            String encodedPassword = passwordEncoder.encode(((String) info.get("password")).trim());
-//            int id = userService.getLastId() + 1;
-//            user.setPassword(encodedPassword);
-//            user.setId(id);
-//            user.setUsername((String) info.get("username"));
-//            //添加用户
-//            userService.insertUser(user);
-//            String identity = (String) info.get("identity");
-//            if (identity.equals("employer")) {
-//                if (roleServiceimpl.addUserAndRole(id, 1)) {
-//                    return RespBean.ok("注册成功!");
-//                }
-//            }
-//            if (identity.equals("employee")) {
-//                if (roleServiceimpl.addUserAndRole(id, 2)) {
-//                    return RespBean.ok("注册成功!");
-//                }
-//            }
-//            return RespBean.error("注册失败");
-//
-//        }
-//    }
     /**
      * 注册方法,添加一个用户
      * @return
@@ -80,7 +37,7 @@ public class UserController {
         //添加用户
         userService.insertUser(user);
         if (roleService.addUserAndRole(id, 1)) {
-            return RespBean.ok("注册成功!");
+            return RespBean.success("注册成功!");
         }
         return RespBean.error("注册失败");
     }

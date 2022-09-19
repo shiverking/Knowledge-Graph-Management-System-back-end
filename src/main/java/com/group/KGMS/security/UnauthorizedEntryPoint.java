@@ -16,6 +16,5 @@ public class UnauthorizedEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         ResponseUtil.write(response, R.error().message("权限不足"));
-
     }
 }

@@ -6,6 +6,7 @@ import com.group.KGMS.entity.UserInfo;
 import com.group.KGMS.utils.JwtUtil;
 import com.group.KGMS.utils.ResponseUtil;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -18,7 +19,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
@@ -62,14 +65,21 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
         User user = (User) auth.getPrincipal();
         UserInfo userInfo = new UserInfo(user.getUsername(),user.getHeadurl());
         String token = JwtUtil.getToken(user.getUsername());
-        // 将token信息存入redis缓存
-        redisTemplate.opsForValue().set(user.getUsername(), user.getPermissions());
+        String username = user.getUsername();
+        //List<String> permissions = user.getPermissions();
+        //解决redis 存储乱码问题
+        StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
+        redisTemplate.setKeySerializer(stringRedisSerializer); // a
+        redisTemplate.setHashKeySerializer(stringRedisSerializer);
+        redisTemplate.setValueSerializer(stringRedisSerializer); // b
+        redisTemplate.setHashValueSerializer(stringRedisSerializer);
+        // 将token信息存入redis缓存,暂时没有permissions 信息
+        redisTemplate.opsForValue().set(username, "");
         Map<String, Object> map = new HashMap<>();
         map.put("token",token);
         map.put("userInfo",userInfo);
         //响应工具类
         ResponseUtil.write(res, R.ok().data(map));
-//        ResponseUtil.write(res, R.ok().data("token", token));
     }
 
     /**

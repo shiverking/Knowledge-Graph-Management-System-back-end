@@ -17,7 +17,7 @@ import javax.persistence.criteria.Root;
 
 @RestController
 @RequestMapping("/misile")
-public class MisileHandler {
+public class MisileController {
     @Autowired
     private MisileRepository misileRepository;
 

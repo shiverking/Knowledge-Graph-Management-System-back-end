@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/resume")
-public class ResumeHandler {
+public class ResumeController {
     @Autowired
     private ResumeRepository resumeRepository;
     @Autowired
