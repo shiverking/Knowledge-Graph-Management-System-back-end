@@ -16,7 +16,7 @@ import javax.persistence.criteria.Root;
 
 @RestController
 @RequestMapping("/aircraft")
-public class AircraftHandler {
+public class AircraftController {
     @Autowired
     private AircraftRepository aircraftRepository;
 

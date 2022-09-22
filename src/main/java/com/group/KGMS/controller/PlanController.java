@@ -19,7 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/plan")
-public class PlanHandler {
+public class PlanController {
     @Autowired
     private PlanRepository planRepository;
     @GetMapping("/findAll")

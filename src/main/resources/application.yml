@@ -5,7 +5,7 @@ spring:
     password: Sicdp2021fkfd@
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
-      max-lifetime: 500000
+      max-lifetime: 5000
   jpa:
     show-sql: true
     properties:

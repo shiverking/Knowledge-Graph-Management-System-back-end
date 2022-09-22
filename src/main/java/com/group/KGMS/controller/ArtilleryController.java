@@ -21,7 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/artillery")
-public class ArtilleryHandler {
+public class ArtilleryController {
     @Autowired
     private ArtilleryRepository artilleryRepository;
     @Autowired

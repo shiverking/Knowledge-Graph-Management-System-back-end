@@ -1,7 +1,6 @@
 package com.group.KGMS.security;
 
 import com.group.KGMS.utils.JwtUtil;
-import org.omg.CORBA.UserException;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -9,7 +8,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.FilterChain;
@@ -49,19 +47,19 @@ public class TokenAuthenticationFilter extends BasicAuthenticationFilter {
 
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
         // token置于header里
-        String token = request.getHeader("token");
+        String token = request.getHeader("Authorization");
         if (token != null) {
             // 解析token获得用户名
             String username = JwtUtil.getUserFromToken(token);
             // 根据用户名获得对应的权限列表
-            Set<String> permissionValueList = (Set<String>) redisTemplate.opsForValue().get(username);
+//            Set<String> permissionValueList = (Set<String>) redisTemplate.opsForValue().get(username);
             // 将权限列表转成 Collection<GrantedAuthority>数据类型，最后封装到UsernamePasswordAuthenticationToken用户权限信息中
             Collection<GrantedAuthority> authorities = new ArrayList<>();
-            for (String permissionValue : permissionValueList) {
-                if (StringUtils.isEmpty(permissionValue)) continue;
-                SimpleGrantedAuthority authority = new SimpleGrantedAuthority(permissionValue);
-                authorities.add(authority);
-            }
+//            for (String permissionValue : permissionValueList) {
+//                if (StringUtils.isEmpty(permissionValue)) continue;
+//                SimpleGrantedAuthority authority = new SimpleGrantedAuthority(permissionValue);
+//                authorities.add(authority);
+//            }
             if (username!=null) {
                 return new UsernamePasswordAuthenticationToken(username, token, authorities);
             }

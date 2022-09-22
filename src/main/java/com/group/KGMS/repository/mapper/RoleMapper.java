@@ -1,4 +1,4 @@
-package com.group.KGMS.repository;
+package com.group.KGMS.repository.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

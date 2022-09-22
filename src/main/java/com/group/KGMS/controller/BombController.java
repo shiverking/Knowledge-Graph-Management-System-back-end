@@ -16,7 +16,7 @@ import javax.persistence.criteria.Root;
 
 @RestController
 @RequestMapping("/bomb")
-public class BombHandler {
+public class BombController {
     @Autowired
     private BombRepository bombRepository;
 

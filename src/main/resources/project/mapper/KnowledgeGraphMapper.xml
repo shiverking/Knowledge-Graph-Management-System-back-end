@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.group.KGMS.repository.mapper.KnowledgeGraphMapper">
+    <resultMap id="KnowledgeGraphMap" type="com.group.KGMS.entity.Triple">
+        <result column="实体" property='head' />
+        <result column="属性" property='relation'/>
+        <result column="属性值" property='tail' />
+    </resultMap>
+    <select id="getAllTriplesFromTable" resultType="com.group.KGMS.entity.Triple">
+        select * from ${tableName}
+    </select>
+</mapper>

@@ -18,7 +18,7 @@ import java.util.List;
 @ResponseBody
 @RestController
 @RequestMapping("/education")
-public class EducationHandler {
+public class EducationController {
     @Autowired
     private EducationRepository educationRepository;
     @Autowired

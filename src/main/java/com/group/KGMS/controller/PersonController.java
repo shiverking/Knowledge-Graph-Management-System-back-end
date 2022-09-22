@@ -22,7 +22,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/person")
-public class PersonHandler {
+public class PersonController {
     @Autowired
     private PersonRepository personRepository;
     @Autowired
