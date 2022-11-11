@@ -1,11 +1,12 @@
 package com.group.KGMS.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.group.KGMS.entity.T_vessel;
 import com.group.KGMS.entity.RuleForm;
-import com.group.KGMS.repository.VesselRepository;
+
+import com.group.KGMS.service.VesselService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,101 +19,77 @@ import java.util.List;
 @RestController
 @RequestMapping("/vessel")
 public class VesselController {
+//    @Autowired
+//    private VesselRepository vesselRepository;
     @Autowired
-    private VesselRepository vesselRepository;
-
+    private VesselService vesselService;
 
     @GetMapping("/findAll")
     public List<T_vessel> findall(){
-        return vesselRepository.findAll();
+        return vesselService.findAll();
     }
 
+
     @GetMapping("/findAll/{page}/{size}")
-    public Page<T_vessel> findAll(@PathVariable("page") Integer page, @PathVariable("size") Integer size) {
-        PageRequest request = PageRequest.of(page, size);
-        return vesselRepository.findAll(request);
+    public PageInfo<T_vessel> findAll(@PathVariable("page") Integer page, @PathVariable("size") Integer size) {
+        return vesselService.findAllVessel(page,size);
     }
 
     @GetMapping("/search")
-    public Page<T_vessel> search(RuleForm ruleForm) {
-        PageRequest request = PageRequest.of(ruleForm.getPage() - 1, ruleForm.getSize() );
-        Page<T_vessel> vessel = vesselRepository.findAll(new Specification<T_vessel>() {
-            @Override
-            public Predicate toPredicate(Root<T_vessel> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-                Predicate aircraftpredicate = null;
-                System.out.println("ruleForm.getKey()");
-                if (ruleForm.getKey().equals("name")) {
-                    aircraftpredicate = criteriaBuilder.like(root.get("name").as(String.class), "%" + ruleForm.getValue() + "%");
-                }
-                if (ruleForm.getKey().equals("manufacturer")) {
-                    aircraftpredicate = criteriaBuilder.like(root.get("manufacturer").as(String.class), "%" + ruleForm.getValue() + "%");
-
-                }
-                if (ruleForm.getKey().equals("type")) {
-                    aircraftpredicate = criteriaBuilder.like(root.get("type").as(String.class), "%" + ruleForm.getValue() + "%");
-                }
-                return aircraftpredicate;
-            }
-        }, request);
-        return vessel;
+    public PageInfo<T_vessel> search(RuleForm ruleForm){
+        return vesselService.search(ruleForm);
     }
-    @GetMapping("/findByTaskid/{id}")
-    public List<T_vessel> searchbytaskid(@PathVariable("id") Integer id){
-        List<T_vessel> vessel = vesselRepository.findAll(new Specification<T_vessel>() {
-            @Override
-            public Predicate toPredicate(Root<T_vessel> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-                Predicate aircraftpredicate = criteriaBuilder.equal(root.get("task_id"),id);
-
-                return aircraftpredicate;
-            }
-        });
-        return vessel;
-
-    }
-
     @PostMapping("/save")
-    public String save(@RequestBody T_vessel book) {
-        T_vessel result = vesselRepository.save(book);
-        if (result != null) {
+    public String save(@RequestBody T_vessel vessel){
+        int result = vesselService.save(vessel);
+        if(result ==1){
             return "success";
-        } else {
+        }else{
             return "error";
         }
     }
 
     @GetMapping("/findById/{id}")
-    public T_vessel findById(@PathVariable("id") Integer id) {
-        return vesselRepository.findById(id).get();
+    public T_vessel findById(@PathVariable("id") Integer id){
+        return vesselService.findById(id);
     }
 
     @PutMapping("/update")
-    public String update(@RequestBody T_vessel book) {
-        T_vessel result = vesselRepository.save(book);
-        if (result != null) {
+    public String update(@RequestBody T_vessel vessel){
+        int result = vesselService.update(vessel);
+        if(result == 1){
             return "success";
-        } else {
+        }else{
             return "error";
         }
     }
 
     @DeleteMapping("/deleteById/{id}")
-    public void deleteById(@PathVariable("id") Integer id) {
-        vesselRepository.deleteById(id);
+    public void deleteById(@PathVariable("id") Integer id){
+        vesselService.delete(id);
     }
 
-    @GetMapping("/deletetask/{id}")
-    public void deletetask(@PathVariable("id") Integer id) {
-        T_vessel vessel =vesselRepository.findById(id).get();
-        vessel.setTask_id(null);
-        vesselRepository.save(vessel);
-    }
-
-
-    @GetMapping("/settaskid/{id}/{task_id}")
-    public void settaskid(@PathVariable("id") Integer id,@PathVariable("task_id") Integer task_id){
-        T_vessel vessel = vesselRepository.findById(id).get();
-        vessel.setTask_id(task_id);
-        vesselRepository.save(vessel);
+    @GetMapping("/findByTaskid/{id}")
+    public List<T_vessel> searchbytaskid(@PathVariable("id") Integer id){
+        return vesselService.findByTaskid(id);
 
     }
+
+
+
+//    @GetMapping("/deletetask/{id}")
+//    public void deletetask(@PathVariable("id") Integer id) {
+//        T_vessel vessel =vesselRepository.findById(id).get();
+//        vessel.setTask_id(null);
+//        vesselRepository.save(vessel);
+//    }
+//
+//
+//    @GetMapping("/settaskid/{id}/{task_id}")
+//    public void settaskid(@PathVariable("id") Integer id,@PathVariable("task_id") Integer task_id){
+//        T_vessel vessel = vesselRepository.findById(id).get();
+//        vessel.setTask_id(task_id);
+//        vesselRepository.save(vessel);
+//
+//    }
 }

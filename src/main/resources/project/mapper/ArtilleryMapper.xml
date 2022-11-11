@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.group.KGMS.mapper.ArtilleryMapper">
+    <select id="findAllArtillery" resultType="com.group.KGMS.entity.T_artillery">
+        select * from t_artillery
+    </select>
+    <select id="search" parameterType="com.group.KGMS.entity.RuleForm" resultType="com.group.KGMS.entity.T_artillery">
+        select * from t_artillery where ${key} like concat('%',#{value},'%')
+    </select>
+    <select id="findById" parameterType="int" resultType="com.group.KGMS.entity.T_artillery">
+        select * from t_artillery where id = #{id}
+    </select>
+    <insert id="save" parameterType="com.group.KGMS.entity.T_artillery" >
+        insert into t_artillery(name,country,picture,description,rd_company,product_date,length,weight,diameter,barrel_length,muzzle_velocity,scope,type)
+        values(#{name},#{country},#{picture},#{description},#{rd_company},#{product_date},#{length},#{weight},#{diameter},#{barrel_length},#{muzzle_velocity},#{scope},#{type})
+    </insert>
+    <update id="update" parameterType="com.group.KGMS.entity.T_artillery" >
+        update t_artillery
+        <set>
+            name= #{name},
+            country=#{country},
+            picture=#{picture},
+            description=#{description},
+            rd_company=#{rd_company},
+            product_date=#{product_date},
+            length=#{length},
+            weight=#{weight},
+            diameter=#{diameter},
+            barrel_length=#{barrel_length},
+            muzzle_velocity=#{muzzle_velocity},
+            scope=#{scope},
+            type=#{type}
+        </set>
+        where id = #{id}
+    </update>
+    <delete id="delete" parameterType="int" >
+        delete from t_artillery where id = #{id}
+    </delete>
+</mapper>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.group.KGMS.mapper.BombMapper">
+    <select id="findAllBomb" resultType="com.group.KGMS.entity.T_bomb">
+        select * from t_bomb
+    </select>
+    <select id="search" parameterType="com.group.KGMS.entity.RuleForm" resultType="com.group.KGMS.entity.T_bomb">
+        select * from t_bomb where ${key} like concat('%',#{value},'%')
+    </select>
+    <select id="findById" parameterType="int" resultType="com.group.KGMS.entity.T_bomb">
+        select * from t_bomb where id = #{id}
+    </select>
+    <insert id="save" parameterType="com.group.KGMS.entity.T_bomb" >
+        insert into t_bomb(name,picture,description,rd_company,charge_type,bomb_length,weight,type)
+        values(#{name},#{picture},#{description},#{rd_company},#{charge_type},#{bomb_length},#{weight},#{type})
+    </insert>
+    <update id="update" parameterType="com.group.KGMS.entity.T_bomb" >
+        update t_bomb
+        <set>
+            name= #{name},
+            picture=#{picture},
+            description=#{description},
+            rd_company=#{rd_company},
+            charge_type=#{charge_type},
+            bomb_length=#{bomb_length},
+            weight=#{weight},
+            type=#{type}
+        </set>
+        where id = #{id}
+    </update>
+    <delete id="delete" parameterType="int" >
+        delete from t_bomb where id = #{id}
+    </delete>
+</mapper>
