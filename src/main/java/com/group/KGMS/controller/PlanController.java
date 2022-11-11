@@ -1,9 +1,14 @@
 package com.group.KGMS.controller;
 
 
-import com.group.KGMS.entity.T_plan;
-import com.group.KGMS.entity.RuleForm;
-import com.group.KGMS.repository.PlanRepository;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.pagehelper.PageInfo;
+import com.group.KGMS.entity.*;
+
+import com.group.KGMS.service.PersonService;
+import com.group.KGMS.service.PlanService;
+import com.group.KGMS.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,63 +21,65 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/plan")
 public class PlanController {
+//    @Autowired
+//    private PlanRepository planRepository;
+//    @GetMapping("/findAll")
+//    public List<T_plan> findAll() {
+//        return planRepository.findAll();
+//    }
     @Autowired
-    private PlanRepository planRepository;
-    @GetMapping("/findAll")
-    public List<T_plan> findAll() {
-        return planRepository.findAll();
-    }
+    private PlanService planService;
+    @Autowired
+    private PersonService personService;
+    @Autowired
+    private TaskService taskService;
     @GetMapping("/findAll/{page}/{size}")
-    public Page<T_plan> findAll(@PathVariable("page") Integer page, @PathVariable("size") Integer size){
-        PageRequest request = PageRequest.of(page,size);
-        return planRepository.findAll(request);
+    public PageInfo<T_plan> findAll(@PathVariable("page") Integer page, @PathVariable("size") Integer size) {
+        return planService.findAllPlan(page,size);
     }
-    @GetMapping("/findById/{id}")
-    public List<T_plan> findById(@PathVariable("id") Integer id) {
-        List<T_plan> plan= new ArrayList<>();
 
-        plan.add( planRepository.findById(id).get());
-        return plan;
-    }
     @GetMapping("/search")
-    public Page<T_plan> search(RuleForm ruleForm){
-        PageRequest request = PageRequest.of(ruleForm.getPage()-1, ruleForm.getSize());
-        Page<T_plan> aircraft = planRepository.findAll(new Specification<T_plan>() {
-            @Override
-            public Predicate toPredicate(Root<T_plan> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-                Predicate aircraftpredicate = null;
-                if (ruleForm.getKey().equals("plan_name")){
-                    aircraftpredicate=criteriaBuilder.like(root.get("plan_name").as(String.class),"%"+ruleForm.getValue()+"%");
-                }
-                if (ruleForm.getKey().equals("plan_status")){
-                    aircraftpredicate=criteriaBuilder.like(root.get("plan_status").as(String.class),"%"+ruleForm.getValue()+"%");
-
-                }
-                return aircraftpredicate;
-            }
-        },request);
-        return aircraft;
-
+    public PageInfo<T_plan> search(RuleForm ruleForm){
+        return planService.search(ruleForm);
     }
     @PostMapping("/save")
-    public String save(@RequestBody T_plan book){
-        int max = planRepository.max()+1;
-        book.setId(max);
-        T_plan result = planRepository.save(book);
-        if(result != null){
+    public String save(@RequestBody Map<String, Object> map){
+        Object pl = map.get("plan");
+        ObjectMapper objectMapper = new ObjectMapper();
+        T_plan plan = objectMapper.convertValue(pl, T_plan.class);
+        List<T_task> ta =(List<T_task>) map.get("task");
+        List<T_task> task = objectMapper.convertValue(ta, new TypeReference<List<T_task>>() {} );
+        Object perid = map.get("person_id");
+        int person_id = objectMapper.convertValue(perid, int.class);
+        int result1 = planService.save(plan);
+        int max = planService.maxid();
+        personService.updateplan(max,person_id);
+        for(int i =0;i< task.size();i++){
+            task.get(i).setPlan_id(max);
+            taskService.save(task.get(i));
+        }
+
+        if(result1 ==1 ){
             return "success";
         }else{
             return "error";
         }
     }
+
+    @GetMapping("/findById/{id}")
+    public T_plan findById(@PathVariable("id") Integer id){
+        return planService.findById(id);
+    }
+
     @PutMapping("/update")
-    public String update(@RequestBody T_plan book){
-        T_plan result = planRepository.save(book);
-        if(result != null){
+    public String update(@RequestBody T_plan plan){
+        int result = planService.update(plan);
+        if(result == 1){
             return "success";
         }else{
             return "error";
@@ -81,6 +88,6 @@ public class PlanController {
 
     @DeleteMapping("/deleteById/{id}")
     public void deleteById(@PathVariable("id") Integer id){
-        planRepository.deleteById(id);
+        planService.delete(id);
     }
 }

@@ -1,58 +1,72 @@
 package com.group.KGMS.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.group.KGMS.entity.T_aircraft;
 import com.group.KGMS.entity.RuleForm;
-import com.group.KGMS.repository.AircraftRepository;
+
+//import com.group.KGMS.repository.AircraftRepository;
+import com.group.KGMS.service.AircraftService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.jpa.domain.Specification;
+
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.List;
 
 @RestController
 @RequestMapping("/aircraft")
 public class AircraftController {
+//    @Autowired
+//    private AircraftRepository aircraftRepository;
     @Autowired
-    private AircraftRepository aircraftRepository;
+    private AircraftService aircraftService;
 
     @GetMapping("/findAll/{page}/{size}")
-    public Page<T_aircraft> findAll(@PathVariable("page") Integer page, @PathVariable("size") Integer size){
-        PageRequest request = PageRequest.of(page,size);
-        return aircraftRepository.findAll(request);
+    public PageInfo<T_aircraft> findAll(@PathVariable("page") Integer page, @PathVariable("size") Integer size){
+
+        return aircraftService.findAllAircraft(page,size);
+    }
+    @PostMapping ("/clean")
+    public String clean(@RequestBody List<T_aircraft> aircraft){
+        String result =null;
+        String line = null;
+        Process proc;
+        try {
+        	/*
+			附加：
+			String[] args1=new String[]{"/home/huan/anaconda2/bin/python","/home/huan/myfile/pythonfile/helloword.py"};
+            Process pr=Runtime.getRuntime().exec(args1);
+			String数组里的那一行很重要
+			首先一定要设置好你所使用的python的位置，切记不要直接使用python，因为系统会默认使用自带的python，所以一定要设置好你所使用的python的位置，否则可能会出现意想不到的问题（比如说我使用的是anaconda中的python，而ubuntu系统会默认调用自带的python，而我自带的python中并没有numpy库，所以会造成相应的代码不会执行的问题，所以设置好python的位置是很重要的）。还有就是要设置好py文件的位置，使用绝对路径。在这里插入代码片
+
+       还有就是可以看出，此方法可以满足我们python代码中调用第三方库的情况，简单实用。
+			*/
+            proc = Runtime.getRuntime().exec("E:\\代码\\DataCleaning\\venv\\Scripts\\python E:\\代码\\DataCleaning\\DataCleaning.py"+" "+aircraft);
+            BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream()));
+
+            while ((line = in.readLine()) != null) {
+                return line;
+            }
+            in.close();
+            proc.waitFor();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return line;
     }
     @GetMapping("/search")
-    public Page<T_aircraft> search(RuleForm ruleForm){
-        PageRequest request = PageRequest.of(ruleForm.getPage()-1, ruleForm.getSize());
-        Page<T_aircraft> aircraft = aircraftRepository.findAll(new Specification<T_aircraft>() {
-            @Override
-            public Predicate toPredicate(Root<T_aircraft> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-                Predicate aircraftpredicate = null;
-                System.out.println("ruleForm.getKey()");
-                if (ruleForm.getKey().equals("aircraft_name")){
-                    aircraftpredicate=criteriaBuilder.like(root.get("aircraft_name").as(String.class),"%"+ruleForm.getValue()+"%");
-                }
-                if (ruleForm.getKey().equals("rd_company")){
-                    aircraftpredicate=criteriaBuilder.like(root.get("rd_company").as(String.class),"%"+ruleForm.getValue()+"%");
-
-                }
-                if (ruleForm.getKey().equals("type")){
-                    aircraftpredicate=criteriaBuilder.like(root.get("type").as(String.class),"%"+ruleForm.getValue()+"%");
-                }
-                return aircraftpredicate;
-            }
-        },request);
-        return aircraft;
-
+    public PageInfo<T_aircraft> search(RuleForm ruleForm){
+        return aircraftService.search(ruleForm);
     }
     @PostMapping("/save")
-    public String save(@RequestBody T_aircraft book){
-        T_aircraft result = aircraftRepository.save(book);
-        if(result != null){
+    public String save(@RequestBody T_aircraft aircraft){
+        int result = aircraftService.save(aircraft);
+        if(result ==1){
             return "success";
         }else{
             return "error";
@@ -61,13 +75,13 @@ public class AircraftController {
 
     @GetMapping("/findById/{id}")
     public T_aircraft findById(@PathVariable("id") Integer id){
-        return aircraftRepository.findById(id).get();
+        return aircraftService.findById(id);
     }
 
     @PutMapping("/update")
-    public String update(@RequestBody T_aircraft book){
-        T_aircraft result = aircraftRepository.save(book);
-        if(result != null){
+    public String update(@RequestBody T_aircraft aircraft){
+        int result = aircraftService.update(aircraft);
+        if(result == 1){
             return "success";
         }else{
             return "error";
@@ -76,6 +90,6 @@ public class AircraftController {
 
     @DeleteMapping("/deleteById/{id}")
     public void deleteById(@PathVariable("id") Integer id){
-        aircraftRepository.deleteById(id);
+        aircraftService.delete(id);
     }
 }

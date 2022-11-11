@@ -3,7 +3,7 @@ package com.group.KGMS.service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.group.KGMS.entity.Triple;
-import com.group.KGMS.repository.mapper.KnowledgeGraphMapper;
+import com.group.KGMS.mapper.KnowledgeGraphMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

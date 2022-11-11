@@ -1,10 +1,11 @@
-package com.group.KGMS.repository.mapper;
+package com.group.KGMS.mapper;
 
+import com.group.KGMS.entity.Role;
+import com.group.KGMS.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
-import com.group.KGMS.entity.Role;
-import com.group.KGMS.entity.User;
+
 import java.util.List;
 
 @Mapper

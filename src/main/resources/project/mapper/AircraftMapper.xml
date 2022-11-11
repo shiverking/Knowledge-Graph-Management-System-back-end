@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.group.KGMS.mapper.AircraftMapper">
+    <select id="findAllAircraft" resultType="com.group.KGMS.entity.T_aircraft">
+        select * from t_aircraft
+    </select>
+    <select id="search" parameterType="com.group.KGMS.entity.RuleForm" resultType="com.group.KGMS.entity.T_aircraft">
+        select * from t_aircraft where ${key} like concat('%',#{value},'%')
+    </select>
+    <select id="findById" parameterType="int" resultType="com.group.KGMS.entity.T_aircraft">
+        select * from t_aircraft where id = #{id}
+    </select>
+    <insert id="save" parameterType="com.group.KGMS.entity.T_aircraft" >
+        insert into t_aircraft(aircraft_name,picture,description,fist_flight,rd_company,engines_num,crew_num,length,winspan,height,engine,max_speed,empty_wgt,type)
+        values(#{aircraft_name},#{picture},#{description},#{fist_flight},#{rd_company},#{engines_num},#{crew_num},#{length},#{winspan},#{height},#{engine},#{max_speed},#{empty_wgt},#{type})
+    </insert>
+    <update id="update" parameterType="com.group.KGMS.entity.T_aircraft" >
+        update t_aircraft
+            <set>
+                aircraft_name= #{aircraft_name},
+                picture=#{picture},
+                description=#{description},
+                fist_flight=#{fist_flight},
+                rd_company=#{rd_company},
+                engines_num=#{engines_num},
+                crew_num=#{crew_num},
+                length=#{length},
+                winspan=#{winspan},
+                height=#{height},
+                engine=#{engine},
+                max_speed=#{max_speed},
+                empty_wgt=#{empty_wgt},
+                type=#{type}
+            </set>
+        where id = #{id}
+    </update>
+    <delete id="delete" parameterType="int" >
+        delete from t_aircraft where id = #{id}
+    </delete>
+</mapper>

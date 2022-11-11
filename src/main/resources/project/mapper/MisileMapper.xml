@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.group.KGMS.mapper.MisileMapper">
+    <select id="findAllMisile" resultType="com.group.KGMS.entity.T_misile">
+        select * from t_misile
+    </select>
+    <select id="search" parameterType="com.group.KGMS.entity.RuleForm" resultType="com.group.KGMS.entity.T_misile">
+        select * from t_misile where ${key} like concat('%',#{value},'%')
+    </select>
+    <select id="findById" parameterType="int" resultType="com.group.KGMS.entity.T_misile">
+        select * from t_misile where id = #{id}
+    </select>
+    <insert id="save" parameterType="com.group.KGMS.entity.T_misile" >
+        insert into t_misile(name,picture,description,rd_company,bomb_length,bomb_weight,winspan,guidance_system,max_speed,scope,type)
+        values(#{name},#{picture},#{description},#{rd_company},#{bomb_length},#{bomb_weight},#{winspan},#{guidance_system},#{max_speed},#{scope},#{type})
+    </insert>
+    <update id="update" parameterType="com.group.KGMS.entity.T_misile" >
+        update t_misile
+        <set>
+            name= #{name},
+            picture=#{picture},
+            description=#{description},
+            rd_company=#{rd_company},
+            bomb_length=#{bomb_length},
+            bomb_weight=#{bomb_weight},
+            winspan=#{winspan},
+            guidance_system=#{guidance_system},
+            max_speed=#{max_speed},
+            scope=#{scope},
+            type=#{type}
+        </set>
+        where id = #{id}
+    </update>
+    <delete id="delete" parameterType="int" >
+        delete from t_misile where id = #{id}
+    </delete>
+</mapper>

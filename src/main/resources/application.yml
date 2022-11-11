@@ -39,6 +39,10 @@ spring:
         max-active: 20
     # 超时
     connect-timeout: 1000
+    mvc:
+      hiddenmethod:
+        filter:
+          enabled: true
 mybatis:
   mapper-locations: classpath:project/mapper/*.xml
 server:

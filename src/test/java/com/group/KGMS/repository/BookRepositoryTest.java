@@ -16,28 +16,28 @@ import java.util.Optional;
 @SpringBootTest
 class BookRepositoryTest {
 
-    @Autowired
-    private AircraftRepository aircraftRepository;
-
-    @Test
-    void findAll(){
-
-    }
-    @Test
-    public void search(){
-        PageRequest request = PageRequest.of(0, 5);
-        Optional<T_aircraft> aircraft = aircraftRepository.findOne(new Specification<T_aircraft>() {
-            @Override
-            public Predicate toPredicate(Root<T_aircraft> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-                Predicate aircraftpredicate = null;
-                aircraftpredicate=criteriaBuilder.like(root.get("aircraft_name").as(String.class),"%"+"EA-18G"+"%");
-                return aircraftpredicate;
-            }
-        });
-        T_aircraft ar = null;
-        ar.setAircraft_name("ea");
-        System.out.println(ar.getAircraft_name());
-
-    }
+//    @Autowired
+//    private AircraftRepository aircraftRepository;
+//
+//    @Test
+//    void findAll(){
+//
+//    }
+//    @Test
+//    public void search(){
+//        PageRequest request = PageRequest.of(0, 5);
+//        Optional<T_aircraft> aircraft = aircraftRepository.findOne(new Specification<T_aircraft>() {
+//            @Override
+//            public Predicate toPredicate(Root<T_aircraft> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+//                Predicate aircraftpredicate = null;
+//                aircraftpredicate=criteriaBuilder.like(root.get("aircraft_name").as(String.class),"%"+"EA-18G"+"%");
+//                return aircraftpredicate;
+//            }
+//        });
+//        T_aircraft ar = null;
+//        ar.setAircraft_name("ea");
+//        System.out.println(ar.getAircraft_name());
+//
+//    }
 
 }

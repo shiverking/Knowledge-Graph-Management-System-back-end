@@ -1,4 +1,4 @@
-package com.group.KGMS.repository.mapper;
+package com.group.KGMS.mapper;
 import com.group.KGMS.entity.Triple;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

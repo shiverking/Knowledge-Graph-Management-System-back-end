@@ -1,6 +1,6 @@
 package com.group.KGMS.service;
 
-import com.group.KGMS.repository.mapper.RoleMapper;
+import com.group.KGMS.mapper.RoleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
