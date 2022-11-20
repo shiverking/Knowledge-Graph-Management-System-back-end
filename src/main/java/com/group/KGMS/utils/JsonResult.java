@@ -9,7 +9,7 @@ public class JsonResult {
     private static final String ERROR = "失败";
 
     /**
-     * 响应状态code，因为前台layui默认0为响应成功，所以此处默认为0
+     * 响应状态code,可以自定义成想要的值(简短信息)
      */
     private Integer code = 0;
 

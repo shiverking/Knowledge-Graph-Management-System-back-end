@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.group.KGMS.mapper.CandidateKGMapper">
+    <resultMap id="CandidateKGResultMap" type="com.group.KGMS.entity.CandidateKG">
+        <result column="id" property="id" />
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="creator" property="creator" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="DATE"/>
+        <result column="change_time" property="changeTime" jdbcType="DATE"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+        <result column="comment" property="comment" jdbcType="VARCHAR"/>
+    </resultMap>
+    <insert id="insertNewKG" keyProperty="id" useGeneratedKeys = "true" >
+        insert into  candidatekg(name, creator, create_time, change_time, status, comment) values
+        (#{name}, #{creator}, #{createTime}, #{changeTime}, #{status}, #{comment})
+    </insert>
+    <select id="getAllCandidateKg" resultType="com.group.KGMS.entity.CandidateKG" resultMap="CandidateKGResultMap">
+        select * from candidatekg
+    </select>
+    <select id="getNameById" resultType="java.lang.String">
+        select name from candidatekg where id = #{id}
+    </select>
+</mapper>
