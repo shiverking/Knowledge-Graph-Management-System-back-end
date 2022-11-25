@@ -15,4 +15,5 @@ import lombok.*;
 public class Entity {
     private Long id;
     private String name;
+    private String category;
 }

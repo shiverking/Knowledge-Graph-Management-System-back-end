@@ -35,7 +35,11 @@ public class CandidateKGController {
     }
 
 
-
+    /**
+     * 创建一个新的候选图谱
+     * @param info
+     * @return
+     */
     @PostMapping("/candidateKg/new")
     @ResponseBody
     public JsonResult insertNewCandidateKG(@RequestBody Map<String, Object> info){

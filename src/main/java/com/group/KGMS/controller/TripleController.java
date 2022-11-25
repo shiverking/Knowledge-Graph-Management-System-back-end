@@ -3,8 +3,11 @@ package com.group.KGMS.controller;
 import ch.qos.logback.core.net.SyslogOutputStream;
 import com.github.pagehelper.PageInfo;
 import com.group.KGMS.entity.CandidateTriple;
+import com.group.KGMS.entity.Entity;
 import com.group.KGMS.entity.Triple;
 import com.group.KGMS.service.CandidateTripleService;
+import com.group.KGMS.service.EntityService;
+import com.group.KGMS.service.RelationService;
 import com.group.KGMS.service.TripleService;
 import com.group.KGMS.utils.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +28,10 @@ public class TripleController {
     CandidateTripleService candidateTripleService;
     @Autowired
     TripleService tripleService;
+    @Autowired
+    RelationService relationService;
+    @Autowired
+    EntityService entityService;
     /**
      * 分页获取候选三元组
      * @param page
@@ -46,6 +53,7 @@ public class TripleController {
     @PostMapping("/triples/insertTriples")
     @ResponseBody
     public JsonResult insertTriples(@RequestBody Map<String, Object> info){
+        boolean flag  = true;
         Long candidateId = Long.parseLong(String.valueOf(info.get("id")));
         List<Map<String, Object>> list = (List<Map<String, Object>>) info.get("triples");
         List<Triple> triples = new ArrayList<Triple>();
@@ -62,11 +70,26 @@ public class TripleController {
             //设置候选Triple用于删除
             CandidateTriple candidateTriple  = new CandidateTriple();
             candidateTriple.setId(Long.parseLong(String.valueOf(list.get(i).get("id"))));
+            candidateTriple.setHead((String) list.get(i).get("head"));
+            candidateTriple.setHeadCategory((String) list.get(i).get("headCategory"));
+            candidateTriple.setTail((String) list.get(i).get("tail"));
+            candidateTriple.setTailCategory((String) list.get(i).get("tailCategory"));
             candidateTripleList.add(candidateTriple);
         }
         if(tripleService.insertIntoTriplesFromCandidateTriple(triples,candidateId)==1){
+            //加入实体库
+            if(entityService.insertNewEntity(candidateTripleList)!=1){
+                flag = false;
+            }
+            //加入关系库
+            if(relationService.insertNewRelation(triples)!=1){
+                flag = false;
+            }
             //删除
-            if(tripleService.deleteCandidateTriples(candidateTripleList)==1){
+            if(tripleService.deleteCandidateTriples(candidateTripleList)!=1){
+                flag = false;
+            }
+            if(flag){
                 return JsonResult.success("success");
             }
         }

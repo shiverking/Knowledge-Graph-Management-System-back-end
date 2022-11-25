@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.group.KGMS.mapper.EntityMapper">
+    <resultMap id="TripleResultMap" type="com.group.KGMS.entity.Entity">
+        <result column="id" property="id"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="category" property="category" jdbcType="VARCHAR"/>
+    </resultMap>
+    <insert id="insertNewEntity" >
+        insert into all_entity(name,category) values
+        (#{name},#{category})
+    </insert>
+    <select id="selectAllEntity" resultType="com.group.KGMS.entity.Entity">
+        select * from all_entity
+    </select>
+
+</mapper>

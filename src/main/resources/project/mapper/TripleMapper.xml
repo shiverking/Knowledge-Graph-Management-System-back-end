@@ -21,7 +21,7 @@
     <select id="getAllTriple" resultType="com.group.KGMS.entity.Triple" resultMap="TripleResultMap">
         select * from all_triples
     </select>
-    <select id="getAllTriplesFromSameCandidateKg" resultType="com.group.KGMS.entity.Triple">
+    <select id="getAllTriplesFromSameCandidateKg" resultType="com.group.KGMS.entity.Triple" resultMap="TripleResultMap">
         select * from all_triples where candidate_id = #{candidateId}
     </select>
 </mapper>
