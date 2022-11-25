@@ -1,8 +1,6 @@
 package com.group.KGMS.entity;
-
 import lombok.*;
-
-import javax.validation.constraints.NotEmpty;
+import java.util.Date;
 
 /**
  * @author ：闫崇傲
@@ -15,10 +13,11 @@ import javax.validation.constraints.NotEmpty;
 @Getter
 @Setter
 public class Triple {
-    //头实体
+    private Long id;
     private String head;
-    //关系
     private String relation;
-    //尾实体
     private String tail;
+    private Date time;
+    private Long candidateId;
+    private String status;
 }

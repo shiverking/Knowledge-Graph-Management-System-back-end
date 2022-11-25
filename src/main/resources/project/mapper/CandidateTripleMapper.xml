@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.group.KGMS.mapper.CandidateTripleMapper">
+    <resultMap id="CandidateTripleResultMap" type="com.group.KGMS.entity.CandidateTriple">
+        <result column="head" property="head" jdbcType="VARCHAR"/>
+        <result column="relation" property="relation" jdbcType="VARCHAR"/>
+        <result column="tail" property="tail" jdbcType="VARCHAR"/>
+        <result column="time" property="time" jdbcType="DATE"/>
+        <result column="head_category" property="headCategory" jdbcType="VARCHAR"/>
+        <result column="tail_category" property="tailCategory" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="getTriplesList" resultType="com.group.KGMS.entity.CandidateTriple" resultMap="CandidateTripleResultMap">
+        select * from candidate_triples
+    </select>
+</mapper>
