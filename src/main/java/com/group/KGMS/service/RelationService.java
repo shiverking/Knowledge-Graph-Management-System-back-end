@@ -5,7 +5,10 @@ import com.group.KGMS.entity.Triple;
 import java.util.List;
 
 public interface RelationService {
-    int insertNewRelation(List<Triple> triples);
+    //判断是否存在实体
+    Long ifRelationExists(String name);
+    //插入新实体
+    Long insertNewRelation(Relation relation);
     //分页获取所有实体
     PageInfo<Relation> getAllRelationByPage(Integer pageNum, Integer limitNum);
 }

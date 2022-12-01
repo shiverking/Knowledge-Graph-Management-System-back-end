@@ -7,12 +7,28 @@
         <result column="name" property="name" jdbcType="VARCHAR"/>
         <result column="category" property="category" jdbcType="VARCHAR"/>
     </resultMap>
-    <insert id="insertNewEntity" >
+    <insert id="insertNewEntity" keyProperty="id" useGeneratedKeys = "true">
         insert into all_entity(name,category) values
         (#{name},#{category})
     </insert>
+    <insert id="insertNewCorrelationForEachTriple">
+        insert into triple_ids(triple_id,head_id,tail_id,relation_id) values
+        (#{triple_id},#{head_id},#{tail_id},#{relation_id})
+    </insert>
     <select id="selectAllEntity" resultType="com.group.KGMS.entity.Entity">
         select * from all_entity
+    </select>
+    <select id="ifEntityExists" resultType="java.lang.Long">
+        select id from all_entity
+        <where>
+            name =#{name}
+        </where>
+    </select>
+    <select id="selectSpecificCorrelation" resultType="java.util.Map">
+        select * from triple_ids
+        <where>
+            triple_id=#{triple_id}
+        </where>
     </select>
 
 </mapper>

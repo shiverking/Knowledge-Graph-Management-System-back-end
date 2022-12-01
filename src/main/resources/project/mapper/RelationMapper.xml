@@ -6,11 +6,17 @@
         <result column="id" property="id"/>
         <result column="name" property="name" jdbcType="VARCHAR"/>
     </resultMap>
-    <insert id="insertNewRelation" >
+    <insert id="insertNewRelation" keyProperty="id" useGeneratedKeys = "true" >
         insert into all_relation(name) values
         (#{name})
     </insert>
     <select id="getAllRelation" resultType="com.group.KGMS.entity.Relation">
         select * from all_relation
+    </select>
+    <select id="ifRelationExists" resultType="java.lang.Long">
+        select id from all_relation
+        <where>
+            name = #{name}
+        </where>
     </select>
 </mapper>
