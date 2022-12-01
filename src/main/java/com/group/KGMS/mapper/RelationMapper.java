@@ -7,6 +7,7 @@ import java.util.List;
 
 @Mapper
 public interface RelationMapper {
-    int insertNewRelation(@Param("name")String name);
+    int insertNewRelation(Relation relation);
     List<Relation> getAllRelation();
+    Long ifRelationExists(@Param("name")String name);
 }

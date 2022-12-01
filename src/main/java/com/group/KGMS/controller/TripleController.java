@@ -2,13 +2,11 @@ package com.group.KGMS.controller;
 
 import ch.qos.logback.core.net.SyslogOutputStream;
 import com.github.pagehelper.PageInfo;
+import com.group.KGMS.entity.CandidateKG;
 import com.group.KGMS.entity.CandidateTriple;
 import com.group.KGMS.entity.Entity;
 import com.group.KGMS.entity.Triple;
-import com.group.KGMS.service.CandidateTripleService;
-import com.group.KGMS.service.EntityService;
-import com.group.KGMS.service.RelationService;
-import com.group.KGMS.service.TripleService;
+import com.group.KGMS.service.*;
 import com.group.KGMS.utils.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,6 +30,8 @@ public class TripleController {
     RelationService relationService;
     @Autowired
     EntityService entityService;
+    @Autowired
+    CandidateKgService candidateKgService;
     /**
      * 分页获取候选三元组
      * @param page
@@ -53,45 +53,22 @@ public class TripleController {
     @PostMapping("/triples/insertTriples")
     @ResponseBody
     public JsonResult insertTriples(@RequestBody Map<String, Object> info){
-        boolean flag  = true;
         Long candidateId = Long.parseLong(String.valueOf(info.get("id")));
         List<Map<String, Object>> list = (List<Map<String, Object>>) info.get("triples");
-        List<Triple> triples = new ArrayList<Triple>();
         List<CandidateTriple> candidateTripleList = new ArrayList<CandidateTriple>();
         for(int i=0;i<list.size();i++){
-            Triple triple  = new Triple();
-            triple.setHead((String) list.get(i).get("head"));
-            triple.setTail((String) list.get(i).get("tail"));
-            triple.setRelation((String) list.get(i).get("relation"));
-            triple.setTime(new Date());
-            triple.setCandidateId(candidateId);
-            triple.setStatus((String) list.get(i).get("status"));
-            triples.add(triple);
-            //设置候选Triple用于删除
+            //设置candidateTriples用于删除
             CandidateTriple candidateTriple  = new CandidateTriple();
             candidateTriple.setId(Long.parseLong(String.valueOf(list.get(i).get("id"))));
             candidateTriple.setHead((String) list.get(i).get("head"));
             candidateTriple.setHeadCategory((String) list.get(i).get("headCategory"));
+            candidateTriple.setRelation((String) list.get(i).get("relation"));
             candidateTriple.setTail((String) list.get(i).get("tail"));
             candidateTriple.setTailCategory((String) list.get(i).get("tailCategory"));
             candidateTripleList.add(candidateTriple);
         }
-        if(tripleService.insertIntoTriplesFromCandidateTriple(triples,candidateId)==1){
-            //加入实体库
-            if(entityService.insertNewEntity(candidateTripleList)!=1){
-                flag = false;
-            }
-            //加入关系库
-            if(relationService.insertNewRelation(triples)!=1){
-                flag = false;
-            }
-            //删除
-            if(tripleService.deleteCandidateTriples(candidateTripleList)!=1){
-                flag = false;
-            }
-            if(flag){
-                return JsonResult.success("success");
-            }
+        if(tripleService.insertIntoTriplesFromCandidateTriple(candidateTripleList,candidateId)==1){
+            return JsonResult.success("success");
         }
         return JsonResult.success("failure");
     }
@@ -132,5 +109,59 @@ public class TripleController {
         PageInfo<Triple> pageInfo = tripleService.getTripleByPage(page,limit);
         //第一个是结果列表，第二个是总数
         return JsonResult.success("success",pageInfo.getList(),pageInfo.getTotal());
+    }
+    /**
+     * 处理融合的函数
+     * @param info
+     * @return
+     */
+    @PostMapping("/triples/mergeKg")
+    @ResponseBody
+    public JsonResult mergeKg(@RequestBody Map<String, Object> info){
+        int strategy = Integer.valueOf(String.valueOf(info.get("strategy")));
+        List<Map<String, Object>> targetKg = (List<Map<String, Object>>) info.get("targetKg");
+        List<Map<String, Object>> fromKg = (List<Map<String, Object>>) info.get("fromKg");
+        //融合进老图谱
+        if(strategy==1){
+
+        }
+        //融合成新图谱且保留目标图谱和候选图谱
+        else if(strategy==2){
+            String newKgName = String.valueOf(info.get("newKgName"));
+            String newKGComment = String.valueOf(info.get("newKgComment"));
+            //构建一个新的图谱
+            Long id = candidateKgService.insertNewKG(newKgName,"-" ,new Date(), new Date(),"已建立",newKGComment);
+            //暂时不处理实体冲突
+            List<Triple> list = new ArrayList<Triple>();
+            //将两个图谱的内容复制进新图谱
+            for(int i=0;i<targetKg.size();i++){
+                //设置candidateTriples用于删除
+                Triple triple = new Triple();
+                triple.setId(Long.parseLong(String.valueOf(targetKg.get(i).get("id"))));
+                triple.setHead((String) targetKg.get(i).get("head"));
+                triple.setRelation((String) targetKg.get(i).get("relation"));
+                triple.setTail((String) targetKg.get(i).get("tail"));
+                triple.setTime(new Date());
+                triple.setCandidateId(id);
+                triple.setStatus("已入库");
+                list.add(triple);
+            }
+            for(int i=0;i<fromKg.size();i++){
+                //设置candidateTriples用于删除
+                Triple triple = new Triple();
+                triple.setId(Long.parseLong(String.valueOf(fromKg.get(i).get("id"))));
+                triple.setHead((String) fromKg.get(i).get("head"));
+                triple.setRelation((String) fromKg.get(i).get("relation"));
+                triple.setTail((String) fromKg.get(i).get("tail"));
+                triple.setTime(new Date());
+                triple.setCandidateId(id);
+                triple.setStatus("已入库");
+                list.add(triple);
+            }
+            if(tripleService.insertIntoTriplesFromExistsKg(list)==1) {
+                return JsonResult.success("success");
+            }
+        }
+        return JsonResult.success("failure");
     }
 }
