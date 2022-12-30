@@ -61,4 +61,14 @@ public class CandidateKgServiceImpl implements CandidateKgService {
     public String getNameById(Long id) {
         return candidateKGMapper.getNameById(id);
     }
+
+    /**
+     * 删除候选图谱
+     * @param id
+     * @return
+     */
+    @Override
+    public int deleteKgById(Long id) {
+        return candidateKGMapper.deleteKgById(id);
+    }
 }

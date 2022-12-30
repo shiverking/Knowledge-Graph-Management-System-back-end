@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.group.KGMS.mapper.CacheMapper">
+    <insert id="insertNewMergeCache">
+        insert into  cache_merge_detail(head,head_from,relation,tail,tail_from,score,operation,time) values
+        (#{head}, #{head_from}, #{relation}, #{tail}, #{tail_from}, #{score},#{operation},#{time})
+    </insert>
+    <select id="getAllMergeCache" resultType="java.util.Map">
+        select * from cache_merge_detail
+    </select>
+</mapper>

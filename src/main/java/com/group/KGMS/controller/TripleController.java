@@ -10,10 +10,7 @@ import com.group.KGMS.service.*;
 import com.group.KGMS.utils.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,6 +29,8 @@ public class TripleController {
     EntityService entityService;
     @Autowired
     CandidateKgService candidateKgService;
+    @Autowired
+    CacheService cacheService;
     /**
      * 分页获取候选三元组
      * @param page
@@ -111,6 +110,7 @@ public class TripleController {
         return JsonResult.success("success",pageInfo.getList(),pageInfo.getTotal());
     }
     /**
+     * 候选图谱管理-候选图谱融合
      * 处理融合的函数
      * @param info
      * @return
@@ -123,7 +123,25 @@ public class TripleController {
         List<Map<String, Object>> fromKg = (List<Map<String, Object>>) info.get("fromKg");
         //融合进老图谱
         if(strategy==1){
-
+            Long oldKgId = Long.parseLong(String.valueOf(info.get("oldKgId")));
+            List<Long> ids = new ArrayList<Long>();
+            List<Long> fromKgIds = new ArrayList<>();
+            for(int i=0;i<fromKg.size();i++){
+                ids.add(Long.parseLong(String.valueOf(fromKg.get(i).get("id"))));
+                Long candidateKgId = Long.parseLong(String.valueOf(fromKg.get(i).get("candidateId")));
+                if(!fromKgIds.contains(candidateKgId)){
+                    fromKgIds.add(candidateKgId);
+                }
+            }
+            if(tripleService.updateTriplesCandidateId(ids,oldKgId)==1){
+                //删除候选图谱
+                for(Long id :fromKgIds){
+                    if(candidateKgService.deleteKgById(id)==0){
+                        return JsonResult.success("failure");
+                    }
+                }
+                return JsonResult.success("success");
+            }
         }
         //融合成新图谱且保留目标图谱和候选图谱
         else if(strategy==2){
@@ -163,5 +181,45 @@ public class TripleController {
             }
         }
         return JsonResult.success("failure");
+    }
+    /**
+     * 融合管理-图谱融合
+     * @param info
+     * @return
+     */
+    @PostMapping("/triples/mergeCoreKg")
+    @ResponseBody
+    public JsonResult mergeCoreKg(@RequestBody Map<String, Object> info){
+        int strategy = Integer.valueOf(String.valueOf(info.get("strategy")));
+        List<Map<String, Object>> kg = (List<Map<String, Object>>) info.get("kg");
+//        List<String> ids = (List<String>) info.get("oldKgId");
+        //1不保留候选图谱,2保留候选图谱
+        if(strategy==2) {
+            for(int i=0;i<kg.size();i++){
+                if(kg.get(i).get("res").equals("检测不通过")){
+                    kg.get(i).put("operation","忽略");
+                }
+                else if(kg.get(i).get("res").equals("检测通过")){
+                    kg.get(i).put("operation","插入");
+                }
+            }
+            if(cacheService.insertNewMergeCache(kg)==1){
+                return JsonResult.success("success");
+            }
+        }
+        return JsonResult.success("failure");
+    }
+    /**
+     * 分页获取MergeCache
+     * @param page
+     * @param limit
+     * @return
+     */
+    @PostMapping("/triples/getMergeCacheByPage")
+    @ResponseBody
+    public JsonResult getMergeCacheByPage(@RequestParam("page") Integer page, @RequestParam("limit") Integer limit){
+        PageInfo<Map<String,Object>> pageInfo = cacheService.getMergeCacheByPage(page,limit);
+        //第一个是结果列表，第二个是总数
+        return JsonResult.success("success",pageInfo.getList(),pageInfo.getTotal());
     }
 }

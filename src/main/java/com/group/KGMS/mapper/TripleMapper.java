@@ -17,4 +17,6 @@ public interface TripleMapper {
     List<Triple> getAllTriplesFromSameCandidateKg(@Param("candidateId") Long candidateId);
     //删除原有的候选图谱
     int deleteCandidateTriples(CandidateTriple candidateTripleTriple);
+    //更新三元组所属的候选图谱
+    int updateCandidateIdOfTriple(@Param("tripleId") Long tripleId,@Param("newCandidateId") Long newCandidateId);
 }

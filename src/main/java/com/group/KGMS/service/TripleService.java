@@ -7,6 +7,7 @@ import com.group.KGMS.entity.Triple;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.Map;
 
 public interface TripleService {
     //将未分类的三元组转入三元组库
@@ -21,4 +22,6 @@ public interface TripleService {
     PageInfo<Triple> getTripleByPage(Integer pageNum, Integer limitNum);
     //分页获取所有来相同候选图谱的三元组(bufeny )
     List<Triple> getTripleFromSameKg(Long candidateId);
+    //更新三元组所属的候选图谱
+    int updateTriplesCandidateId(List<Long> ids,Long newKgId);
 }
