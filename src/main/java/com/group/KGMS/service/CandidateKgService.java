@@ -14,4 +14,6 @@ public interface CandidateKgService {
     Long insertNewKG(String name, String creator, Date create_time, Date change_time, String status, String comment);
 
     String getNameById(Long id);
+    //根据id删除候选图谱
+    int deleteKgById(Long id);
 }

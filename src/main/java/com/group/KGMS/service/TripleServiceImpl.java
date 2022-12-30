@@ -5,6 +5,8 @@ import com.github.pagehelper.PageInfo;
 import com.group.KGMS.entity.*;
 import com.group.KGMS.mapper.CandidateKGMapper;
 import com.group.KGMS.mapper.TripleMapper;
+import org.apache.ibatis.session.ExecutorType;
+import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -168,5 +170,30 @@ public class TripleServiceImpl implements TripleService {
     @Override
     public List<Triple> getTripleFromSameKg(Long candidateId) {
         return tripleMapper.getAllTriplesFromSameCandidateKg(candidateId);
+    }
+
+    /**
+     * 更新三元组所属的候选图谱
+     * @param newKgId
+     * @param ids
+     * @return
+     */
+    @Override
+    public int updateTriplesCandidateId(List<Long> ids,Long newKgId) {
+        int result = 1;
+        try {
+            SqlSession openSession = sqlSessionFactory.openSession(ExecutorType.BATCH);
+            TripleMapper tmpMapper = openSession.getMapper(TripleMapper.class);
+            for(Long tripleId:ids){
+                tmpMapper.updateCandidateIdOfTriple(tripleId,newKgId);
+            }
+            openSession.commit();
+            openSession.clearCache();
+            openSession.close();
+        } catch (Exception e){
+            result = 0;
+            System.out.println(e);
+        }
+        return result;
     }
 }

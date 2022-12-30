@@ -41,12 +41,6 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <!--flyway数据库版本管理-->
-        <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-core</artifactId>
-            <version>5.2.4</version>
-        </dependency>
         <!--权限管理-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
