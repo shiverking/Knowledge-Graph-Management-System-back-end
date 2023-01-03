@@ -63,4 +63,47 @@ public class CacheServiceImpl implements CacheService {
         PageInfo<Map<String,Object>> info = new PageInfo<Map<String,Object>>(mergeCacheList);
         return info;
     }
+
+    /**
+     * 插入一条新的补全缓存
+     * @param list
+     * @return
+     */
+    @Override
+    public int insertNewCompletionCache(List<Map<String, Object>> list){
+        int result = 1;
+        try {
+            SqlSession openSession = sqlSessionFactory.openSession(ExecutorType.BATCH);
+            CacheMapper tmpMapper = openSession.getMapper(CacheMapper.class);
+            for(int i=0;i<list.size();i++){
+                String head = String.valueOf(list.get(i).get("head"));
+                String relation = String.valueOf(list.get(i).get("rel"));
+                String tail = String.valueOf(list.get(i).get("tail"));
+                String pred_form = String.valueOf(list.get(i).get("pred_form"));
+                Double pred_prob = Double.valueOf(String.valueOf(list.get(i).get("pred_prob")));
+                Date time = new Date();
+                tmpMapper.insertNewCompletionCache(head,relation,tail,pred_form,pred_prob,time);
+            }
+            openSession.commit();
+            openSession.clearCache();
+            openSession.close();
+        } catch (Exception e){
+            result = 0;
+        }
+        return result;
+    }
+
+    /**
+     * 分页查找补全缓存
+     * @param pageNum
+     * @param limitNum
+     * @return
+     */
+    @Override
+    public PageInfo<Map<String, Object>> getCompletionCacheByPage(Integer pageNum, Integer limitNum){
+        PageHelper.startPage(pageNum,limitNum);
+        List<Map<String,Object>> completionCacheList = cacheMapper.getAllCompletionCache();
+        PageInfo<Map<String,Object>> info = new PageInfo<Map<String,Object>>(completionCacheList);
+        return info;
+    }
 }
