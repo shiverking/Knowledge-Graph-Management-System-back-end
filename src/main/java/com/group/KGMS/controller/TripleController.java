@@ -222,4 +222,32 @@ public class TripleController {
         //第一个是结果列表，第二个是总数
         return JsonResult.success("success",pageInfo.getList(),pageInfo.getTotal());
     }
+    /**
+     * 融合管理-图谱融合
+     * 插入补全缓存记录
+     * @param info
+     * @return
+     */
+    @PostMapping("/triples/completionCoreKg")
+    @ResponseBody
+    public JsonResult completionCoreKg(@RequestBody Map<String, Object> info){
+        List<Map<String, Object>> res = (List<Map<String, Object>>) info.get("res");
+        if(cacheService.insertNewCompletionCache(res)==1){
+            return JsonResult.success("success");
+        }
+        return JsonResult.success("failure");
+    }
+    /**
+     * 分页获取CompletionCache
+     * @param page
+     * @param limit
+     * @return
+     */
+    @PostMapping("/triples/getCompletionCacheByPage")
+    @ResponseBody
+    public JsonResult getCompletionCacheByPage(@RequestParam("page") Integer page, @RequestParam("limit") Integer limit){
+        PageInfo<Map<String,Object>> pageInfo = cacheService.getCompletionCacheByPage(page,limit);
+        //第一个是结果列表，第二个是总数
+        return JsonResult.success("success",pageInfo.getList(),pageInfo.getTotal());
+    }
 }
