@@ -13,6 +13,7 @@ spring:
     properties:
       hibernate:
         format_sql: true
+    # redis配置
   redis:
     database: 0
     port: 6379

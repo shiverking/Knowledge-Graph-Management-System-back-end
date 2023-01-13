@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.group.KGMS.mapper.CandidateOntologyMapper">
+    <resultMap id="CandidateOntologyResultMap" type="com.group.KGMS.entity.CandidateOntology">
+        <result column="id" property="id"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="creator_name" property="creatorName" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="DATE"/>
+        <result column="change_time" property="changeTime" jdbcType="DATE"/>
+        <result column="comment" property="comment" jdbcType="VARCHAR"/>
+    </resultMap>
+    <!--List<CandidateOntology> getAllCandidateOntology();-->
+    <select id="getAllCandidateOntology" resultType="com.group.KGMS.entity.CandidateOntology" resultMap="CandidateOntologyResultMap">
+        select * from candidate_onto
+    </select>
+</mapper>
