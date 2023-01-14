@@ -31,6 +31,8 @@ public class TripleController {
     CandidateKgService candidateKgService;
     @Autowired
     CacheService cacheService;
+    @Autowired
+    VersionService versionService;
     /**
      * 分页获取候选三元组
      * @param page
@@ -247,6 +249,115 @@ public class TripleController {
     @ResponseBody
     public JsonResult getCompletionCacheByPage(@RequestParam("page") Integer page, @RequestParam("limit") Integer limit){
         PageInfo<Map<String,Object>> pageInfo = cacheService.getCompletionCacheByPage(page,limit);
+        //第一个是结果列表，第二个是总数
+        return JsonResult.success("success",pageInfo.getList(),pageInfo.getTotal());
+    }
+    /**
+     * 融合管理-图谱融合
+     * 插入补全缓存记录
+     * @param info
+     * @return
+     */
+    @PostMapping("/triples/evaluationCoreKg")
+    @ResponseBody
+    public JsonResult evaluationCoreKg(@RequestBody Map<String, Object> info){
+        List<Map<String, Object>> res = (List<Map<String, Object>>) info.get("res");
+        if(cacheService.insertNewEvaluationCache(res)==1){
+            return JsonResult.success("success");
+        }
+        return JsonResult.success("failure");
+    }
+    /**
+     * 分页获取EvaluationCache
+     * @param page
+     * @param limit
+     * @return
+     */
+    @PostMapping("/triples/getEvaluationCacheByPage")
+    @ResponseBody
+    public JsonResult getEvaluationCacheByPage(@RequestParam("page") Integer page, @RequestParam("limit") Integer limit){
+        PageInfo<Map<String,Object>> pageInfo = cacheService.getEvaluationCacheByPage(page,limit);
+        //第一个是结果列表，第二个是总数
+        return JsonResult.success("success",pageInfo.getList(),pageInfo.getTotal());
+    }
+
+    /**
+     * 融合管理-图谱融合
+     * 插入一条新的记录
+     * @param info
+     * @return
+     */
+    @PostMapping("/version/insertNewVersion")
+    @ResponseBody
+    public JsonResult insertNewVersion(@RequestBody Map<String, Object> info){
+        //首先获取各个修改的数量
+        int mergeNumber = Integer.valueOf(String.valueOf(info.get("mergeNumber")));
+        int completionNumber = Integer.valueOf(String.valueOf(info.get("completionNumber")));
+        int evaluationNumber = Integer.valueOf(String.valueOf(info.get("evaluationNumber")));
+        //新建一个版本并获取版本号
+        String res = versionService.insertNewVersion(mergeNumber,completionNumber,evaluationNumber);
+        //插入版本成功
+        if(!res.equals("0")){
+            //开始迁移数据库
+            if(cacheService.appendNewMergeToVersion(res)==1&&cacheService.appendNewCompletionToVersion(res)==1&&cacheService.appendNewEvaluationToVersion(res)==1){
+                return JsonResult.success("success");
+            }
+            else{
+                //回退创建版本的操作
+                versionService.deleteVersionById(res);
+            }
+        }
+        return JsonResult.success("failure");
+    }
+    /**
+     * 分页查找version
+     * @param page
+     * @param limit
+     * @return
+     */
+    @PostMapping("/version/getVersionByPage")
+    @ResponseBody
+    public JsonResult getVersionByPage(@RequestParam("page") Integer page, @RequestParam("limit") Integer limit){
+        PageInfo<Map<String,Object>> pageInfo = versionService.getVersionByPage(page,limit);
+        //第一个是结果列表，第二个是总数
+        return JsonResult.success("success",pageInfo.getList(),pageInfo.getTotal());
+    }
+    /**
+     * 分页查找version_merge
+     * @param page
+     * @param limit
+     * @return
+     */
+    @PostMapping("/version/getMergeByPage")
+    @ResponseBody
+    public JsonResult getVersionMergeByPage(@RequestParam("page") Integer page, @RequestParam("limit") Integer limit,@RequestParam("versionId") String versionId){
+        PageInfo<Map<String,Object>> pageInfo = versionService.getMergeByPage(page,limit,versionId);
+        //第一个是结果列表，第二个是总数
+        return JsonResult.success("success",pageInfo.getList(),pageInfo.getTotal());
+    }
+    /**
+     * 分页查找version_completion
+     * @param page
+     * @param limit
+     * @return
+     */
+    @PostMapping("/version/getCompletionByPage")
+    @ResponseBody
+    public JsonResult getVersionCompletionByPage(@RequestParam("page") Integer page, @RequestParam("limit") Integer limit,@RequestParam("versionId") String versionId){
+        PageInfo<Map<String,Object>> pageInfo = versionService.getCompletionByPage(page,limit,versionId);
+        //第一个是结果列表，第二个是总数
+        return JsonResult.success("success",pageInfo.getList(),pageInfo.getTotal());
+    }
+    /**
+     * 分页查找version_evalution
+     * @param page
+     * @param limit
+     * @return
+     */
+    @PostMapping("/version/getEvaluationByPage")
+    @ResponseBody
+    public JsonResult getVersionEvaluationByPage(@RequestParam("page") Integer page, @RequestParam("limit") Integer limit,@RequestParam("versionId") String versionId){
+        PageInfo<Map<String,Object>> pageInfo = versionService.getEvaluationByPage(page,limit,versionId);
         //第一个是结果列表，第二个是总数
         return JsonResult.success("success",pageInfo.getList(),pageInfo.getTotal());
     }
