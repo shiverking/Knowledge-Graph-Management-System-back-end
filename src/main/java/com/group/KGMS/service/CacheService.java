@@ -19,9 +19,9 @@ public interface CacheService {
     //分页获取所有评估缓存
     PageInfo<Map<String,Object>> getEvaluationCacheByPage(Integer pageNum, Integer limitNum);
     //将融合缓存追加到版本表
-    int appendNewMergeToVersion(String versionId);
+    List<Map<String,Object>> appendNewMergeToVersion(String versionId);
     //将融合缓存追加到版本表
-    int appendNewCompletionToVersion(String versionId);
+    List<Map<String,Object>> appendNewCompletionToVersion(String versionId);
     //将融合缓存追加到版本表
     int appendNewEvaluationToVersion(String versionId);
 }

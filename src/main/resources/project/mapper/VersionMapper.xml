@@ -2,14 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.group.KGMS.mapper.VersionMapper">
+    <resultMap id="VersionResultMap" type="com.group.KGMS.entity.Version">
+        <result column="version_number" property="version_number"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="submit_time" property="submit_time" jdbcType="DATE"/>
+        <result column="submitted_by" property="submitted_by"/>
+        <result column="synchronization" property="synchronization" jdbcType="INTEGER"/>
+    </resultMap>
     <insert id="insertNewVersion">
        insert into  version_record(version_number,name,submit_time,submitted_by) values
         (#{version_number}, #{name}, #{submit_time}, #{submitted_by})
     </insert>
+    <update id="updateSynchronizationById">
+        update version_record set  synchronization = 1 Where version_number=#{version_number}
+    </update>
     <delete id="deleteVersionById">
         delete from table version_record where version_number=#{version_number}
     </delete>
-    <select id="getAllVersion" resultType="java.util.Map">
+    <select id="getAllVersion" resultType="java.util.Map" resultMap="VersionResultMap">
         select * from version_record
     </select>
     <select id="getAllMergeById" resultType="java.util.Map">
@@ -20,5 +30,21 @@
     </select>
     <select id="getAllEvaluationById" resultType="java.util.Map">
         select * from version_evaluation_detail where version_id=#{version_id}
+    </select>
+    <select id="getAllUnsynchronizedVersions" resultType="java.lang.String">
+        select version_number from version_record
+        <where>
+            synchronization = 0
+        </where>
+        order by submit_time
+    </select>
+    <select id="getNumOfVersion" resultType="java.lang.Integer">
+        select count(*) from version_record
+    </select>
+    <select id="getLatestTimeOfVersion" resultType="java.util.Date">
+        select max(submit_time) from version_record
+    </select>
+    <select id="getAllVersionByTimeDesc" resultType="java.util.Map" resultMap="VersionResultMap">
+        select * from version_record order by submit_time desc
     </select>
 </mapper>

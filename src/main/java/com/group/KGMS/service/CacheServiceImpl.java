@@ -22,6 +22,8 @@ public class CacheServiceImpl implements CacheService {
     CacheMapper cacheMapper;
     @Resource
     SqlSessionFactory sqlSessionFactory;
+    @Autowired
+    TripleService tripleService;
     @Override
     public int insertNewMergeCache(List<Map<String, Object>> list) {
         int result = 1;
@@ -152,10 +154,14 @@ public class CacheServiceImpl implements CacheService {
         PageInfo<Map<String,Object>> info = new PageInfo<Map<String,Object>>(evaluationCacheList);
         return info;
     }
-    
+
+    /**
+     * 将操作记录迁移，并将合适的
+     * @param versionId
+     * @return
+     */
     @Override
-    public int appendNewMergeToVersion(String versionId) {
-        int result = 1;
+    public List<Map<String,Object>> appendNewMergeToVersion(String versionId) {
         List<Map<String,Object>> mergeCacheList = cacheMapper.getAllMergeCache();
         try {
             SqlSession openSession = sqlSessionFactory.openSession(ExecutorType.BATCH);
@@ -178,14 +184,13 @@ public class CacheServiceImpl implements CacheService {
             openSession.close();
         } catch (Exception e){
             System.out.println(e);
-            result = 0;
+            return null;
         }
-        return result;
+        return mergeCacheList;
     }
 
     @Override
-    public int appendNewCompletionToVersion(String versionId) {
-        int result = 1;
+    public List<Map<String,Object>> appendNewCompletionToVersion(String versionId) {
         List<Map<String,Object>> completionCacheList = cacheMapper.getAllCompletionCache();
         try {
             SqlSession openSession = sqlSessionFactory.openSession(ExecutorType.BATCH);
@@ -205,9 +210,9 @@ public class CacheServiceImpl implements CacheService {
             openSession.close();
         } catch (Exception e){
             System.out.println(e);
-            result = 0;
+            return null;
         }
-        return result;
+        return completionCacheList;
     }
 
     @Override

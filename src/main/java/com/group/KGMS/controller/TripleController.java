@@ -2,6 +2,7 @@ package com.group.KGMS.controller;
 
 import ch.qos.logback.core.net.SyslogOutputStream;
 import com.github.pagehelper.PageInfo;
+import com.group.KGMS.Repository.GraphNodeRepository;
 import com.group.KGMS.entity.CandidateKG;
 import com.group.KGMS.entity.CandidateTriple;
 import com.group.KGMS.entity.Entity;
@@ -12,10 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class TripleController {
@@ -33,6 +31,8 @@ public class TripleController {
     CacheService cacheService;
     @Autowired
     VersionService versionService;
+    @Autowired
+    GraphNodeRepository graphNodeRepository;
     /**
      * 分页获取候选三元组
      * @param page
@@ -194,9 +194,9 @@ public class TripleController {
     public JsonResult mergeCoreKg(@RequestBody Map<String, Object> info){
         int strategy = Integer.valueOf(String.valueOf(info.get("strategy")));
         List<Map<String, Object>> kg = (List<Map<String, Object>>) info.get("kg");
-//        List<String> ids = (List<String>) info.get("oldKgId");
-        //1不保留候选图谱,2保留候选图谱
-        if(strategy==2) {
+        //List<String> ids = (List<String>) info.get("oldKgId");
+        //1保留候选图谱
+        if(strategy==1) {
             for(int i=0;i<kg.size();i++){
                 if(kg.get(i).get("res").equals("检测不通过")){
                     kg.get(i).put("operation","忽略");
@@ -265,7 +265,7 @@ public class TripleController {
         if(cacheService.insertNewEvaluationCache(res)==1){
             return JsonResult.success("success");
         }
-        return JsonResult.success("failure");
+        return JsonResult.error("failure");
     }
     /**
      * 分页获取EvaluationCache
@@ -298,16 +298,39 @@ public class TripleController {
         String res = versionService.insertNewVersion(mergeNumber,completionNumber,evaluationNumber);
         //插入版本成功
         if(!res.equals("0")){
+            boolean first = true;
+            boolean second = true;
+            boolean third = true;
             //开始迁移数据库
-            if(cacheService.appendNewMergeToVersion(res)==1&&cacheService.appendNewCompletionToVersion(res)==1&&cacheService.appendNewEvaluationToVersion(res)==1){
+//            if(cacheService.appendNewMergeToVersion(res)==1&&cacheService.appendNewCompletionToVersion(res)==1&&cacheService.appendNewEvaluationToVersion(res)==1){
+//                if(tripleService.insertAllMergeChange(merge)==1){
+//                    return JsonResult.success("success");
+//                }
+//                return JsonResult.success("success");
+//            }
+            List<Map<String,Object>> mergeList = cacheService.appendNewMergeToVersion(res);
+            List<Map<String,Object>> completionList = cacheService.appendNewCompletionToVersion(res);
+            if(mergeList!=null&&mergeList.size()>0){
+                //将其插入核心图谱
+                if(tripleService.insertAllMergeChange(mergeList)!=1) {
+                    first = false;
+                }
+            }
+            if(completionList!=null&&completionList.size()>0){
+                //将补全改动插入核心图谱
+                if(tripleService.insertCompletionChange(completionList)!=1) {
+                   second = false;
+                }
+            }
+            if(first&&second&&third){
                 return JsonResult.success("success");
             }
-            else{
-                //回退创建版本的操作
-                versionService.deleteVersionById(res);
-            }
         }
-        return JsonResult.success("failure");
+        else{
+            //回退创建版本的操作
+            versionService.deleteVersionById(res);
+        }
+        return JsonResult.error("failure");
     }
     /**
      * 分页查找version
@@ -319,6 +342,19 @@ public class TripleController {
     @ResponseBody
     public JsonResult getVersionByPage(@RequestParam("page") Integer page, @RequestParam("limit") Integer limit){
         PageInfo<Map<String,Object>> pageInfo = versionService.getVersionByPage(page,limit);
+        //第一个是结果列表，第二个是总数
+        return JsonResult.success("success",pageInfo.getList(),pageInfo.getTotal());
+    }
+    /**
+     * 时间降序分页查找version
+     * @param page
+     * @param limit
+     * @return
+     */
+    @PostMapping("/version/getVersionByPageByTimeDesc")
+    @ResponseBody
+    public JsonResult getVersionByPageByTimeDesc(@RequestParam("page") Integer page, @RequestParam("limit") Integer limit){
+        PageInfo<Map<String,Object>> pageInfo = versionService.getVersionByPageByTimeDesc(page,limit);
         //第一个是结果列表，第二个是总数
         return JsonResult.success("success",pageInfo.getList(),pageInfo.getTotal());
     }
@@ -360,5 +396,39 @@ public class TripleController {
         PageInfo<Map<String,Object>> pageInfo = versionService.getEvaluationByPage(page,limit,versionId);
         //第一个是结果列表，第二个是总数
         return JsonResult.success("success",pageInfo.getList(),pageInfo.getTotal());
+    }
+    /**
+     * 同步所有未同步的version
+     * @return
+     */
+    @PostMapping("/version/synchronize")
+    @ResponseBody
+    public JsonResult synchronization(){
+        versionService.synchronizeVersion();
+        //第一个是结果列表，第二个是总数
+        return JsonResult.success("success");
+    }
+    /**
+     * 同步所有未同步的version
+     * @return
+     */
+    @PostMapping("/coredata/briefInformation")
+    @ResponseBody
+    public JsonResult briefInformation(){
+        String nodeNum = String.valueOf(graphNodeRepository.getEntityNum());
+        String entityNum = String.valueOf(graphNodeRepository.getEntityNum());
+        String relationNum = String.valueOf(graphNodeRepository.getRelationNum());
+        String latest = versionService.getLatestTimeOfVersion();
+        String updateTimes = String.valueOf(versionService.getNumOfVersion());
+        String childKg = "0";
+        Map<String,String> map = new HashMap<>();
+        map.put("nodeNum",nodeNum);
+        map.put("relationNum",relationNum);
+        map.put("latest",latest);
+        map.put("updateTimes",updateTimes);
+        map.put("entityNum",entityNum);
+        map.put("childKg",childKg);
+        //第一个是结果列表，第二个是总数
+        return JsonResult.success("success",map);
     }
 }
