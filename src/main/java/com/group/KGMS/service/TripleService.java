@@ -1,11 +1,9 @@
 package com.group.KGMS.service;
 
 import com.github.pagehelper.PageInfo;
-import com.group.KGMS.entity.CandidateKG;
 import com.group.KGMS.entity.CandidateTriple;
 import com.group.KGMS.entity.Triple;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
 
@@ -24,4 +22,10 @@ public interface TripleService {
     List<Triple> getTripleFromSameKg(Long candidateId);
     //更新三元组所属的候选图谱
     int updateTriplesCandidateId(List<Long> ids,Long newKgId);
+    //版本更新时,插入所有融合改动(不存在实体对齐的情况)
+    int insertMergeChangeNoNameChange(List<Map<String,String>> triples);
+    //版本更新时,插入所有融合改动(所有情况)
+    int insertAllMergeChange(List<Map<String,Object>> triples);
+    //版本更新时,插入所有补全改动
+    int insertCompletionChange(List<Map<String,Object>> triples);
 }

@@ -18,4 +18,14 @@ public interface VersionMapper {
     List<Map<String,Object>> getAllCompletionById(String versionId);
     //根据versionId 查找所有evaluation
     List<Map<String,Object>> getAllEvaluationById(String versionId);
+    //找到所有未同步的版本号
+    List<String> getAllUnsynchronizedVersions();
+    //根据版本号将同步列修改为1
+    int updateSynchronizationById(@Param("version_number")String version_number);
+    //获取版本号的个数
+    int getNumOfVersion();
+    //获取版本号的个数
+    Date getLatestTimeOfVersion();
+    //按照时间降序查找所有版本
+    List<Map<String,Object>> getAllVersionByTimeDesc();
 }

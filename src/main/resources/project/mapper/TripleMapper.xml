@@ -15,6 +15,12 @@
         insert into all_triples(head,relation,tail,time, candidate_id,status) values
         (#{head}, #{relation}, #{tail}, #{time}, #{candidateId}, #{status})
     </insert>
+    <insert id="insertMergeChange">
+        insert ignore into core_kg(head,relation,tail,time) values (#{head}, #{relation}, #{tail},#{time})
+    </insert>
+    <insert id="insertCompletionChange">
+        insert ignore into core_kg(head,relation,tail,time) values (#{head}, #{relation}, #{tail},#{time})
+    </insert>
     <update id="updateCandidateIdOfTriple" >
         UPDATE all_triples
         <set>

@@ -196,4 +196,73 @@ public class TripleServiceImpl implements TripleService {
         }
         return result;
     }
+
+    /**
+     * 将所有没有实体对齐的三元组加入核心图谱
+     * @param triples
+     * @return
+     */
+    @Override
+    public int insertMergeChangeNoNameChange(List<Map<String,String>> triples) {
+        int result = 1;
+        try {
+            SqlSession openSession = sqlSessionFactory.openSession(ExecutorType.BATCH);
+            TripleMapper tmpMapper = openSession.getMapper(TripleMapper.class);
+            for(Map<String,String> record:triples){
+                tmpMapper.insertMergeChange(record.get("head"),record.get("relation"),record.get("tail"),new Date());
+            }
+            openSession.commit();
+            openSession.clearCache();
+            openSession.close();
+        } catch (Exception e){
+            result = 0;
+            System.out.println(e);
+        }
+        return result;
+    }
+    /**
+     * 将所有三元组，经过分类后加入核心图谱
+     * @param triples
+     * @return
+     */
+    @Override
+    public int insertAllMergeChange(List<Map<String, Object>> triples){
+        List<Map<String,String>> noEntityNameChange = new ArrayList<>();
+        List<Map<String,String>> EntityNameChange = new ArrayList<>();
+        for(Map<String,Object> map:triples){
+            if(map.get("head_from").toString().equals("null")&&map.get("tail_from").toString().equals("null")&&map.get("operation").equals("插入")){
+                Map<String,String> newMap = new HashMap<>();
+                newMap.put("head",(String)map.get("head"));
+                newMap.put("relation",(String)map.get("relation"));
+                newMap.put("tail",(String)map.get("tail"));
+                noEntityNameChange.add(newMap);
+            }
+        }
+        //先只做没有实体对齐名称改变的
+        return insertMergeChangeNoNameChange(noEntityNameChange);
+    }
+
+    /**
+     * 将补全改动插入核心图谱
+     * @param triples
+     * @return
+     */
+    @Override
+    public int insertCompletionChange(List<Map<String, Object>> triples){
+        int result = 1;
+        try {
+            SqlSession openSession = sqlSessionFactory.openSession(ExecutorType.BATCH);
+            TripleMapper tmpMapper = openSession.getMapper(TripleMapper.class);
+            for(Map<String,Object> map:triples){
+                tmpMapper.insertCompletionChange((String)map.get("head"),(String)map.get("rel"),(String)map.get("tail"),new Date());
+            }
+            openSession.commit();
+            openSession.clearCache();
+            openSession.close();
+        } catch (Exception e){
+            result = 0;
+            System.out.println(e);
+        }
+        return result;
+    }
 }

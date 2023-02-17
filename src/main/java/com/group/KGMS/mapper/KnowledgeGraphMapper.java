@@ -9,6 +9,6 @@ import java.util.List;
 @Mapper
 @Component
 public interface KnowledgeGraphMapper {
-    //获取用户列表（雇主和应聘者）
+    //获取用户列表
     List<Triple> getAllTriplesFromTable(@Param("tableName")String tableName);
 }
