@@ -47,6 +47,35 @@ public class TripleController {
         return JsonResult.success("success",pageInfo.getList(),pageInfo.getTotal());
     }
     /**
+     * 分页获取候选三元组-条件查找
+     * @param page
+     * @param limit
+     * @return
+     */
+    @PostMapping("/triples/getAllCandidateTriplesConditionally")
+    @ResponseBody
+    public JsonResult getCandidateTriplesConditionally(@RequestParam("page") Integer page, @RequestParam("limit") Integer limit,@RequestParam(value = "startTime",defaultValue = "null") String startTime,@RequestParam(value = "endTime",defaultValue = "null") String endTime,@RequestParam(value = "source",defaultValue = "null") String source){
+        //只有source检索
+        if(!source.equals("null")&&startTime.equals("null")&&endTime.equals("null")){
+            PageInfo<CandidateTriple> pageInfo = candidateTripleService.getTriplesListWithSourceLimitByPage(page,limit,source);
+            return JsonResult.success("success",pageInfo.getList(),pageInfo.getTotal());
+        }
+        else if(source.equals("null")&&!startTime.equals("null")&&!endTime.equals("null")){
+            Date pre = new Date(Long.parseLong(startTime));
+            Date next = new Date(Long.parseLong(endTime));
+            PageInfo<CandidateTriple> pageInfo = candidateTripleService.getTriplesListWithTimeLimitByPage(page,limit,pre,next);
+            return JsonResult.success("success",pageInfo.getList(),pageInfo.getTotal());
+        }
+        else if(!source.equals("null")&&!startTime.equals("null")&&!endTime.equals("null")){
+            Date pre = new Date(Long.parseLong(startTime));
+            Date next = new Date(Long.parseLong(endTime));
+            PageInfo<CandidateTriple> pageInfo = candidateTripleService.getTriplesListWithSourceAnTimeLimitByPage(page,limit,pre,next,source);
+            return JsonResult.success("success",pageInfo.getList(),pageInfo.getTotal());
+        }
+        PageInfo<CandidateTriple> pageInfo = candidateTripleService.getCandidateTripleByPage(page,limit);
+        return JsonResult.success("success",pageInfo.getList(),pageInfo.getTotal());
+    }
+    /**
      * 将选中的三元组入库
      * @param info
      * @return
@@ -123,6 +152,7 @@ public class TripleController {
         int strategy = Integer.valueOf(String.valueOf(info.get("strategy")));
         List<Map<String, Object>> targetKg = (List<Map<String, Object>>) info.get("targetKg");
         List<Map<String, Object>> fromKg = (List<Map<String, Object>>) info.get("fromKg");
+        List<Integer> oldIds = (List<Integer>) info.get("selectedId");
         //融合进老图谱
         if(strategy==1){
             Long oldKgId = Long.parseLong(String.valueOf(info.get("oldKgId")));
@@ -177,6 +207,10 @@ public class TripleController {
                 triple.setCandidateId(id);
                 triple.setStatus("已入库");
                 list.add(triple);
+            }
+            for(Integer oldId:oldIds){
+                //修改isNew列
+                candidateKgService.updateKgToOldById((long)oldId);
             }
             if(tripleService.insertIntoTriplesFromExistsKg(list)==1) {
                 return JsonResult.success("success");

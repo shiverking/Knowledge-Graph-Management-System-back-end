@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.group.KGMS.entity.CandidateKG;
 import com.group.KGMS.entity.CandidateTriple;
 import com.group.KGMS.service.CandidateKgService;
+import com.group.KGMS.service.CandidateTripleService;
 import com.group.KGMS.utils.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,7 +20,8 @@ import java.util.Map;
 public class CandidateKGController {
     @Autowired
     CandidateKgService candidateKgService;
-
+    @Autowired
+    CandidateTripleService candidateTripleService;
     /**
      * 分页获取候选图谱
      * @param page
@@ -33,7 +35,19 @@ public class CandidateKGController {
         //第一个是结果列表，第二个是总数
         return JsonResult.success("success",pageInfo.getList(),pageInfo.getTotal());
     }
-
+    /**
+     * 分页获取已融合的候选图谱
+     * @param page
+     * @param limit
+     * @return
+     */
+    @PostMapping("/candidateKg/getAllOldCandidateKg")
+    @ResponseBody
+    public JsonResult getAllOldCandidateKgs(@RequestParam("page") Integer page, @RequestParam("limit") Integer limit){
+        PageInfo<CandidateKG> pageInfo = candidateKgService.getOldCandidateKgByPage(page,limit);
+        //第一个是结果列表，第二个是总数
+        return JsonResult.success("success",pageInfo.getList(),pageInfo.getTotal());
+    }
 
     /**
      * 创建一个新的候选图谱
@@ -57,5 +71,43 @@ public class CandidateKGController {
             return JsonResult.success("success","新增候选图谱成功",id);
         }
         return JsonResult.error("failure","新增候选图谱失败");
+    }
+    /**
+     * 根据id删除某条三元组
+     * @param info
+     * @return
+     */
+    @PostMapping("/candidateKg/delete")
+    @ResponseBody
+    public JsonResult deleteCandidateTripleById(@RequestBody Map<String, Object> info){
+        Long id = Long.parseLong(String.valueOf(info.get("id")));
+        if(candidateTripleService.deleteCandidateTripleById(id)==1){
+            return JsonResult.success("success");
+        }
+        //删除失败
+        return JsonResult.success("failure");
+    }
+
+    /**
+     * 根据id更新
+     * @param info
+     * @return
+     */
+    @PostMapping("/candidateKg/update")
+    @ResponseBody
+    public JsonResult updateCandidateTripleById(@RequestBody Map<String, Object> info){
+        Map<String,Object> map = (Map<String,Object>)info.get("newTriple");
+        Long id = Long.parseLong(String.valueOf(map.get("id")));
+        String head = String.valueOf(map.get("head"));
+        String headCategory = String.valueOf(map.get("head_type"));
+        String relation = String.valueOf(map.get("rel"));
+        String tail = String.valueOf(map.get("tail"));
+        String tailCategory = String.valueOf(map.get("tail_type"));
+        if(candidateTripleService.updateCandidateTripleById(id,head,relation,tail,headCategory,tailCategory)==1){
+            //更新成功
+            return JsonResult.success("success");
+        }
+        //更新失败
+        return JsonResult.success("failure");
     }
 }

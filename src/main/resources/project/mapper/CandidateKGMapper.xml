@@ -15,6 +15,9 @@
         insert into  candidate_kg(name, creator, create_time, change_time, status, comment) values
         (#{name}, #{creator}, #{createTime}, #{changeTime}, #{status}, #{comment})
     </insert>
+    <update id="updateKgfromNewtoOld">
+        update candidate_kg set  isNew = 1 where id=#{id}
+    </update>
     <delete id="deleteKgById">
         delete from candidate_kg
         <where>
@@ -22,9 +25,12 @@
         </where>
     </delete>
     <select id="getAllCandidateKg" resultType="com.group.KGMS.entity.CandidateKG" resultMap="CandidateKGResultMap">
-        select * from candidate_kg
+        select * from candidate_kg where isNew = 0
     </select>
     <select id="getNameById" resultType="java.lang.String">
         select name from candidate_kg where id = #{id}
+    </select>
+    <select id="getAllOldCandidateKg" resultType="com.group.KGMS.entity.CandidateKG">
+        select * from candidate_kg where isNew = 1
     </select>
 </mapper>

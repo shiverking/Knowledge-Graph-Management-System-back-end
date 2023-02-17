@@ -7,6 +7,8 @@ import com.group.KGMS.mapper.CandidateTripleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 public class CandidateTripleServiceImpl implements CandidateTripleService {
     @Autowired
@@ -16,5 +18,42 @@ public class CandidateTripleServiceImpl implements CandidateTripleService {
         PageHelper.startPage(pageNum,limitNum);
         PageInfo<CandidateTriple> info = new PageInfo<CandidateTriple>(candidateTripleMapper.getTriplesList());
         return info;
+    }
+
+    @Override
+    public PageInfo<CandidateTriple> getTriplesListWithTimeLimitByPage(Integer pageNum, Integer limitNum, Date startTime, Date endTime) {
+        PageHelper.startPage(pageNum,limitNum);
+        PageInfo<CandidateTriple> info = new PageInfo<CandidateTriple>(candidateTripleMapper.getTriplesListWithTimeLimit(startTime, endTime));
+        return info;
+    }
+
+    @Override
+    public PageInfo<CandidateTriple> getTriplesListWithSourceLimitByPage(Integer pageNum, Integer limitNum, String source) {
+        PageHelper.startPage(pageNum,limitNum);
+        PageInfo<CandidateTriple> info = new PageInfo<CandidateTriple>(candidateTripleMapper.getTriplesListWithSourceLimit(source));
+        return info;
+    }
+
+    @Override
+    public PageInfo<CandidateTriple> getTriplesListWithSourceAnTimeLimitByPage(Integer pageNum, Integer limitNum, Date startTime, Date endTime, String source) {
+        PageHelper.startPage(pageNum,limitNum);
+        PageInfo<CandidateTriple> info = new PageInfo<CandidateTriple>(candidateTripleMapper.getTriplesListWithSourceAndTimeLimit(startTime,endTime,source));
+        return info;
+    }
+
+    @Override
+    public int deleteCandidateTripleById(Long id) {
+        return candidateTripleMapper.deleteCandidateTripleById(id);
+    }
+
+    @Override
+    public int updateCandidateTripleById(Long id, String head, String relation, String tail, String headCategory, String tailCategory) {
+        if(headCategory.equals("暂无")){
+            headCategory="";
+        }
+        if(tailCategory.equals("暂无")){
+            tailCategory="";
+        }
+        return candidateTripleMapper.updateCandidateTripleById(id,head,relation,tail,headCategory,tailCategory);
     }
 }

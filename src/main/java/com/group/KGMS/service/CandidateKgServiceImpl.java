@@ -27,6 +27,19 @@ public class CandidateKgServiceImpl implements CandidateKgService {
     }
 
     /**
+     * 分页获取所有融合过得候选图谱
+     * @param pageNum
+     * @param limitNum
+     * @return
+     */
+    @Override
+    public PageInfo<CandidateKG> getOldCandidateKgByPage(Integer pageNum, Integer limitNum) {
+        PageHelper.startPage(pageNum,limitNum);
+        PageInfo<CandidateKG> info = new PageInfo<CandidateKG>(candidateKGMapper.getAllOldCandidateKg());
+        return info;
+    }
+
+    /**
      * 插入一个新的候选图谱。并返回其在数据库中的id
      * @param name
      * @param creator
@@ -70,5 +83,15 @@ public class CandidateKgServiceImpl implements CandidateKgService {
     @Override
     public int deleteKgById(Long id) {
         return candidateKGMapper.deleteKgById(id);
+    }
+
+    /**
+     * 根据id将融合后的候选图谱,将新换成旧
+     * @param id
+     * @return
+     */
+    @Override
+    public int updateKgToOldById(Long id) {
+        return candidateKGMapper.updateKgfromNewtoOld(id);
     }
 }
