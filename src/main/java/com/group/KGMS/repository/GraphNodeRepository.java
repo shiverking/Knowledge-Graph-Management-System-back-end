@@ -1,8 +1,7 @@
-package com.group.KGMS.Repository;
+package com.group.KGMS.repository;
 import com.group.KGMS.entity.GraphNode;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.data.neo4j.repository.query.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 @Repository
 public interface GraphNodeRepository extends Neo4jRepository<GraphNode,String> {

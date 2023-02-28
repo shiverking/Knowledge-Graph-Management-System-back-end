@@ -2,8 +2,7 @@ package com.group.KGMS.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.group.KGMS.Repository.GraphNodeRepository;
-import com.group.KGMS.entity.GraphNode;
+import com.group.KGMS.repository.GraphNodeRepository;
 import com.group.KGMS.mapper.CacheMapper;
 import com.group.KGMS.mapper.VersionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
