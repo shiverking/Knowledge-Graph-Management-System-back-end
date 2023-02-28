@@ -1,5 +1,9 @@
 package com.group.KGMS.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.group.KGMS.utils.treejson.TreeItem;
 import lombok.*;
 
@@ -15,20 +19,26 @@ import java.util.List;
  */
 
 @Data
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@TableName("candidate_onto_class")
 public class CandidateOntologyClass {
+
+    @TableId(type = IdType.AUTO)
     private Integer id;
+
+    @TableField("class_name")
     private String name;
+
     //父id
+    @TableField("parent_id")
     private Integer parentId;
-    //用一个list来存放每一个类对应的子类
+
+    //用一个list来存放每一个类对应的子类,这一列在数据表中不存在，用@TableField(exist = false)进行标识
+    @TableField(exist = false)
     private List<CandidateOntologyClass> children = new ArrayList<>();
 
-    public CandidateOntologyClass(Integer id, String name, Integer parentId) {
-        this.id = id;
+    public CandidateOntologyClass(String name, Integer parentId) {
         this.name = name;
         this.parentId = parentId;
     }
