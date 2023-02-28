@@ -1,11 +1,8 @@
 package com.group.KGMS.controller;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
 import com.github.pagehelper.PageInfo;
-import com.group.KGMS.Repository.GraphNodeRepository;
-import com.group.KGMS.entity.CandidateKG;
+import com.group.KGMS.repository.GraphNodeRepository;
 import com.group.KGMS.entity.CandidateTriple;
-import com.group.KGMS.entity.Entity;
 import com.group.KGMS.entity.Triple;
 import com.group.KGMS.service.*;
 import com.group.KGMS.utils.JsonResult;
