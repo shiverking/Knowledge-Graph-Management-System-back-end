@@ -90,7 +90,7 @@ public class OWLUtil {
      * @param: [ontModel 读取OWL文件生成的OntModel类对象, className 新增加类的名称]
      * @return: org.apache.jena.ontology.OntClass
      **/
-    public OntClass createClass(OntModel ontModel, String className) throws IOException {
+    public static OntClass createClass(OntModel ontModel, String className) throws IOException {
         String nameSpace = OWLUtil.getNameSpace();
         OntClass newClass = ontModel.createClass(nameSpace + className);
         OWLUtil.ontModel2Owl(ontModel);
@@ -138,6 +138,19 @@ public class OWLUtil {
         newProperty.addDomain(ontClass);
         OWLUtil.ontModel2Owl(ontModel);
         return newProperty;
+    }
+
+    /*
+     * @Description: 删除指定名称的类，但是这个类的子类不会被删除，而是会到上一级去
+     * @Author: zt
+     * @Date: 2023/2/28 18:18
+     * @param: [ontModel 读取OWL文件生成的OntModel类对象, classname 需要删除的类的名称]
+     * @return: void
+     **/
+    public void removeClass(OntModel ontModel, String classname) throws IOException {
+        OntClass ontClass = OWLUtil.createClass(ontModel, classname);
+        ontClass.remove();
+        OWLUtil.ontModel2Owl(ontModel);
     }
 
 }
