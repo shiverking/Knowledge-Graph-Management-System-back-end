@@ -21,13 +21,12 @@ import java.util.List;
 public class CandidateOntologyServiceImpl implements CandidateOntologyService {
 
     @Autowired
-    CandidateOntologyMapper candidateOntologyMapper;
+    private CandidateOntologyMapper candidateOntologyMapper;
 
     @Override
     public PageInfo<CandidateOntology> getAllCandidateOntologyByPage(Integer pageNum, Integer limitNum) {
         PageHelper.startPage(pageNum,limitNum);
-        List<CandidateOntology> candidateOntologyList = candidateOntologyMapper.getAllCandidateOntology();
-        PageInfo<CandidateOntology> allCandidateOntologyByPage = new PageInfo<>(candidateOntologyList);
+        PageInfo<CandidateOntology> allCandidateOntologyByPage = new PageInfo<>(candidateOntologyMapper.getAllCandidateOntology());
         return allCandidateOntologyByPage;
     }
 }

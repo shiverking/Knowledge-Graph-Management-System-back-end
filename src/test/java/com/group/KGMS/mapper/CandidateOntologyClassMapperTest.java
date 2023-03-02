@@ -14,7 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
  */
 
 @SpringBootTest
-public class MapperTest {
+public class CandidateOntologyClassMapperTest {
 
     @Autowired
     private CandidateOntologyClassMapper candidateOntologyClassMapper;
@@ -26,4 +26,22 @@ public class MapperTest {
         System.out.println("result = " + result);
     }
 
+    @Test
+    public void testDelete(){
+        int result = candidateOntologyClassMapper.deleteById(9);
+        System.out.println("result = " + result);
+    }
+
+    @Test
+    public void testUpdate(){
+        CandidateOntologyClass updateClass = new CandidateOntologyClass(8, "test", 1);
+        int result = candidateOntologyClassMapper.updateById(updateClass);
+        System.out.println("result = " + result);
+    }
+
+    @Test
+    public void testSelectById(){
+        CandidateOntologyClass result = candidateOntologyClassMapper.selectById(8);
+        System.out.println("result = " + result);
+    }
 }

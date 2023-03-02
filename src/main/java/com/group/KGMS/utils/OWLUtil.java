@@ -69,7 +69,7 @@ public class OWLUtil {
      * @param: []
      * @return: org.apache.jena.ontology.OntModel
      **/
-    public OntModel owl2OntModel(){
+    public static OntModel owl2OntModel(){
         //设置本体的命名空间
         String SOURCE = OWLUtil.getSourceName();
         OntDocumentManager ontDocMgr = new OntDocumentManager();
@@ -104,7 +104,7 @@ public class OWLUtil {
      * @param: [ontModel 读取OWL文件生成的OntModel类对象, fatherClass 父类, sonClass 子类]
      * @return: void
      **/
-    public void addSubClass(OntModel ontModel, OntClass fatherClass, OntClass sonClass) throws IOException {
+    public static void addSubClass(OntModel ontModel, OntClass fatherClass, OntClass sonClass) throws IOException {
         fatherClass.addSubClass(sonClass);
         OWLUtil.ontModel2Owl(ontModel);
     }

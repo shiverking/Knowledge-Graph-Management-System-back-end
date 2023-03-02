@@ -34,6 +34,9 @@ public class CandidateOntologyClass {
     @TableField("parent_id")
     private Integer parentId;
 
+    @TableField("belong_candidate_id")
+    private Integer belongCandidateId;
+
     //用一个list来存放每一个类对应的子类,这一列在数据表中不存在，用@TableField(exist = false)进行标识
     @TableField(exist = false)
     private List<CandidateOntologyClass> children = new ArrayList<>();
@@ -41,5 +44,17 @@ public class CandidateOntologyClass {
     public CandidateOntologyClass(String name, Integer parentId) {
         this.name = name;
         this.parentId = parentId;
+    }
+
+    public CandidateOntologyClass(Integer id, String name, Integer parentId) {
+        this.id = id;
+        this.name = name;
+        this.parentId = parentId;
+    }
+
+    public CandidateOntologyClass(String name, Integer parentId, Integer belongCandidateId) {
+        this.name = name;
+        this.parentId = parentId;
+        this.belongCandidateId = belongCandidateId;
     }
 }

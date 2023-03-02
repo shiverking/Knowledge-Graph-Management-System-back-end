@@ -17,6 +17,5 @@ import java.util.List;
 
 @Mapper
 public interface CandidateOntologyClassMapper extends BaseMapper<CandidateOntologyClass> {
-    //根据候选本体的id获取所有的类别信息
-    List<CandidateOntologyClass> getClassByCandidateOntologyId(@Param("CandidateOntologyId") Integer CandidateOntologyId);
+
 }
