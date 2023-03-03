@@ -1,5 +1,6 @@
 package com.group.KGMS.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.group.KGMS.entity.CandidateOntologyClass;
@@ -45,6 +46,26 @@ public class CandidateOntologyClassServiceImpl extends ServiceImpl<CandidateOnto
         //新的类添加入数据库中
         int result = candidateOntologyClassMapper.insert(newClass);
         return result > 0;
+    }
+
+    @Override
+    public void remove(String className, Integer belongCandidateId) throws Exception {
+        //根据传入的类别名称在数据库中查询出对应的这个类的记录
+        LambdaQueryWrapper<CandidateOntologyClass> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(CandidateOntologyClass::getName, className)
+                .eq(CandidateOntologyClass::getBelongCandidateId, belongCandidateId);
+        CandidateOntologyClass delClass = candidateOntologyClassMapper.selectOne(wrapper);
+        //读取OWL文件
+        OntModel ontModel = OWLUtil.owl2OntModel();
+        //根据查出来的类别名称创建出来OWL文件中对应的类
+        OntClass ontClass = OWLUtil.createClass(ontModel, delClass.getName());
+        //利用OWL文件判断现在要删除的类是否有子类，有子类就抛出异常，不允许删除
+        if(ontClass.hasSubClass()){
+            throw new RuntimeException("不能删除，这个类有子类");
+        }
+        //没有子类就在数据库和OWL文件中进行删除
+        candidateOntologyClassMapper.deleteById(delClass);
+        OWLUtil.removeClass(ontModel, className);
     }
 
     @Override

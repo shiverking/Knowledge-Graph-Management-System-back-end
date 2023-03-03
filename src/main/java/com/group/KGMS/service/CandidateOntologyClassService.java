@@ -25,6 +25,15 @@ public interface CandidateOntologyClassService extends IService<CandidateOntolog
     boolean save(String className, Integer parentId, Integer belongCandidateId) throws IOException;
 
     /*
+     * @Description: 删除某个候选本体中的一个类，这个类没有子类的时候才可以删除
+     * @Author: zt
+     * @Date: 2023/3/3 17:14
+     * @param: [className 要删除的类的名称, belongCandidateId 所属的候选本体的ID]
+     * @return: void
+     **/
+    void remove(String className, Integer belongCandidateId) throws Exception;
+
+    /*
      * @Description: 根据候选本体的id，获取一个根类，根类里用孩子列表来进行存储父子关系，用树形json工具类进行处理
      * @Author: zt
      * @Date: 2022/12/22 21:54

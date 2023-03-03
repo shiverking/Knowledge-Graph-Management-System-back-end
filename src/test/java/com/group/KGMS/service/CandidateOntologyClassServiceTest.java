@@ -32,4 +32,13 @@ public class CandidateOntologyClassServiceTest {
         candidateOntologyClassService.save("测试数据", 1, 1);
     }
 
+    @Test
+    public void testRemove(){
+        try {
+            candidateOntologyClassService.remove("类别1的子类", 1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

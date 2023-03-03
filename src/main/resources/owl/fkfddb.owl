@@ -13,20 +13,7 @@
     xmlns:xsd="&xsd;">
   <owl:Ontology rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb"/>
   <owl:Class rdf:about="&this;类别1"/>
-  <owl:Class rdf:about="&this;测试数据">
-    <rdfs:subClassOf rdf:resource="&this;类别1"/>
-  </owl:Class>
   <owl:Class rdf:about="&this;类别1的子类的子类1">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;类别1的子类"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;测试测试...">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;类别1的子类"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;类别1的子类的子类2">
     <rdfs:subClassOf>
       <owl:Class rdf:about="&this;类别1的子类"/>
     </rdfs:subClassOf>

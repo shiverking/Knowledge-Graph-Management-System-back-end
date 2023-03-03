@@ -76,4 +76,23 @@ public class CandidateOntologyController {
         return JsonResult.success("success", result);
     }
 
+    /*
+     * @Description: 删除某个候选本体中的类
+     * @Author: zt
+     * @Date: 2023/3/3 17:27
+     * @param: [delClass]
+     * @return: com.group.KGMS.utils.JsonResult
+     **/
+    @DeleteMapping("/deleteClass")
+    public JsonResult deleteClass(@RequestBody CandidateOntologyClass delClass){
+        System.out.println("delClass = " + delClass);
+        try {
+            candidateOntologyClassService.remove(delClass.getName(), delClass.getBelongCandidateId());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return JsonResult.error("这个类有子类，无法删除");
+        }
+        return JsonResult.success("success");
+    }
+
 }

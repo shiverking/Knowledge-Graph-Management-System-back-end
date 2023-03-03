@@ -141,13 +141,13 @@ public class OWLUtil {
     }
 
     /*
-     * @Description: 删除指定名称的类，但是这个类的子类不会被删除，而是会到上一级去
+     * @Description: 删除指定名称的类，如果这个类有子类的话，就不能删除，直接抛出异常
      * @Author: zt
      * @Date: 2023/2/28 18:18
      * @param: [ontModel 读取OWL文件生成的OntModel类对象, classname 需要删除的类的名称]
      * @return: void
      **/
-    public void removeClass(OntModel ontModel, String classname) throws IOException {
+    public static void removeClass(OntModel ontModel, String classname) throws Exception {
         OntClass ontClass = OWLUtil.createClass(ontModel, classname);
         ontClass.remove();
         OWLUtil.ontModel2Owl(ontModel);
