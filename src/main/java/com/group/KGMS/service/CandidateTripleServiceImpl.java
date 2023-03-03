@@ -13,31 +13,32 @@ import java.util.Date;
 public class CandidateTripleServiceImpl implements CandidateTripleService {
     @Autowired
     CandidateTripleMapper candidateTripleMapper;
+
     @Override
     public PageInfo<CandidateTriple> getCandidateTripleByPage(Integer pageNum, Integer limitNum) {
-        PageHelper.startPage(pageNum,limitNum);
+        PageHelper.startPage(pageNum, limitNum);
         PageInfo<CandidateTriple> info = new PageInfo<CandidateTriple>(candidateTripleMapper.getTriplesList());
         return info;
     }
 
     @Override
     public PageInfo<CandidateTriple> getTriplesListWithTimeLimitByPage(Integer pageNum, Integer limitNum, Date startTime, Date endTime) {
-        PageHelper.startPage(pageNum,limitNum);
+        PageHelper.startPage(pageNum, limitNum);
         PageInfo<CandidateTriple> info = new PageInfo<CandidateTriple>(candidateTripleMapper.getTriplesListWithTimeLimit(startTime, endTime));
         return info;
     }
 
     @Override
     public PageInfo<CandidateTriple> getTriplesListWithSourceLimitByPage(Integer pageNum, Integer limitNum, String source) {
-        PageHelper.startPage(pageNum,limitNum);
+        PageHelper.startPage(pageNum, limitNum);
         PageInfo<CandidateTriple> info = new PageInfo<CandidateTriple>(candidateTripleMapper.getTriplesListWithSourceLimit(source));
         return info;
     }
 
     @Override
     public PageInfo<CandidateTriple> getTriplesListWithSourceAnTimeLimitByPage(Integer pageNum, Integer limitNum, Date startTime, Date endTime, String source) {
-        PageHelper.startPage(pageNum,limitNum);
-        PageInfo<CandidateTriple> info = new PageInfo<CandidateTriple>(candidateTripleMapper.getTriplesListWithSourceAndTimeLimit(startTime,endTime,source));
+        PageHelper.startPage(pageNum, limitNum);
+        PageInfo<CandidateTriple> info = new PageInfo<CandidateTriple>(candidateTripleMapper.getTriplesListWithSourceAndTimeLimit(startTime, endTime, source));
         return info;
     }
 
@@ -48,12 +49,12 @@ public class CandidateTripleServiceImpl implements CandidateTripleService {
 
     @Override
     public int updateCandidateTripleById(Long id, String head, String relation, String tail, String headCategory, String tailCategory) {
-        if(headCategory.equals("暂无")){
-            headCategory="";
+        if (headCategory.equals("暂无")) {
+            headCategory = "";
         }
-        if(tailCategory.equals("暂无")){
-            tailCategory="";
+        if (tailCategory.equals("暂无")) {
+            tailCategory = "";
         }
-        return candidateTripleMapper.updateCandidateTripleById(id,head,relation,tail,headCategory,tailCategory);
+        return candidateTripleMapper.updateCandidateTripleById(id, head, relation, tail, headCategory, tailCategory);
     }
 }

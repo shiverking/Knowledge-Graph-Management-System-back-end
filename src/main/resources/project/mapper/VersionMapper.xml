@@ -20,7 +20,7 @@
         delete from table version_record where version_number=#{version_number}
     </delete>
     <select id="getAllVersion" resultType="java.util.Map" resultMap="VersionResultMap">
-        select * from version_record
+        select * from version_record order by submit_time desc
     </select>
     <select id="getAllMergeById" resultType="java.util.Map">
         select * from version_merge_detail where version_id=#{version_id}

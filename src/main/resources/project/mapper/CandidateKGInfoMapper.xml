@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.group.KGMS.mapper.CandidateKGInfoMapper">
+    <resultMap id="CandidateKGResultMap" type="com.group.KGMS.entity.CandidateKGInfo">
+        <result column="id" property="id" />
+        <result column="tripleCount" property="tripleCount" />
+        <result column="entityCount" property="entityCount" />
+        <result column="relationCount" property="relationCount" />
+        <result column="relationTypeCount" property="relationTypeCount" />
+        <result column="candidate_id" property="candidateId" />
+    </resultMap>
+    <insert id="insertNewKGInfo">
+        insert into  candidate_kg_info(tripleCount,entityCount,relationCount,candidate_id,relationTypeCount) values
+        (#{tripleCount}, #{entityCount}, #{relationCount}, #{candidateId},#{relationTypeCount})
+    </insert>
+</mapper>

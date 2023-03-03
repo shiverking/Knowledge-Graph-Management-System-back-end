@@ -8,5 +8,5 @@ import java.util.Map;
 
 public interface UntructuredTextService {
     //分页获取所有的非结构化文本
-    PageInfo<Map<Object,String>> getUnstructuredTextByPage(Integer pageNum, Integer limitNum);
+    PageInfo<Map<Object, String>> getUnstructuredTextByPage(Integer pageNum, Integer limitNum);
 }

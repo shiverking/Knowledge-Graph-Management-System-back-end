@@ -229,10 +229,10 @@ public class TripleController {
         //1保留候选图谱
         if(strategy==1) {
             for(int i=0;i<kg.size();i++){
-                if(kg.get(i).get("res").equals("检测不通过")){
+                if(kg.get(i).get("res")!=null&&kg.get(i).get("res").equals("检测不通过")){
                     kg.get(i).put("operation","忽略");
                 }
-                else if(kg.get(i).get("res").equals("检测通过")){
+                else{
                     kg.get(i).put("operation","插入");
                 }
             }
@@ -427,6 +427,17 @@ public class TripleController {
         PageInfo<Map<String,Object>> pageInfo = versionService.getEvaluationByPage(page,limit,versionId);
         //第一个是结果列表，第二个是总数
         return JsonResult.success("success",pageInfo.getList(),pageInfo.getTotal());
+    }
+    /**
+     * 删除所有缓存记录
+     * @return
+     */
+    @PostMapping("/version/deleteAllCache")
+    @ResponseBody
+    public JsonResult deleteAllCache(){
+        cacheService.deleteAll();
+        //第一个是结果列表，第二个是总数
+        return JsonResult.success("success");
     }
     /**
      * 同步所有未同步的version

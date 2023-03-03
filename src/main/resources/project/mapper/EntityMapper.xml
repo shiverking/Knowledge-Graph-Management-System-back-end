@@ -30,5 +30,12 @@
             triple_id=#{triple_id}
         </where>
     </select>
+    <select id="selectEntityIntangibly" resultType="java.lang.String">
+        select head from core_kg
+        <where> head like concat('%',#{restrict},'%') </where>
+        UNION
+        select tail from core_kg
+        <where> tail like concat('%',#{restrict},'%') </where>
+    </select>
 
 </mapper>

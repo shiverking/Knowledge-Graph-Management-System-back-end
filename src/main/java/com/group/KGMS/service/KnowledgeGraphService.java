@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface KnowledgeGraphService {
     List<Triple> getAllTriples(String tableName);
-    PageInfo<Triple> getAllTriplesByPage(String tableName,Integer pageNum, Integer limitNum);
+
+    PageInfo<Triple> getAllTriplesByPage(String tableName, Integer pageNum, Integer limitNum);
 }

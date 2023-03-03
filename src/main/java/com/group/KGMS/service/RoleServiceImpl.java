@@ -13,12 +13,10 @@ import org.springframework.stereotype.Service;
 public class RoleServiceImpl implements RoleService {
     @Autowired
     RoleMapper roleMapper;
+
     @Override
     public Boolean addUserAndRole(int userId, int roleId) {
         //插入成功
-        if(roleMapper.addUserAndRole(userId,roleId)==1){
-            return true;
-        }
-        return false;
+        return roleMapper.addUserAndRole(userId, roleId) == 1;
     }
 }

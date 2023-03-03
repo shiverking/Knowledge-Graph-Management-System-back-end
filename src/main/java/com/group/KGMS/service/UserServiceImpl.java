@@ -10,11 +10,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import com.group.KGMS.mapper.UserMapper;
 import com.group.KGMS.entity.User;
+
 import java.util.List;
 import java.util.Random;
 
 @Service
-public class UserServiceImpl implements UserService, UserDetailsService{
+public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     UserMapper userMapper;
@@ -30,7 +31,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
             throw new ServiceException("该用户名已经存在");
         }
         //默认头像
-        return userMapper.insertUser(user.getId(),user.getUsername(),user.getPassword(), "static/avatar/default.png" );
+        return userMapper.insertUser(user.getId(), user.getUsername(), user.getPassword(), "static/avatar/default.png");
     }
 
     public String generateAuthCode(String telephone) {
@@ -44,13 +45,14 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 
     /**
      * 找到User表中最后一位ID
+     *
      * @return
      */
     @Override
     public int getLastId() {
-        try{
+        try {
             return userMapper.getLastId();
-        }catch (Exception e){
+        } catch (Exception e) {
             //如果是第一个数据
             return 0;
         }
@@ -58,6 +60,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 
     /**
      * 登录时调用
+     *
      * @param username
      * @return
      * @throws UsernameNotFoundException
@@ -65,7 +68,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userMapper.loadUserByUsername(username);
-        if(user.equals(null)){
+        if (user.equals(null)) {
             throw new UsernameNotFoundException("账户不存在!");
         }
         user.setRoles(userMapper.getUserRolesByUid(user.getId()));
@@ -74,6 +77,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 
     /**
      * 根据id获取密码
+     *
      * @param id
      * @return
      */
@@ -84,19 +88,18 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 
     /**
      * 改变用户密码
+     *
      * @param id
      * @return
      */
     @Override
-    public boolean changePassword(String password,int id) {
-        if(userMapper.changePassWordById(password,id)==1){
-            return true;
-        }
-        return false;
+    public boolean changePassword(String password, int id) {
+        return userMapper.changePassWordById(password, id) == 1;
     }
 
     /**
      * 通过用户名返回id
+     *
      * @param username
      * @return
      */
@@ -107,35 +110,33 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 
     @Override
     public boolean deleteUserById(int id) {
-        if(userMapper.deleteUserById(id)==1)
-            return true;
-        else return false;
+        return userMapper.deleteUserById(id) == 1;
     }
 
     @Override
     public PageInfo<User> findUserByPage(Integer pageNum, Integer limitNum) {
-        PageHelper.startPage(pageNum,limitNum);
+        PageHelper.startPage(pageNum, limitNum);
         PageInfo<User> info = new PageInfo<User>(userMapper.getUserList());
         return info;
     }
 
     @Override
     public PageInfo<User> findAdminByPage(Integer pageNum, Integer limitNum) {
-        PageHelper.startPage(pageNum,limitNum);
+        PageHelper.startPage(pageNum, limitNum);
         PageInfo<User> info = new PageInfo<User>(userMapper.getAdminList());
         return info;
     }
 
     @Override
     public PageInfo<User> searchUserByPage(Integer page, Integer limit, String username, String telephone, int rid) {
-        PageHelper.startPage(page,limit);
+        PageHelper.startPage(page, limit);
         PageInfo<User> info = new PageInfo<User>(userMapper.searchUser(username, rid));
         return info;
     }
 
     @Override
     public PageInfo<User> searchAdminByPage(Integer page, Integer limit, String username, String telephone) {
-        PageHelper.startPage(page,limit);
+        PageHelper.startPage(page, limit);
         PageInfo<User> info = new PageInfo<User>(userMapper.searchAdmin(username));
         return info;
     }
@@ -146,14 +147,13 @@ public class UserServiceImpl implements UserService, UserDetailsService{
     }
 
     @Override
-    public boolean updateUserInfo(int id,String password, String username, String telephone,String email) {
-        if(userMapper.updateUserInfo(id,password,username)==1)
-            return true;
-        else return false;
+    public boolean updateUserInfo(int id, String password, String username, String telephone, String email) {
+        return userMapper.updateUserInfo(id, password, username) == 1;
     }
 
     /**
      * 通过id获取用户名
+     *
      * @param id
      * @return
      */
@@ -163,8 +163,8 @@ public class UserServiceImpl implements UserService, UserDetailsService{
     }
 
     /**
-
      * 根据id来返回user对象
+     *
      * @param id
      * @return
      */
@@ -180,14 +180,12 @@ public class UserServiceImpl implements UserService, UserDetailsService{
      */
     @Override
     public boolean updateAvatar(int id, String headrul) {
-        if(userMapper.updateHeadUrlById(headrul,id)==1) {
-            return true;
-        }
-        return false;
+        return userMapper.updateHeadUrlById(headrul, id) == 1;
     }
 
     /**
      * 根据用户id找到其头像地址
+     *
      * @param id
      * @return
      */
@@ -197,34 +195,32 @@ public class UserServiceImpl implements UserService, UserDetailsService{
     }
 
 
-
     /**
      * 通过用户名删除用户
+     *
      * @param username
      * @return
      */
     @Override
-    public boolean deleteUserByUsername(String username){
-        if(userMapper.deleteUserByUsername(username)==1)
-            return true;
-        else return false;
+    public boolean deleteUserByUsername(String username) {
+        return userMapper.deleteUserByUsername(username) == 1;
     }
 
     /**
      * 通过用户名修改密码
+     *
      * @param password
      * @param username
      * @return
      */
     @Override
-    public boolean changePasswordByUsername(String password,String username){
-        if(userMapper.changePasswordByUsername(password,username)==1)
-            return true;
-        else return false;
+    public boolean changePasswordByUsername(String password, String username) {
+        return userMapper.changePasswordByUsername(password, username) == 1;
     }
 
     /**
      * 获得所有用户
+     *
      * @return
      */
     @Override
@@ -235,6 +231,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 
     /**
      * 通过id获取用户
+     *
      * @param id
      * @return
      */
@@ -244,6 +241,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 
     /**
      * 根据RID获取用户
+     *
      * @param rid
      * @return
      */
@@ -255,6 +253,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 
     /**
      * 判断用户名是否存在
+     *
      * @param username
      * @return 存在返回true，否则返回false
      */

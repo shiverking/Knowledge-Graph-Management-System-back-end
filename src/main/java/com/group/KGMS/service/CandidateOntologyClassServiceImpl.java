@@ -17,7 +17,7 @@ import java.util.List;
  */
 
 @Service
-public class CandidateOntologyClassServiceImpl implements CandidateOntologyClassService{
+public class CandidateOntologyClassServiceImpl implements CandidateOntologyClassService {
 
     @Autowired
     CandidateOntologyClassMapper candidateOntologyClassMapper;

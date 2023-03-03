@@ -17,20 +17,22 @@ public class KnowledgeGraphServiceImpl implements KnowledgeGraphService {
 
     /**
      * 分页返回所有三元组
+     *
      * @param tableName 表名
-     * @param pageNum 页数
-     * @param limitNum 每页限制数
+     * @param pageNum   页数
+     * @param limitNum  每页限制数
      * @return
      */
     @Override
     public PageInfo<Triple> getAllTriplesByPage(String tableName, Integer pageNum, Integer limitNum) {
-        PageHelper.startPage(pageNum,limitNum);
+        PageHelper.startPage(pageNum, limitNum);
         PageInfo<Triple> info = new PageInfo<Triple>(kgMapper.getAllTriplesFromTable(tableName));
         return info;
     }
 
     /**
      * 直接返回所有三元组
+     *
      * @param tableName
      * @return
      */
