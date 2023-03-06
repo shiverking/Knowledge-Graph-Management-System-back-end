@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.group.KGMS.entity.CandidateOntologyClass;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @BelongsProject: Knowledge-Graph-Management-System-back-end
@@ -22,7 +23,9 @@ public interface CandidateOntologyClassService extends IService<CandidateOntolog
      * @param: [className 要添加的类的名称, parentId 父类ID, belongCandidateId 所属的候选本体的ID]
      * @return: boolean
      **/
-    boolean save(String className, Integer parentId, Integer belongCandidateId) throws IOException;
+    boolean save(String className, Integer parentId, Integer belongCandidateId) throws Exception;
+
+//    boolean update(Integer id, String newName, Integer parentId, Integer belongCandidateId);
 
     /*
      * @Description: 删除某个候选本体中的一个类，这个类没有子类的时候才可以删除
@@ -41,5 +44,14 @@ public interface CandidateOntologyClassService extends IService<CandidateOntolog
      * @return: com.group.KGMS.entity.CandidateOntologyClass
      **/
     CandidateOntologyClass getRootClassByCandidateOntologyId(Integer CandidateOntologyId);
+
+    /*
+     * @Description: 根据候选本体的id，获取类的列表
+     * @Author: zt
+     * @Date: 2023/3/7 0:28
+     * @param: [candidateOntologyId 候选本体的id]
+     * @return: java.util.List<com.group.KGMS.entity.CandidateOntologyClass>
+     **/
+    List<CandidateOntologyClass> getAllClassByCandidateOntologyId(Integer candidateOntologyId);
 
 }

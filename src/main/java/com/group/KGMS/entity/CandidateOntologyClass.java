@@ -57,4 +57,11 @@ public class CandidateOntologyClass {
         this.parentId = parentId;
         this.belongCandidateId = belongCandidateId;
     }
+
+    public CandidateOntologyClass(Integer id, String name, Integer parentId, Integer belongCandidateId) {
+        this.id = id;
+        this.name = name;
+        this.parentId = parentId;
+        this.belongCandidateId = belongCandidateId;
+    }
 }

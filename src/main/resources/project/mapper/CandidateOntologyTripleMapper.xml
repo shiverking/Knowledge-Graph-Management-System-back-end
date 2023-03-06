@@ -4,10 +4,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.group.KGMS.mapper.CandidateOntologyTripleMapper">
     <resultMap id="CandidateOntologyTripleResultMap" type="com.group.KGMS.entity.CandidateOntologyTriple">
-        <result column="id" property="id"/>
-        <result column="head_class_id" property="headClassId"/>
-        <result column="tail_class_id" property="tailClassId"/>
-        <result column="relation_id" property="relationId"/>
-        <result column="belong_candidate_id" property="belongCandidateOntologyId"/>
+        <result column="id" property="id" jdbcType="INTEGER"/>
+        <result column="head_class_id" property="headClassId" jdbcType="INTEGER"/>
+        <result column="head_class_name" property="headClass" jdbcType="VARCHAR"/>
+        <result column="relation_id" property="relationId" jdbcType="INTEGER"/>
+        <result column="relation_name" property="relation" jdbcType="VARCHAR"/>
+        <result column="tail_class_id" property="tailClassId" jdbcType="INTEGER"/>
+        <result column="tail_class_name" property="tailClass" jdbcType="VARCHAR"/>
+        <result column="belong_candidate_id" property="belongCandidateOntologyId" jdbcType="INTEGER"/>
     </resultMap>
 </mapper>

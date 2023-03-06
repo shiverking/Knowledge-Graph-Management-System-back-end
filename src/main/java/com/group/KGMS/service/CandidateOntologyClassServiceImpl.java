@@ -4,7 +4,9 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.group.KGMS.entity.CandidateOntologyClass;
+import com.group.KGMS.entity.CandidateOntologyTriple;
 import com.group.KGMS.mapper.CandidateOntologyClassMapper;
+import com.group.KGMS.mapper.CandidateOntologyTripleMapper;
 import com.group.KGMS.utils.OWLUtil;
 import com.group.KGMS.utils.TreeJsonCandidateOntologyClass;
 import org.apache.jena.ontology.OntClass;
@@ -29,10 +31,19 @@ public class CandidateOntologyClassServiceImpl extends ServiceImpl<CandidateOnto
     @Autowired
     private CandidateOntologyClassMapper candidateOntologyClassMapper;
 
+    @Autowired
+    private CandidateOntologyTripleMapper candidateOntologyTripleMapper;
+
     @Override
-    public boolean save(String className, Integer parentId, Integer belongCandidateId) throws IOException {
+    public boolean save(String className, Integer parentId, Integer belongCandidateId) throws Exception{
         //根据传入的参数新建要插入数据库的对象
         CandidateOntologyClass newClass = new CandidateOntologyClass(className, parentId, belongCandidateId);
+        //判断新增加的类是否已存在，存在的话就抛出异常
+        QueryWrapper<CandidateOntologyClass> classQueryWrapper = new QueryWrapper<>();
+        classQueryWrapper.eq("class_name", newClass.getName());
+        if(candidateOntologyClassMapper.exists(classQueryWrapper)){
+            throw new RuntimeException("这个类已存在，不可以增加");
+        }
         //根据父类id和所属候选本体id查询出数据库中父类的记录
         QueryWrapper<CandidateOntologyClass> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("belong_candidate_id", belongCandidateId)
@@ -47,6 +58,14 @@ public class CandidateOntologyClassServiceImpl extends ServiceImpl<CandidateOnto
         int result = candidateOntologyClassMapper.insert(newClass);
         return result > 0;
     }
+
+//    @Override
+//    public boolean update(Integer id, String newName, Integer parentId, Integer belongCandidateId) {
+//        CandidateOntologyClass newClass = new CandidateOntologyClass(id, newName, parentId, belongCandidateId);
+//        int result = candidateOntologyClassMapper.updateById(newClass);
+//        return result > 0;
+//    }
+
 
     @Override
     public void remove(String className, Integer belongCandidateId) throws Exception {
@@ -65,6 +84,12 @@ public class CandidateOntologyClassServiceImpl extends ServiceImpl<CandidateOnto
         }
         //没有子类就在数据库和OWL文件中进行删除
         candidateOntologyClassMapper.deleteById(delClass);
+        //当删除这个类的时候，以这个类为首或者尾的关系也应当删除
+        LambdaQueryWrapper<CandidateOntologyTriple> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(CandidateOntologyTriple::getHeadClass, delClass.getName())
+                .or()
+                .eq(CandidateOntologyTriple::getTailClass, delClass.getName());
+        candidateOntologyTripleMapper.delete(lambdaQueryWrapper);
         OWLUtil.removeClass(ontModel, className);
     }
 
@@ -78,5 +103,13 @@ public class CandidateOntologyClassServiceImpl extends ServiceImpl<CandidateOnto
         //利用树形工具类把所有的类封装成一个树形的结构，返回根节点
         CandidateOntologyClass rootClass = treeJsonUtil.enquireTree(ontologyClassList);
         return rootClass;
+    }
+
+    @Override
+    public List<CandidateOntologyClass> getAllClassByCandidateOntologyId(Integer candidateOntologyId) {
+        QueryWrapper<CandidateOntologyClass> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("belong_candidate_id", candidateOntologyId);
+        List<CandidateOntologyClass> classList = candidateOntologyClassMapper.selectList(queryWrapper);
+        return classList;
     }
 }

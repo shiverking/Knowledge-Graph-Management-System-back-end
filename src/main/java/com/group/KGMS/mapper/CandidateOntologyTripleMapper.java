@@ -1,5 +1,7 @@
 package com.group.KGMS.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.group.KGMS.entity.CandidateOntologyTriple;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -10,6 +12,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @Description:
  */
 @Mapper
-public interface CandidateOntologyTripleMapper {
+public interface CandidateOntologyTripleMapper extends BaseMapper<CandidateOntologyTriple> {
 
 }

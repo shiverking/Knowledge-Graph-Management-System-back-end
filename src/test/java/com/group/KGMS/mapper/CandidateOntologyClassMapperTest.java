@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
 /**
  * @BelongsProject: Knowledge-Graph-Management-System-back-end
  * @BelongsPackage: com.group.KGMS.mapper
@@ -43,5 +45,11 @@ public class CandidateOntologyClassMapperTest {
     public void testSelectById(){
         CandidateOntologyClass result = candidateOntologyClassMapper.selectById(8);
         System.out.println("result = " + result);
+    }
+
+    @Test
+    public void testSelectAll(){
+        List<CandidateOntologyClass> list = candidateOntologyClassMapper.selectList(null);
+        list.forEach(System.out::println);
     }
 }

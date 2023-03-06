@@ -18,6 +18,11 @@
       <owl:Class rdf:about="&this;类别1的子类"/>
     </rdfs:subClassOf>
   </owl:Class>
+  <owl:Class rdf:about="&this;类别1的子类的子类2">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="&this;类别1的子类"/>
+    </rdfs:subClassOf>
+  </owl:Class>
   <owl:Class rdf:about="&this;类别1的子类">
     <rdfs:subClassOf rdf:resource="&this;类别1"/>
   </owl:Class>

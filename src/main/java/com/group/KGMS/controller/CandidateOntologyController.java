@@ -4,13 +4,16 @@ import com.alibaba.fastjson2.JSONObject;
 import com.github.pagehelper.PageInfo;
 import com.group.KGMS.entity.CandidateOntology;
 import com.group.KGMS.entity.CandidateOntologyClass;
+import com.group.KGMS.entity.CandidateOntologyTriple;
 import com.group.KGMS.service.CandidateOntologyClassService;
 import com.group.KGMS.service.CandidateOntologyService;
+import com.group.KGMS.service.CandidateOntologyTripleService;
 import com.group.KGMS.utils.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @BelongsProject: Knowledge-Graph-Management-System-back-end
@@ -28,6 +31,8 @@ public class CandidateOntologyController {
     private CandidateOntologyService candidateOntologyService;
     @Autowired
     private CandidateOntologyClassService candidateOntologyClassService;
+    @Autowired
+    private CandidateOntologyTripleService candidateOntologyTripleService;
 
     /*
      * @Description: 分页获取候选本体
@@ -67,13 +72,18 @@ public class CandidateOntologyController {
      * @return: com.group.KGMS.utils.JsonResult
      **/
     @PostMapping("/addClass")
-    public JsonResult addClass(@RequestBody CandidateOntologyClass newClass) throws IOException {
+    public JsonResult addClass(@RequestBody CandidateOntologyClass newClass){
         System.out.println("newClass = " + newClass);
         String newClassName = newClass.getName();
         Integer parentId = newClass.getParentId();
         Integer belongCandidateId = newClass.getBelongCandidateId();
-        boolean result = candidateOntologyClassService.save(newClassName, parentId, belongCandidateId);
-        return JsonResult.success("success", result);
+        try {
+            candidateOntologyClassService.save(newClassName, parentId, belongCandidateId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return JsonResult.error("增加失败");
+        }
+        return JsonResult.success("success");
     }
 
     /*
@@ -93,6 +103,32 @@ public class CandidateOntologyController {
             return JsonResult.error("这个类有子类，无法删除");
         }
         return JsonResult.success("success");
+    }
+
+    /*
+     * @Description: 获取某个候选本体的类列表，作为图节点
+     * @Author: zt
+     * @Date: 2023/3/7 0:24
+     * @param: [candidateOntologyId 候选本体id]
+     * @return: com.group.KGMS.utils.JsonResult
+     **/
+    @GetMapping("/getGraphNode/{candidateOntologyId}")
+    public JsonResult getGraphNode(@PathVariable("candidateOntologyId") Integer candidateOntologyId){
+        List<CandidateOntologyClass> classList = candidateOntologyClassService.getAllClassByCandidateOntologyId(candidateOntologyId);
+        return JsonResult.success("success", classList);
+    }
+
+    /*
+     * @Description: 获取某个候选本体的关系列表，作为图的边
+     * @Author: zt
+     * @Date: 2023/3/7 0:56
+     * @param: [candidateOntologyId 候选本体id]
+     * @return: com.group.KGMS.utils.JsonResult
+     **/
+    @GetMapping("/getGraphEdge/{candidateOntologyId}")
+    public JsonResult getGraphEdge(@PathVariable("candidateOntologyId") Integer candidateOntologyId){
+        List<CandidateOntologyTriple> relationList = candidateOntologyTripleService.getAllRelationByCandidateOntologyId(candidateOntologyId);
+        return JsonResult.success("success", relationList);
     }
 
 }

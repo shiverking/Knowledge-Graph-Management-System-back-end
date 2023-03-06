@@ -28,8 +28,8 @@ public class CandidateOntologyClassServiceTest {
     }
 
     @Test
-    public void testSave() throws IOException {
-        candidateOntologyClassService.save("测试数据", 1, 1);
+    public void testSave() throws Exception {
+        candidateOntologyClassService.save("类别1的子类的子类2", 2, 1);
     }
 
     @Test
@@ -39,6 +39,11 @@ public class CandidateOntologyClassServiceTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void testGetAll(){
+        candidateOntologyClassService.getAllClassByCandidateOntologyId(1);
     }
 
 }
