@@ -6,7 +6,14 @@ import com.sun.jna.Pointer;
 import com.sun.jna.platform.win32.Kernel32;
 import com.sun.jna.platform.win32.WinNT;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.web.bind.annotation.*;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -43,8 +50,7 @@ public class CrawlController {
     public Map<String, Long> statistic() {
         return crawlerService.statistic();
     }
-    
-    
+
     @GetMapping ("/start")
     public String start(){
         String result =null;
