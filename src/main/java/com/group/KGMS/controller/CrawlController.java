@@ -1,22 +1,50 @@
 package com.group.KGMS.controller;
 
+import com.group.KGMS.entity.T_crawler;
+import com.group.KGMS.service.CrawlerService;
 import com.sun.jna.Pointer;
 import com.sun.jna.platform.win32.Kernel32;
 import com.sun.jna.platform.win32.WinNT;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Field;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/crawl")
 public class CrawlController {
     private  Process proc ;
+
+    @Autowired
+    private CrawlerService crawlerService;
+
+    @GetMapping ("/list")
+    public List<T_crawler> findAll() {
+        return crawlerService.findAll();
+    }
+
+    @GetMapping ("/list/status/{status}")
+    public List<T_crawler> findByStatus(@PathVariable("status") Integer status) {
+        return crawlerService.findByStatus(status);
+    }
+
+    @GetMapping ("/list/name/{name}")
+    public List<T_crawler> findByName(@PathVariable("name") String name) {
+        return crawlerService.findByName(name);
+    }
+
+    @GetMapping ("/statistic")
+    public Map<String, Long> statistic() {
+        return crawlerService.statistic();
+    }
+    
+    
     @GetMapping ("/start")
     public String start(){
         String result =null;
