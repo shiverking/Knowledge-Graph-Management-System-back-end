@@ -14,4 +14,10 @@
         insert into  candidate_kg_info(tripleCount,entityCount,relationCount,candidate_id,relationTypeCount) values
         (#{tripleCount}, #{entityCount}, #{relationCount}, #{candidateId},#{relationTypeCount})
     </insert>
+    <select id="getInfoById" resultType="com.group.KGMS.entity.CandidateKGInfo">
+        select * from candidate_kg_info
+        <where>
+            candidate_id = #{candidateId}
+        </where>
+    </select>
 </mapper>

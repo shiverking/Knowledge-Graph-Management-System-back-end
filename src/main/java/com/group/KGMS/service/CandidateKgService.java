@@ -3,8 +3,6 @@ package com.group.KGMS.service;
 import com.github.pagehelper.PageInfo;
 import com.group.KGMS.entity.CandidateKG;
 import com.group.KGMS.entity.CandidateKGInfo;
-import com.group.KGMS.entity.CandidateTriple;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
 
@@ -28,5 +26,8 @@ public interface CandidateKgService {
     int updateKgToOldById(Long id);
 
     //插入一条新的INFO信息
-    int insertNewCandiateKGInfo(CandidateKGInfo info);
+    int getCandiateKGInfo(CandidateKGInfo info);
+
+    //根据Id查找INFO信息
+    CandidateKGInfo getCandiateKGInfo(Long id);
 }

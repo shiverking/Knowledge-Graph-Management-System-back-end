@@ -4,7 +4,6 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.group.KGMS.entity.CandidateKG;
 import com.group.KGMS.entity.CandidateKGInfo;
-import com.group.KGMS.entity.CandidateTriple;
 import com.group.KGMS.mapper.CandidateKGInfoMapper;
 import com.group.KGMS.mapper.CandidateKGMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,7 +113,17 @@ public class CandidateKgServiceImpl implements CandidateKgService {
      * @return
      */
     @Override
-    public int insertNewCandiateKGInfo(CandidateKGInfo info) {
+    public int getCandiateKGInfo(CandidateKGInfo info) {
         return candidateKGInfoMapper.insertNewKGInfo(info);
+    }
+
+    /**
+     * 根据id查找INFO信息
+     * @param id
+     * @return
+     */
+    @Override
+    public CandidateKGInfo getCandiateKGInfo(Long id) {
+        return candidateKGInfoMapper.getInfoById(id);
     }
 }

@@ -10,13 +10,18 @@ import java.util.Map;
 @Mapper
 public interface EntityMapper {
     int insertNewEntity(Entity entity);
-    List<Entity>  selectAllEntity();
-    Long ifEntityExists(@Param("name")String name);
+
+    List<Entity> selectAllEntity();
+
+    Long ifEntityExists(@Param("name") String name);
+
     //操作triples_ids表
-    int insertNewCorrelationForEachTriple(@Param("triple_id")Long triple_id,@Param("head_id")Long head_id,@Param("tail_id")Long tail_id,@Param("relation_id")Long relation_id);
-    Map<String,Object> selectSpecificCorrelation(@Param("triple_id")Long triple_id);
+    int insertNewCorrelationForEachTriple(@Param("triple_id") Long triple_id, @Param("head_id") Long head_id, @Param("tail_id") Long tail_id, @Param("relation_id") Long relation_id);
+
+    Map<String, Object> selectSpecificCorrelation(@Param("triple_id") Long triple_id);
+
     //模糊查找实体集合,该实体集合中的每一项均含有限制'restrict'
-    List<String> selectEntityIntangibly(@Param("restrict")String restrict);
+    List<String> selectEntityIntangibly(@Param("restrict") String restrict);
     //模糊查找实体集合,该实体集合中的每一项均含有限制'restrict'
 //    List<String> selectEntityIntangibly(@Param("restrict")String restrict);
 }

@@ -5,6 +5,7 @@ import com.group.KGMS.entity.CandidateTriple;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
+import java.util.List;
 
 public interface CandidateTripleService {
     PageInfo<CandidateTriple> getCandidateTripleByPage(Integer pageNum, Integer limitNum);
@@ -23,4 +24,7 @@ public interface CandidateTripleService {
 
     //根据id更新某个候选三元组
     int updateCandidateTripleById(Long id, String head, String relation, String tail, String head_category, String tail_category);
+
+    //批量插入新的候选三元组
+    int insertNewCandidateTriplesBatch(List<CandidateTriple> candidateTripleList);
 }

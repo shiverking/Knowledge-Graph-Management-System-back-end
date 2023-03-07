@@ -16,6 +16,10 @@ public class Neo4jTest {
     @Autowired
     GraphNodeRepository graphNodeRepository;
     @Test
+    public void testRes(){
+        System.out.println(graphNodeRepository);
+    }
+    @Test
     public void testCreate(){
         GraphNode node = new GraphNode();
         node.setName("测试节点");

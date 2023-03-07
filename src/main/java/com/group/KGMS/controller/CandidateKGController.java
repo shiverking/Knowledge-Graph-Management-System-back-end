@@ -2,6 +2,7 @@ package com.group.KGMS.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.group.KGMS.entity.CandidateKG;
+import com.group.KGMS.entity.CandidateKGInfo;
 import com.group.KGMS.entity.CandidateTriple;
 import com.group.KGMS.service.CandidateKgService;
 import com.group.KGMS.service.CandidateTripleService;
@@ -126,5 +127,17 @@ public class CandidateKGController {
         }
         //删除失败
         return JsonResult.success("failure");
+    }
+    /**
+     * 根据idc查找某个图谱的INFO
+     * @param info
+     * @return
+     */
+    @PostMapping("/candidateKg/info")
+    @ResponseBody
+    public JsonResult getCandidateKGInfoById(@RequestBody Map<String, Object> info){
+        Long id = Long.parseLong(String.valueOf(info.get("id")));
+        CandidateKGInfo kgInfo = candidateKgService.getCandiateKGInfo(id);
+        return JsonResult.success("success",kgInfo);
     }
 }

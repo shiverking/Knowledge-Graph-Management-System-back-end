@@ -1,12 +1,14 @@
 package com.group.KGMS.service;
 
-import com.github.pagehelper.PageInfo;
-import com.group.KGMS.entity.Triple;
-import org.springframework.stereotype.Service;
+import com.group.KGMS.entity.UnstructuredText;
 
-import java.util.Map;
+import java.util.List;
 
 public interface UntructuredTextService {
-    //分页获取所有的非结构化文本
-    PageInfo<Map<Object, String>> getUnstructuredTextByPage(Integer pageNum, Integer limitNum);
+    //将已抽取的文档的状态设置为“已抽取”
+    void updateUnstructuredTextStatusById(List<String> idList);
+    //分页获取所有非结构化文本
+    List<UnstructuredText> getUnstructuredTextByPage(Integer pageNum, Integer limitNum);
+    //查询所有数据的综述
+    Long getSumOfUnstructuredText();
 }

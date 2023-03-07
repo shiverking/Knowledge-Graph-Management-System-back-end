@@ -10,5 +10,5 @@ import java.util.Map;
 @Mapper
 public interface UnstructuredTextMapper {
     //获取所有新鲜的融合图谱
-    List<Map<Object,String>> getAllUnStructuredText();
+    List<Map<Object, String>> getAllUnStructuredText();
 }

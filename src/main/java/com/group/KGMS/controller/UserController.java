@@ -1,9 +1,9 @@
 package com.group.KGMS.controller;
 
-import com.group.KGMS.entity.RespBean;
 import com.group.KGMS.entity.User;
 import com.group.KGMS.service.RoleService;
 import com.group.KGMS.service.UserService;
+import com.group.KGMS.utils.JsonResult;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -25,7 +25,7 @@ public class UserController {
      */
     @ResponseBody
     @PostMapping ("/user/register")
-    public RespBean registerUser(@RequestBody Map<String, Object> info) throws ServiceException {
+    public JsonResult registerUser(@RequestBody Map<String, Object> info) throws ServiceException {
         System.out.println(info.get("username"));
         User user = new User();
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -37,8 +37,8 @@ public class UserController {
         //添加用户
         userService.insertUser(user);
         if (roleService.addUserAndRole(id, 1)) {
-            return RespBean.success("注册成功!");
+            return JsonResult.success("注册成功!");
         }
-        return RespBean.error("注册失败");
+        return JsonResult.error("注册失败");
     }
 }

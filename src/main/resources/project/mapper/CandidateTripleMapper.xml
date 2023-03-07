@@ -12,6 +12,10 @@
         <result column="status" property="status" jdbcType="VARCHAR"/>
         <result column="source" property="source" jdbcType="VARCHAR"/>
     </resultMap>
+    <insert id="insertCandidateTriples">
+        INSERT INTO candidate_triples(head,relation,tail,head_category,tail_category,status,source,time)
+        VALUES (#{head},#{relation},#{tail},#{head_category},#{tail_category},#{status},#{source},#{time});
+    </insert>
     <update id="updateCandidateTripleById">
         update candidate_triples
         <set>
@@ -27,13 +31,13 @@
     <select id="getTriplesList" resultType="com.group.KGMS.entity.CandidateTriple" resultMap="CandidateTripleResultMap">
         select * from candidate_triples
     </select>
-    <select id="getTriplesListWithTimeLimit" resultType="com.group.KGMS.entity.CandidateTriple">
+    <select id="getTriplesListWithTimeLimit" resultType="com.group.KGMS.entity.CandidateTriple" resultMap="CandidateTripleResultMap">
         select * from candidate_triples where time &gt;= #{startTime} and time &lt;= #{endTime}
     </select>
-    <select id="getTriplesListWithSourceLimit" resultType="com.group.KGMS.entity.CandidateTriple">
+    <select id="getTriplesListWithSourceLimit" resultType="com.group.KGMS.entity.CandidateTriple" resultMap="CandidateTripleResultMap">
         select * from candidate_triples where source = #{source}
     </select>
-    <select id="getTriplesListWithSourceAndTimeLimit" resultType="com.group.KGMS.entity.CandidateTriple">
+    <select id="getTriplesListWithSourceAndTimeLimit" resultType="com.group.KGMS.entity.CandidateTriple" resultMap="CandidateTripleResultMap">
         select * from candidate_triples where time &gt;= #{startTime} and time &lt;= #{endTime} and source = #{source}
     </select>
 </mapper>
