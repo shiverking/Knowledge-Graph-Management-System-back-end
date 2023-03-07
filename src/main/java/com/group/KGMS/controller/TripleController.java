@@ -1,11 +1,14 @@
 package com.group.KGMS.controller;
 
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
 import com.github.pagehelper.PageInfo;
 import com.group.KGMS.repository.GraphNodeRepository;
 import com.group.KGMS.entity.CandidateTriple;
 import com.group.KGMS.entity.Triple;
 import com.group.KGMS.service.*;
 import com.group.KGMS.utils.JsonResult;
+import com.mongodb.MongoSocketReadException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +33,8 @@ public class TripleController {
     VersionService versionService;
     @Autowired
     GraphNodeRepository graphNodeRepository;
+    @Autowired
+    UntructuredTextService untructuredTextService;
     /**
      * 分页获取候选三元组
      * @param page
@@ -120,9 +125,28 @@ public class TripleController {
     @PostMapping("/triples/getTriplesFromSameKgNotByPage")
     @ResponseBody
     public JsonResult getTriplesFromSameKgNotByPage(@RequestParam("id") Long id){
+        Map<Long,String> nameMap = new HashMap<>();
         List<Triple> triples = tripleService.getTripleFromSameKg(id);
+        List<JSONObject> jsonList = new ArrayList<>();
+        for(Triple triple:triples){
+            Long kgId =triple.getId();
+            String name = nameMap.get(kgId);
+            if(name==null){
+                name = candidateKgService.getNameById(id);
+                nameMap.put(kgId,name);
+            }
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("id",triple.getId());
+            jsonObject.put("head",triple.getHead());
+            jsonObject.put("relation",triple.getRelation());
+            jsonObject.put("tail",triple.getTail());
+            jsonObject.put("time",triple.getTime());
+            jsonObject.put("status",triple.getStatus());
+            jsonObject.put("candidateName",name);
+            jsonList.add(jsonObject);
+        }
         //返回所有三元组
-        return JsonResult.success("success",triples);
+        return JsonResult.success("success",jsonList);
     }
     /**
      * 分页获取所有三元组
@@ -225,16 +249,21 @@ public class TripleController {
     public JsonResult mergeCoreKg(@RequestBody Map<String, Object> info){
         int strategy = Integer.valueOf(String.valueOf(info.get("strategy")));
         List<Map<String, Object>> kg = (List<Map<String, Object>>) info.get("kg");
-        //List<String> ids = (List<String>) info.get("oldKgId");
+        List<Integer> ids = (List<Integer>) info.get("oldKgId");
         //1保留候选图谱
         if(strategy==1) {
             for(int i=0;i<kg.size();i++){
-                if(kg.get(i).get("res").equals("检测不通过")){
+                if(kg.get(i).get("res")!=null&&kg.get(i).get("res").equals("检测不通过")){
                     kg.get(i).put("operation","忽略");
                 }
-                else if(kg.get(i).get("res").equals("检测通过")){
+                else{
                     kg.get(i).put("operation","插入");
                 }
+            }
+            //修改isNew列
+            for(Integer oldId:ids){
+                //修改isNew列
+                candidateKgService.updateKgToOldById((long)oldId);
             }
             if(cacheService.insertNewMergeCache(kg)==1){
                 return JsonResult.success("success");
@@ -429,6 +458,17 @@ public class TripleController {
         return JsonResult.success("success",pageInfo.getList(),pageInfo.getTotal());
     }
     /**
+     * 删除所有缓存记录
+     * @return
+     */
+    @PostMapping("/version/deleteAllCache")
+    @ResponseBody
+    public JsonResult deleteAllCache(){
+        cacheService.deleteAll();
+        //第一个是结果列表，第二个是总数
+        return JsonResult.success("success");
+    }
+    /**
      * 同步所有未同步的version
      * @return
      */
@@ -461,5 +501,54 @@ public class TripleController {
         map.put("childKg",childKg);
         //第一个是结果列表，第二个是总数
         return JsonResult.success("success",map);
+    }
+    /**
+     * 非结构数据抽取-结果保存
+     * 将抽取结果保存到候选三元组数据库
+     * @param info
+     * @return
+     */
+    @PostMapping("/candidate/saveExtraction")
+    @ResponseBody
+    public JsonResult saveExtractionResult(@RequestBody Map<String, Object> info){
+        List<Map<String, Object>> extractResult = (List<Map<String, Object>>) info.get("data");
+        List<String> idList = (List<String>) info.get("ids");
+        List<CandidateTriple> candidateTripleList = new ArrayList<>();
+        //如果没有抽取结果，直接修状态即可
+        if(extractResult.size()==0){
+            untructuredTextService.updateUnstructuredTextStatusById(idList);
+            return JsonResult.success("success");
+        }
+        for(int i=0;i<extractResult.size();i++){
+            CandidateTriple candidateTriple = new CandidateTriple();
+            candidateTriple.setHead((String) extractResult.get(i).get("head"));
+            candidateTriple.setHeadCategory((String) extractResult.get(i).get("head_typ"));
+            candidateTriple.setRelation((String) extractResult.get(i).get("rel"));
+            candidateTriple.setTail((String) extractResult.get(i).get("tail"));
+            candidateTriple.setTailCategory((String) extractResult.get(i).get("tail_typ"));
+            candidateTriple.setTime(new Date());
+            candidateTriple.setStatus("未入库");
+            candidateTriple.setSource("文本抽取");
+            candidateTripleList.add(candidateTriple);
+        }
+        if(candidateTripleService.insertNewCandidateTriplesBatch(candidateTripleList)==1){
+            int maxRetryTimes = 4;
+            //重试4次
+            for (int retry = 1; retry <= maxRetryTimes; retry++) {
+                try {
+                    untructuredTextService.updateUnstructuredTextStatusById(idList);
+                    return JsonResult.success("success");
+                } catch(MongoSocketReadException e){
+                    System.out.println("出错,将在1秒后重试");
+                }
+                // 延时一秒
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return JsonResult.error("failure");
     }
 }

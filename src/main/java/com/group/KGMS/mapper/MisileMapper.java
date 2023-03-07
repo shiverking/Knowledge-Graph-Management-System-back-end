@@ -11,9 +11,14 @@ import java.util.List;
 @Repository
 public interface MisileMapper {
     T_misile findById(int id);
+
     List<T_misile> findAllMisile();
+
     List<T_misile> search(RuleForm ruleForm);
+
     int save(T_misile misile);
+
     int update(T_misile misile);
+
     int delete(int id);
 }

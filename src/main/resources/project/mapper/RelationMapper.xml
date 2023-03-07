@@ -19,4 +19,8 @@
             name = #{name}
         </where>
     </select>
+    <select id="selectRelationIntangibly" resultType="java.lang.String">
+        select relation from core_kg
+        <where> relation like concat('%',#{restrict},'%') </where>
+    </select>
 </mapper>

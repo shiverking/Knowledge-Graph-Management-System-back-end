@@ -2,6 +2,7 @@ package com.group.KGMS.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.group.KGMS.entity.CandidateKG;
+import com.group.KGMS.entity.CandidateKGInfo;
 import com.group.KGMS.entity.CandidateTriple;
 import com.group.KGMS.service.CandidateKgService;
 import com.group.KGMS.service.CandidateTripleService;
@@ -60,7 +61,8 @@ public class CandidateKGController {
         Date create_time = new Date();
         Date change_time = new Date();
         String name = (String) info.get("name");
-        String creator = "-";
+        //等着这获取当前用户名并更换即可
+        String creator = "admin";
         if(info.get("creator")!=null){
             creator =  (String)info.get("creator");
         }
@@ -109,5 +111,33 @@ public class CandidateKGController {
         }
         //更新失败
         return JsonResult.success("failure");
+    }
+    /**
+     * 根据id删除某个候选图谱
+     * @param info
+     * @return
+     */
+    @PostMapping("/candidateKg/deleteKg")
+    @ResponseBody
+    public JsonResult deleteCandidateKGById(@RequestBody Map<String, Object> info){
+        Long id = Long.parseLong(String.valueOf(info.get("id")));
+        if(candidateKgService.deleteKgById(id)==1){
+            //删除成功
+            return JsonResult.success("success");
+        }
+        //删除失败
+        return JsonResult.success("failure");
+    }
+    /**
+     * 根据idc查找某个图谱的INFO
+     * @param info
+     * @return
+     */
+    @PostMapping("/candidateKg/info")
+    @ResponseBody
+    public JsonResult getCandidateKGInfoById(@RequestBody Map<String, Object> info){
+        Long id = Long.parseLong(String.valueOf(info.get("id")));
+        CandidateKGInfo kgInfo = candidateKgService.getCandiateKGInfo(id);
+        return JsonResult.success("success",kgInfo);
     }
 }

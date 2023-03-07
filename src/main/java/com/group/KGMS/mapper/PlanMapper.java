@@ -11,10 +11,16 @@ import java.util.List;
 @Repository
 public interface PlanMapper {
     T_plan findById(int id);
+
     List<T_plan> findAllPlan();
+
     List<T_plan> search(RuleForm ruleForm);
+
     int save(T_plan plan);
+
     int update(T_plan plan);
+
     int delete(int id);
+
     int maxid();
 }
