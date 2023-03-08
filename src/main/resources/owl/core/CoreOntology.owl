@@ -1,11 +1,10 @@
 <?xml version="1.0"?>
 <!DOCTYPE rdf:RDF [
-  <!ENTITY here 'http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#'>
-  <!ENTITY owl 'http://www.w3.org/2002/07/owl#'>
-  <!ENTITY rdf 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
   <!ENTITY xsd 'http://www.w3.org/2001/XMLSchema#'>
   <!ENTITY this 'http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#'>
-  <!ENTITY rdfs 'http://www.w3.org/2000/01/rdf-schema#'>]>
+  <!ENTITY rdfs 'http://www.w3.org/2000/01/rdf-schema#'>
+  <!ENTITY owl 'http://www.w3.org/2002/07/owl#'>
+  <!ENTITY rdf 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'>]>
 <rdf:RDF
     xmlns:this="&this;"
     xmlns:rdf="&rdf;"
@@ -24,12 +23,8 @@
   <owl:Class rdf:about="&this;a_a">
     <rdfs:subClassOf rdf:resource="&this;a"/>
   </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#a_b_b"/>
   <owl:Class rdf:about="&this;a_a_b">
     <rdfs:subClassOf rdf:resource="&this;a_a"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;a_b_a">
-    <rdfs:subClassOf rdf:resource="&this;a_b"/>
   </owl:Class>
   <owl:Class rdf:about="&this;a_a_a">
     <rdfs:subClassOf rdf:resource="&this;a_a"/>
@@ -37,22 +32,17 @@
   <owl:Class rdf:about="&this;a_c_a">
     <rdfs:subClassOf rdf:resource="&this;a_c"/>
   </owl:Class>
-  <owl:Class rdf:about="&this;a_b_c">
-    <rdfs:subClassOf rdf:resource="&this;a_b"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;a_b_b">
-    <rdfs:subClassOf rdf:resource="&this;a_b"/>
-  </owl:Class>
   <owl:ObjectProperty rdf:about="&this;r_c">
-    <rdfs:range rdf:resource="&this;a_c_a"/>
     <rdfs:domain rdf:resource="&this;a_c"/>
+    <rdfs:range rdf:resource="&this;a_c_a"/>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="&this;r_b">
-    <rdfs:range rdf:resource="&this;a_b_c"/>
-    <rdfs:domain rdf:resource="&this;a_b_a"/>
+  <owl:ObjectProperty rdf:about="&this;r_b"/>
+  <owl:ObjectProperty rdf:about="&this;r_d">
+    <rdfs:range rdf:resource="&this;a_c"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="&this;r_a">
-    <rdfs:range rdf:resource="&this;a_a_b"/>
     <rdfs:domain rdf:resource="&this;a_a_a"/>
+    <rdfs:domain rdf:resource="&this;a_c"/>
+    <rdfs:range rdf:resource="&this;a_a_b"/>
   </owl:ObjectProperty>
 </rdf:RDF>

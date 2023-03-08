@@ -35,7 +35,7 @@ public class CandidateOntologyClassServiceTest {
     @Test
     public void testRemove(){
         try {
-            candidateOntologyClassService.remove("类别1的子类", 1);
+            candidateOntologyClassService.remove("类别1的子类的子类1", 1);
         } catch (Exception e) {
             e.printStackTrace();
         }

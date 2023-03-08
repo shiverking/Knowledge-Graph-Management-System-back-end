@@ -43,4 +43,20 @@ public class CandidateOntologyTriple {
 
     @TableField("belong_candidate_id")
     private Integer belongCandidateOntologyId;
+
+    public CandidateOntologyTriple(Integer headClassId, String headClass, String relation, Integer tailClassId, String tailClass, Integer belongCandidateOntologyId) {
+        this.headClassId = headClassId;
+        this.headClass = headClass;
+        this.relation = relation;
+        this.tailClassId = tailClassId;
+        this.tailClass = tailClass;
+        this.belongCandidateOntologyId = belongCandidateOntologyId;
+    }
+
+    public CandidateOntologyTriple(String headClass, String relation, String tailClass, Integer belongCandidateOntologyId) {
+        this.headClass = headClass;
+        this.relation = relation;
+        this.tailClass = tailClass;
+        this.belongCandidateOntologyId = belongCandidateOntologyId;
+    }
 }

@@ -40,7 +40,8 @@ public class CandidateOntologyClassServiceImpl extends ServiceImpl<CandidateOnto
         CandidateOntologyClass newClass = new CandidateOntologyClass(className, parentId, belongCandidateId);
         //判断新增加的类是否已存在，存在的话就抛出异常
         QueryWrapper<CandidateOntologyClass> classQueryWrapper = new QueryWrapper<>();
-        classQueryWrapper.eq("class_name", newClass.getName());
+        classQueryWrapper.eq("class_name", newClass.getName())
+                .eq("belong_candidate_id", belongCandidateId);
         if(candidateOntologyClassMapper.exists(classQueryWrapper)){
             throw new RuntimeException("这个类已存在，不可以增加");
         }
@@ -59,14 +60,6 @@ public class CandidateOntologyClassServiceImpl extends ServiceImpl<CandidateOnto
         return result > 0;
     }
 
-//    @Override
-//    public boolean update(Integer id, String newName, Integer parentId, Integer belongCandidateId) {
-//        CandidateOntologyClass newClass = new CandidateOntologyClass(id, newName, parentId, belongCandidateId);
-//        int result = candidateOntologyClassMapper.updateById(newClass);
-//        return result > 0;
-//    }
-
-
     @Override
     public void remove(String className, Integer belongCandidateId) throws Exception {
         //根据传入的类别名称在数据库中查询出对应的这个类的记录
@@ -84,11 +77,16 @@ public class CandidateOntologyClassServiceImpl extends ServiceImpl<CandidateOnto
         }
         //没有子类就在数据库和OWL文件中进行删除
         candidateOntologyClassMapper.deleteById(delClass);
-        //当删除这个类的时候，以这个类为首或者尾的关系也应当删除
         LambdaQueryWrapper<CandidateOntologyTriple> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(CandidateOntologyTriple::getHeadClass, delClass.getName())
                 .or()
                 .eq(CandidateOntologyTriple::getTailClass, delClass.getName());
+        lambdaQueryWrapper.eq(CandidateOntologyTriple::getBelongCandidateOntologyId, belongCandidateId);
+        List<CandidateOntologyTriple> delList = candidateOntologyTripleMapper.selectList(lambdaQueryWrapper);
+        //根据到的要删除的列表逐个循环，在OWL文件中找到对应的关系，文件中关系不能删除，但是可以移除关系中的domain和range
+        for(CandidateOntologyTriple triple : delList){
+            OWLUtil.removeRelationDomainAndRange(ontModel, triple.getRelation(), ontClass);
+        }
         candidateOntologyTripleMapper.delete(lambdaQueryWrapper);
         OWLUtil.removeClass(ontModel, className);
     }

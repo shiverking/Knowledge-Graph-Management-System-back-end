@@ -43,6 +43,7 @@ public class CandidateOntologyController {
      **/
     @PostMapping("/getAllCandidateOntology")
     public JsonResult getCandidateOntologies(@RequestParam("page") Integer page, @RequestParam("limit") Integer limit){
+        System.out.println("分页获取候选本体接收");
         PageInfo<CandidateOntology> allCandidateOntologyByPage = candidateOntologyService.getAllCandidateOntologyByPage(page, limit);
         //第一个是结果列表，第二个是总数
         return JsonResult.success("success",allCandidateOntologyByPage.getList(),allCandidateOntologyByPage.getTotal());
@@ -129,6 +130,43 @@ public class CandidateOntologyController {
     public JsonResult getGraphEdge(@PathVariable("candidateOntologyId") Integer candidateOntologyId){
         List<CandidateOntologyTriple> relationList = candidateOntologyTripleService.getAllRelationByCandidateOntologyId(candidateOntologyId);
         return JsonResult.success("success", relationList);
+    }
+
+    /*
+     * @Description: 向某个候选本体的两个类中间添加关系
+     * @Author: zt
+     * @Date: 2023/3/7 13:57
+     * @param: [newRelation]
+     * @return: com.group.KGMS.utils.JsonResult
+     **/
+    @PostMapping("/addRelation")
+    public JsonResult addRelation(@RequestBody CandidateOntologyTriple newRelation){
+        try {
+            candidateOntologyTripleService.saveRelation(newRelation.getHeadClass(), newRelation.getRelation(), newRelation.getTailClass(), newRelation.getBelongCandidateOntologyId());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return JsonResult.error("添加关系失败，请联系管理员");
+        }
+        return JsonResult.success("success");
+    }
+
+    /*
+     * @Description: 删除某个候选本体中的某条关系
+     * @Author: zt
+     * @Date: 2023/3/8 12:05
+     * @param: [candidateOntologyTriple]
+     * @return: com.group.KGMS.utils.JsonResult
+     **/
+    @PostMapping("/deleteRelation")
+    public JsonResult deleteRelation(@RequestBody CandidateOntologyTriple candidateOntologyTriple){
+        try {
+            candidateOntologyTripleService.removeRelation(candidateOntologyTriple.getHeadClassId(), candidateOntologyTriple.getTailClassId(),
+                    candidateOntologyTriple.getRelation(), candidateOntologyTriple.getBelongCandidateOntologyId());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return JsonResult.error("删除关系失败，请联系管理员");
+        }
+        return JsonResult.error("success");
     }
 
 }

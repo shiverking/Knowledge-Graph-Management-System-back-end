@@ -3,7 +3,6 @@ package com.group.KGMS.utils;
 import org.apache.jena.ontology.*;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.RDFWriter;
-import org.apache.jena.vocabulary.OWL;
 import org.springframework.stereotype.Component;
 
 import java.io.FileOutputStream;
@@ -18,7 +17,7 @@ import java.io.IOException;
  */
 
 @Component
-public class OWLUtil {
+public class CoreOWLUtil {
 
     /*
      * @Description: 返回OWL文件的资源开头名
@@ -28,7 +27,7 @@ public class OWLUtil {
      * @return: java.lang.String
      **/
     public static String getSourceName(){
-        return "http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb";
+        return "http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore";
     }
 
     /*
@@ -39,7 +38,7 @@ public class OWLUtil {
      * @return: java.lang.String
      **/
     public static String getNameSpace(){
-        return  OWLUtil.getSourceName() + "#";
+        return  CoreOWLUtil.getSourceName() + "#";
     }
 
     /*
@@ -51,7 +50,7 @@ public class OWLUtil {
      **/
     public static void ontModel2Owl(OntModel ontModel) throws IOException {
         //输出owl文件到文件系统
-        String filepath = "src/main/resources/owl/fkfddb.owl";
+        String filepath = "src/main/resources/owl/core/CoreOntology.owl";
         FileOutputStream fileOS = new FileOutputStream(filepath);
 //        RDFWriter rdfWriter = baseOnt.getWriter("RDF/XML");
         RDFWriter rdfWriter = ontModel.getWriter("RDF/XML");
@@ -72,10 +71,10 @@ public class OWLUtil {
      **/
     public static OntModel owl2OntModel(){
         //设置本体的命名空间
-        String SOURCE = OWLUtil.getSourceName();
+        String SOURCE = CoreOWLUtil.getSourceName();
         OntDocumentManager ontDocMgr = new OntDocumentManager();
         //设置本体owl文件的位置
-        ontDocMgr.addAltEntry(SOURCE, "file:src/main/resources/owl/fkfddb.owl");
+        ontDocMgr.addAltEntry(SOURCE, "file:src/main/resources/owl/core/CoreOntology.owl");
         OntModelSpec ontModelSpec = new OntModelSpec(OntModelSpec.OWL_MEM);
         ontModelSpec.setDocumentManager(ontDocMgr);
         // asserted ontology
@@ -92,9 +91,9 @@ public class OWLUtil {
      * @return: org.apache.jena.ontology.OntClass
      **/
     public static OntClass createClass(OntModel ontModel, String className) throws IOException {
-        String nameSpace = OWLUtil.getNameSpace();
+        String nameSpace = CoreOWLUtil.getNameSpace();
         OntClass newClass = ontModel.createClass(nameSpace + className);
-        OWLUtil.ontModel2Owl(ontModel);
+        CoreOWLUtil.ontModel2Owl(ontModel);
         return newClass;
     }
 
@@ -107,7 +106,7 @@ public class OWLUtil {
      **/
     public static void addSubClass(OntModel ontModel, OntClass fatherClass, OntClass sonClass) throws IOException {
         fatherClass.addSubClass(sonClass);
-        OWLUtil.ontModel2Owl(ontModel);
+        CoreOWLUtil.ontModel2Owl(ontModel);
     }
 
     /*
@@ -118,11 +117,11 @@ public class OWLUtil {
      * @return: org.apache.jena.ontology.ObjectProperty
      **/
     public static ObjectProperty addRelation(OntModel ontModel, OntClass sourceClass, OntClass targetClass, String relationName) throws IOException {
-        String nameSpace = OWLUtil.getNameSpace();
+        String nameSpace = CoreOWLUtil.getNameSpace();
         ObjectProperty newRelation = ontModel.createObjectProperty(nameSpace + relationName);
         newRelation.addDomain(sourceClass);
         newRelation.addRange(targetClass);
-        OWLUtil.ontModel2Owl(ontModel);
+        CoreOWLUtil.ontModel2Owl(ontModel);
         return newRelation;
     }
 
@@ -134,10 +133,10 @@ public class OWLUtil {
      * @return: org.apache.jena.ontology.DatatypeProperty
      **/
     public DatatypeProperty addProperty(OntModel ontModel, OntClass ontClass, String propertyName) throws IOException {
-        String nameSpace = OWLUtil.getNameSpace();
+        String nameSpace = CoreOWLUtil.getNameSpace();
         DatatypeProperty newProperty = ontModel.createDatatypeProperty(nameSpace + propertyName);
         newProperty.addDomain(ontClass);
-        OWLUtil.ontModel2Owl(ontModel);
+        CoreOWLUtil.ontModel2Owl(ontModel);
         return newProperty;
     }
 
@@ -149,9 +148,9 @@ public class OWLUtil {
      * @return: void
      **/
     public static void removeClass(OntModel ontModel, String classname) throws Exception {
-        OntClass ontClass = OWLUtil.createClass(ontModel, classname);
+        OntClass ontClass = CoreOWLUtil.createClass(ontModel, classname);
         ontClass.remove();
-        OWLUtil.ontModel2Owl(ontModel);
+        CoreOWLUtil.ontModel2Owl(ontModel);
     }
 
     /*
@@ -162,7 +161,7 @@ public class OWLUtil {
      * @return: void
      **/
     public static void removeRelationDomainAndRange(OntModel ontModel, String propertyName, OntClass ontClass) throws IOException {
-        String nameSpace =OWLUtil.getNameSpace();
+        String nameSpace = CoreOWLUtil.getNameSpace();
         ObjectProperty relation = ontModel.createObjectProperty(nameSpace + propertyName);
         //只要这个类是这个关系的range或者domain，就进行删除
         if(relation.hasDomain(ontClass)){
@@ -171,11 +170,11 @@ public class OWLUtil {
         if(relation.hasRange(ontClass)){
             relation.removeRange(ontClass);
         }
-        OWLUtil.ontModel2Owl(ontModel);
+        CoreOWLUtil.ontModel2Owl(ontModel);
     }
 
     public static void removeRelation(OntModel ontModel, String propertyName, OntClass domain, OntClass range) throws IOException {
-        String nameSpace = OWLUtil.getNameSpace();
+        String nameSpace = CoreOWLUtil.getNameSpace();
         ObjectProperty relation = ontModel.createObjectProperty(nameSpace + propertyName);
         if(relation.hasDomain(domain)){
             relation.removeDomain(domain);
@@ -183,7 +182,7 @@ public class OWLUtil {
         if(relation.hasRange(range)){
             relation.removeRange(range);
         }
-        OWLUtil.ontModel2Owl(ontModel);
+        CoreOWLUtil.ontModel2Owl(ontModel);
     }
 
 }
