@@ -12,4 +12,5 @@ public interface CrawlerService {
     List<T_crawler> findByName(String name);
 
     Map<String, Long> statistic();
+    List<T_crawler> ceshi();
 }
