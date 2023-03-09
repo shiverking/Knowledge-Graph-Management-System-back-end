@@ -52,13 +52,13 @@ public class CoreOntologyTripleServiceImpl extends ServiceImpl<CoreOntologyTripl
         CoreOWLUtil.addRelation(ontModel, headClass, tailClass, relationName);
         //需要根据传过来的id查找到对应的类的对象
         LambdaQueryWrapper<CoreOntologyClass> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        lambdaQueryWrapper.eq(CoreOntologyClass::getClassName, headClassName);
+        lambdaQueryWrapper.eq(CoreOntologyClass::getName, headClassName);
         CoreOntologyClass head = coreOntologyClassMapper.selectOne(lambdaQueryWrapper);
         LambdaQueryWrapper<CoreOntologyClass> lqw = new LambdaQueryWrapper<>();
-        lqw.eq(CoreOntologyClass::getClassName, tailClassName);
+        lqw.eq(CoreOntologyClass::getName, tailClassName);
         CoreOntologyClass tail = coreOntologyClassMapper.selectOne(lqw);
-        CoreOntologyTriple newRelation = new CoreOntologyTriple(head.getId(), head.getClassName(),
-                relationName, tail.getId(), tail.getClassName());
+        CoreOntologyTriple newRelation = new CoreOntologyTriple(head.getId(), head.getName(),
+                relationName, tail.getId(), tail.getName());
         coreOntologyTripleMapper.insert(newRelation);
     }
 
@@ -75,8 +75,8 @@ public class CoreOntologyTripleServiceImpl extends ServiceImpl<CoreOntologyTripl
         CoreOntologyClass headClass = coreOntologyClassMapper.selectById(headClassId);
         CoreOntologyClass tailClass = coreOntologyClassMapper.selectById(tailClassId);
         //在OWL文件中删除掉想要删除的关系的头类和尾类，因为OWL文件中关系不能移除
-        OntClass domain = CoreOWLUtil.createClass(ontModel, headClass.getClassName());
-        OntClass range = CoreOWLUtil.createClass(ontModel, tailClass.getClassName());
+        OntClass domain = CoreOWLUtil.createClass(ontModel, headClass.getName());
+        OntClass range = CoreOWLUtil.createClass(ontModel, tailClass.getName());
         CoreOWLUtil.removeRelation(ontModel, relationName, domain, range);
     }
 

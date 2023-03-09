@@ -42,10 +42,17 @@ public class CoreOntologyController {
     @GetMapping("/getTreeData")
     public JsonResult getTreeData(){
         CoreOntologyClass rootClass = coreOntologyClassService.getRootClass();
-        String treeJson = JSONObject.toJSONString(rootClass);
-        System.out.println("treeJson = " + treeJson);
-        return JsonResult.success("success", treeJson);
+//        String treeJson = JSONObject.toJSONString(rootClass);
+//        System.out.println("treeJson = " + treeJson);
+        return JsonResult.success("success", rootClass);
     }
+
+//    @GetMapping("/getTreeData")
+//    public JsonResult getTreeData(){
+//        List<CoreOntologyClass> classList = coreOntologyClassService.list();
+//        String json = JSONObject.toJSONString(classList);
+//        return JsonResult.success("success", classList);
+//    }
 
     /*
      * @Description: 向核心本体中添加新的类
@@ -58,7 +65,7 @@ public class CoreOntologyController {
     public JsonResult addClass(@RequestBody CoreOntologyClass newClass){
         System.out.println("newClass = " + newClass);
         try {
-            coreOntologyClassService.save(newClass.getClassName(), newClass.getParentId());
+            coreOntologyClassService.save(newClass.getName(), newClass.getParentId());
         } catch (Exception e) {
             e.printStackTrace();
             return JsonResult.error("添加失败");
@@ -76,7 +83,7 @@ public class CoreOntologyController {
     @DeleteMapping("/deleteClass")
     public JsonResult deleteClass(@RequestBody CoreOntologyClass coreOntologyClass){
         try {
-            coreOntologyClassService.remove(coreOntologyClass.getClassName());
+            coreOntologyClassService.remove(coreOntologyClass.getName());
         } catch (Exception e) {
             e.printStackTrace();
             return JsonResult.error("删除失败，这个类有子类");
@@ -147,4 +154,16 @@ public class CoreOntologyController {
         return JsonResult.success("success");
     }
 
+    @PutMapping("/mergeOntology")
+    public JsonResult mergeOntology(@RequestParam("beMergedClassId") Integer beMergedClassId,
+                                    @RequestParam("candidateOntologyId") Integer candidateOntologyId,
+                                    @RequestParam("coreOntologyClassId") Integer coreOntologyClassId){
+        try {
+            coreOntologyClassService.merge(beMergedClassId, candidateOntologyId, coreOntologyClassId);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return JsonResult.error("融合失败");
+        }
+        return JsonResult.success("success");
+    }
 }

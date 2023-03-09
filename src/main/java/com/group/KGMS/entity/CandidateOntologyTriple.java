@@ -27,36 +27,36 @@ public class CandidateOntologyTriple {
     private Integer headClassId;
 
     @TableField("head_class_name")
-    private String headClass;
+    private String headClassName;
 
     @TableField("relation_id")
     private Integer relationId;
 
     @TableField("relation_name")
-    private String relation;
+    private String relationName;
 
     @TableField("tail_class_id")
     private Integer tailClassId;
 
     @TableField("tail_class_name")
-    private String tailClass;
+    private String tailClassName;
 
     @TableField("belong_candidate_id")
     private Integer belongCandidateOntologyId;
 
-    public CandidateOntologyTriple(Integer headClassId, String headClass, String relation, Integer tailClassId, String tailClass, Integer belongCandidateOntologyId) {
+    public CandidateOntologyTriple(Integer headClassId, String headClassName, String relationName, Integer tailClassId, String tailClassName, Integer belongCandidateOntologyId) {
         this.headClassId = headClassId;
-        this.headClass = headClass;
-        this.relation = relation;
+        this.headClassName = headClassName;
+        this.relationName = relationName;
         this.tailClassId = tailClassId;
-        this.tailClass = tailClass;
+        this.tailClassName = tailClassName;
         this.belongCandidateOntologyId = belongCandidateOntologyId;
     }
 
-    public CandidateOntologyTriple(String headClass, String relation, String tailClass, Integer belongCandidateOntologyId) {
-        this.headClass = headClass;
-        this.relation = relation;
-        this.tailClass = tailClass;
+    public CandidateOntologyTriple(String headClassName, String relationName, String tailClassName, Integer belongCandidateOntologyId) {
+        this.headClassName = headClassName;
+        this.relationName = relationName;
+        this.tailClassName = tailClassName;
         this.belongCandidateOntologyId = belongCandidateOntologyId;
     }
 }

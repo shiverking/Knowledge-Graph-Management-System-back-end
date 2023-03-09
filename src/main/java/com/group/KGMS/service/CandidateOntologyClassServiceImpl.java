@@ -78,14 +78,14 @@ public class CandidateOntologyClassServiceImpl extends ServiceImpl<CandidateOnto
         //没有子类就在数据库和OWL文件中进行删除
         candidateOntologyClassMapper.deleteById(delClass);
         LambdaQueryWrapper<CandidateOntologyTriple> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        lambdaQueryWrapper.eq(CandidateOntologyTriple::getHeadClass, delClass.getName())
+        lambdaQueryWrapper.eq(CandidateOntologyTriple::getHeadClassName, delClass.getName())
                 .or()
-                .eq(CandidateOntologyTriple::getTailClass, delClass.getName());
+                .eq(CandidateOntologyTriple::getTailClassName, delClass.getName());
         lambdaQueryWrapper.eq(CandidateOntologyTriple::getBelongCandidateOntologyId, belongCandidateId);
         List<CandidateOntologyTriple> delList = candidateOntologyTripleMapper.selectList(lambdaQueryWrapper);
         //根据到的要删除的列表逐个循环，在OWL文件中找到对应的关系，文件中关系不能删除，但是可以移除关系中的domain和range
         for(CandidateOntologyTriple triple : delList){
-            OWLUtil.removeRelationDomainAndRange(ontModel, triple.getRelation(), ontClass);
+            OWLUtil.removeRelationDomainAndRange(ontModel, triple.getRelationName(), ontClass);
         }
         candidateOntologyTripleMapper.delete(lambdaQueryWrapper);
         OWLUtil.removeClass(ontModel, className);

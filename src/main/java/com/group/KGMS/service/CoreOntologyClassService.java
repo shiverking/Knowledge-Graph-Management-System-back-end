@@ -1,9 +1,11 @@
 package com.group.KGMS.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.group.KGMS.entity.CandidateOntologyClass;
 import com.group.KGMS.entity.CoreOntologyClass;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @BelongsProject: Knowledge-Graph-Management-System-back-end
@@ -42,4 +44,7 @@ public interface CoreOntologyClassService extends IService<CoreOntologyClass> {
      **/
     void remove(String className) throws Exception;
 
+    List<CandidateOntologyClass> getBeMergedClass(Integer candidateClassId, Integer candidateOntologyId);
+
+    void merge(Integer beMergedClassId, Integer candidateOntologyId, Integer coreOntologyClassId) throws IOException;
 }

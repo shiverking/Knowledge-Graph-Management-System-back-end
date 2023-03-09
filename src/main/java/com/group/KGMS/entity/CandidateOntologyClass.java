@@ -41,6 +41,7 @@ public class CandidateOntologyClass {
     @TableField(exist = false)
     private List<CandidateOntologyClass> children = new ArrayList<>();
 
+
     public CandidateOntologyClass(String name, Integer parentId) {
         this.name = name;
         this.parentId = parentId;

@@ -37,5 +37,14 @@ public class CoreOntologyClassServiceTest {
         coreOntologyClassService.remove("a_b_a");
     }
 
+    @Test
+    public void testGetBeMergedClass(){
+        coreOntologyClassService.getBeMergedClass(5,1);
+    }
+
+    @Test
+    public void testMerge() throws IOException {
+        coreOntologyClassService.merge(10, 1, 1);
+    }
 
 }

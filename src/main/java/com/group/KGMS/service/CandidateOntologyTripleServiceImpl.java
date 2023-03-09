@@ -46,9 +46,9 @@ public class CandidateOntologyTripleServiceImpl extends ServiceImpl<CandidateOnt
     public void saveRelation(String headClassName, String relation, String tailClassName, Integer candidateOntologyId) throws IOException {
         //判断要添加的关系存不存在，如果已经存在就无法添加
         LambdaQueryWrapper<CandidateOntologyTriple> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(CandidateOntologyTriple::getHeadClass, headClassName)
-                .eq(CandidateOntologyTriple::getRelation, relation)
-                .eq(CandidateOntologyTriple::getTailClass, tailClassName)
+        queryWrapper.eq(CandidateOntologyTriple::getHeadClassName, headClassName)
+                .eq(CandidateOntologyTriple::getRelationName, relation)
+                .eq(CandidateOntologyTriple::getTailClassName, tailClassName)
                 .eq(CandidateOntologyTriple::getBelongCandidateOntologyId, candidateOntologyId);
         if(candidateOntologyTripleMapper.exists(queryWrapper)){
             throw new RuntimeException("这个关系已经存在，不可重复添加");
@@ -78,7 +78,7 @@ public class CandidateOntologyTripleServiceImpl extends ServiceImpl<CandidateOnt
         LambdaQueryWrapper<CandidateOntologyTriple> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(CandidateOntologyTriple::getHeadClassId, headClassId)
                 .eq(CandidateOntologyTriple::getTailClassId, tailClassId)
-                .eq(CandidateOntologyTriple::getRelation, relation)
+                .eq(CandidateOntologyTriple::getRelationName, relation)
                 .eq(CandidateOntologyTriple::getBelongCandidateOntologyId, candidateOntologyId);
         candidateOntologyTripleMapper.delete(lambdaQueryWrapper);
         OntModel ontModel = OWLUtil.owl2OntModel();

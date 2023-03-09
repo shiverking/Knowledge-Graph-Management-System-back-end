@@ -60,9 +60,9 @@ public class CandidateOntologyController {
     public JsonResult getClassByCandidateOntologyId(@RequestParam("candidateOntologyId") Integer candidateOntologyId){
         System.out.println(candidateOntologyId);
         CandidateOntologyClass rootClass = candidateOntologyClassService.getRootClassByCandidateOntologyId(candidateOntologyId);
-        String treeJson = JSONObject.toJSONString(rootClass);
-        System.out.println(treeJson);
-        return JsonResult.success("success",treeJson);
+//        String treeJson = JSONObject.toJSONString(rootClass);
+//        System.out.println(treeJson);
+        return JsonResult.success("success",rootClass);
     }
 
     /*
@@ -142,7 +142,7 @@ public class CandidateOntologyController {
     @PostMapping("/addRelation")
     public JsonResult addRelation(@RequestBody CandidateOntologyTriple newRelation){
         try {
-            candidateOntologyTripleService.saveRelation(newRelation.getHeadClass(), newRelation.getRelation(), newRelation.getTailClass(), newRelation.getBelongCandidateOntologyId());
+            candidateOntologyTripleService.saveRelation(newRelation.getHeadClassName(), newRelation.getRelationName(), newRelation.getTailClassName(), newRelation.getBelongCandidateOntologyId());
         } catch (Exception e) {
             e.printStackTrace();
             return JsonResult.error("添加关系失败，请联系管理员");
@@ -161,12 +161,12 @@ public class CandidateOntologyController {
     public JsonResult deleteRelation(@RequestBody CandidateOntologyTriple candidateOntologyTriple){
         try {
             candidateOntologyTripleService.removeRelation(candidateOntologyTriple.getHeadClassId(), candidateOntologyTriple.getTailClassId(),
-                    candidateOntologyTriple.getRelation(), candidateOntologyTriple.getBelongCandidateOntologyId());
+                    candidateOntologyTriple.getRelationName(), candidateOntologyTriple.getBelongCandidateOntologyId());
         } catch (IOException e) {
             e.printStackTrace();
             return JsonResult.error("删除关系失败，请联系管理员");
         }
-        return JsonResult.error("success");
+        return JsonResult.success("success");
     }
 
 }

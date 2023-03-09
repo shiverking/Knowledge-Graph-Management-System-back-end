@@ -12,9 +12,32 @@
     xmlns:rdfs="&rdfs;"
     xmlns:xsd="&xsd;">
   <owl:Ontology rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore"/>
-  <owl:Class rdf:about="&this;a_c">
+  <owl:Class rdf:about="&this;a_d_b">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="&this;a_d"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="&this;a_d">
     <rdfs:subClassOf>
       <owl:Class rdf:about="&this;a"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#999">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="&this;a_b"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="&this;a_c">
+    <rdfs:subClassOf rdf:resource="&this;a"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#1212">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="&this;a_a"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#234234">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="&this;a_a_a"/>
     </rdfs:subClassOf>
   </owl:Class>
   <owl:Class rdf:about="&this;a_b">
@@ -23,7 +46,18 @@
   <owl:Class rdf:about="&this;a_a">
     <rdfs:subClassOf rdf:resource="&this;a"/>
   </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#123">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="&this;a_a_a"/>
+    </rdfs:subClassOf>
+  </owl:Class>
   <owl:Class rdf:about="&this;a_a_b">
+    <rdfs:subClassOf rdf:resource="&this;a_a"/>
+  </owl:Class>
+  <owl:Class rdf:about="&this;a_b_a">
+    <rdfs:subClassOf rdf:resource="&this;a_b"/>
+  </owl:Class>
+  <owl:Class rdf:about="&this;测试...">
     <rdfs:subClassOf rdf:resource="&this;a_a"/>
   </owl:Class>
   <owl:Class rdf:about="&this;a_a_a">
@@ -32,21 +66,27 @@
   <owl:Class rdf:about="&this;a_c_a">
     <rdfs:subClassOf rdf:resource="&this;a_c"/>
   </owl:Class>
+  <owl:Class rdf:about="&this;a_d_a">
+    <rdfs:subClassOf rdf:resource="&this;a_d"/>
+  </owl:Class>
+  <owl:Class rdf:about="&this;a_b_b">
+    <rdfs:subClassOf rdf:resource="&this;a_b"/>
+  </owl:Class>
   <owl:ObjectProperty rdf:about="&this;r_c">
-    <rdfs:range rdf:resource="&this;a_c_a"/>
     <rdfs:domain rdf:resource="&this;a_c"/>
+    <rdfs:range rdf:resource="&this;a_c_a"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="&this;r_b">
-    <rdfs:range rdf:resource="&this;a_b"/>
     <rdfs:domain rdf:resource="&this;a_a"/>
+    <rdfs:range rdf:resource="&this;a_b"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="&this;r_e"/>
   <owl:ObjectProperty rdf:about="&this;r_d">
     <rdfs:range rdf:resource="&this;a_c"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="&this;r_a">
-    <rdfs:range rdf:resource="&this;a_a_b"/>
-    <rdfs:domain rdf:resource="&this;a_c"/>
     <rdfs:domain rdf:resource="&this;a_a_a"/>
+    <rdfs:domain rdf:resource="&this;a_c"/>
+    <rdfs:range rdf:resource="&this;a_a_b"/>
   </owl:ObjectProperty>
 </rdf:RDF>

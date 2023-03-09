@@ -27,7 +27,7 @@ public class CoreOntologyClass {
     private Integer id;
 
     @TableField("class_name")
-    private String className;
+    private String name;
 
     @TableField("parent_id")
     private Integer parentId;
@@ -36,8 +36,8 @@ public class CoreOntologyClass {
     @TableField(exist = false)
     private List<CoreOntologyClass> children = new ArrayList<>();
 
-    public CoreOntologyClass(String className, Integer parentId) {
-        this.className = className;
+    public CoreOntologyClass(String name, Integer parentId) {
+        this.name = name;
         this.parentId = parentId;
     }
 }
