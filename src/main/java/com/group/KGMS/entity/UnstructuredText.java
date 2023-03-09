@@ -10,7 +10,7 @@ import java.util.Date;
 
 /**
  * @author ：闫崇傲
- * @description：非结构化文本mongosb类
+ * @description：非结构化文本mongodb类
  * @date ：2023/3/3 16:26
  */
 @NoArgsConstructor
@@ -34,4 +34,6 @@ public class UnstructuredText {
     private String origin;
     //抽取状态
     private String status;
+    //爬虫cid
+    private String cid;
 }
