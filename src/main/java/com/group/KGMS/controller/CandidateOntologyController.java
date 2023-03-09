@@ -157,7 +157,7 @@ public class CandidateOntologyController {
      * @param: [candidateOntologyTriple]
      * @return: com.group.KGMS.utils.JsonResult
      **/
-    @PostMapping("/deleteRelation")
+    @DeleteMapping("/deleteRelation")
     public JsonResult deleteRelation(@RequestBody CandidateOntologyTriple candidateOntologyTriple){
         try {
             candidateOntologyTripleService.removeRelation(candidateOntologyTriple.getHeadClassId(), candidateOntologyTriple.getTailClassId(),

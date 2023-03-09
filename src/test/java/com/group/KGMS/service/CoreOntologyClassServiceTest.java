@@ -37,4 +37,5 @@ public class CoreOntologyClassServiceTest {
         coreOntologyClassService.remove("a_b_a");
     }
 
+
 }

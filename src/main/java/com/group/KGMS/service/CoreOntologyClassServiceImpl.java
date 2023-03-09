@@ -64,35 +64,7 @@ public class CoreOntologyClassServiceImpl extends ServiceImpl<CoreOntologyClassM
         return result > 0;
     }
 
-    /*
-    *         //根据传入的类别名称在数据库中查询出对应的这个类的记录
-        LambdaQueryWrapper<CandidateOntologyClass> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(CandidateOntologyClass::getName, className)
-                .eq(CandidateOntologyClass::getBelongCandidateId, belongCandidateId);
-        CandidateOntologyClass delClass = candidateOntologyClassMapper.selectOne(wrapper);
-        //读取OWL文件
-        OntModel ontModel = OWLUtil.owl2OntModel();
-        //根据查出来的类别名称创建出来OWL文件中对应的类
-        OntClass ontClass = OWLUtil.createClass(ontModel, delClass.getName());
-        //利用OWL文件判断现在要删除的类是否有子类，有子类就抛出异常，不允许删除
-        if(ontClass.hasSubClass()){
-            throw new RuntimeException("不能删除，这个类有子类");
-        }
-        //没有子类就在数据库和OWL文件中进行删除
-        candidateOntologyClassMapper.deleteById(delClass);
-        LambdaQueryWrapper<CandidateOntologyTriple> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        lambdaQueryWrapper.eq(CandidateOntologyTriple::getHeadClass, delClass.getName())
-                .or()
-                .eq(CandidateOntologyTriple::getTailClass, delClass.getName());
-        lambdaQueryWrapper.eq(CandidateOntologyTriple::getBelongCandidateOntologyId, belongCandidateId);
-        List<CandidateOntologyTriple> delList = candidateOntologyTripleMapper.selectList(lambdaQueryWrapper);
-        //根据到的要删除的列表逐个循环，在OWL文件中找到对应的关系，文件中关系不能删除，但是可以移除关系中的domain和range
-        for(CandidateOntologyTriple triple : delList){
-            OWLUtil.removeRelationDomainAndRange(ontModel, triple.getRelation(), ontClass);
-        }
-        candidateOntologyTripleMapper.delete(lambdaQueryWrapper);
-        OWLUtil.removeClass(ontModel, className);
-        * */
+
     @Override
     public void remove(String className) throws Exception {
         LambdaQueryWrapper<CoreOntologyClass> lambdaQueryWrapper = new LambdaQueryWrapper<>();

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,6 +18,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @TableName("core_onto_object_property")
 public class CoreOntologyTriple {
 
@@ -38,4 +40,11 @@ public class CoreOntologyTriple {
     @TableField("tail_class_name")
     private String tailClassName;
 
+    public CoreOntologyTriple(Integer headClassId, String headClassName, String relationName, Integer tailClassId, String tailClassName) {
+        this.headClassId = headClassId;
+        this.headClassName = headClassName;
+        this.relationName = relationName;
+        this.tailClassId = tailClassId;
+        this.tailClassName = tailClassName;
+    }
 }

@@ -33,6 +33,13 @@ public interface CoreOntologyClassService extends IService<CoreOntologyClass> {
      **/
     boolean save(String className, Integer parentId) throws Exception;
 
+    /*
+     * @Description: 删除某个候选本体中的类
+     * @Author: zt
+     * @Date: 2023/3/9 10:05
+     * @param: [className]
+     * @return: void
+     **/
     void remove(String className) throws Exception;
 
 }

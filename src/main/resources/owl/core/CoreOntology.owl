@@ -33,16 +33,20 @@
     <rdfs:subClassOf rdf:resource="&this;a_c"/>
   </owl:Class>
   <owl:ObjectProperty rdf:about="&this;r_c">
-    <rdfs:domain rdf:resource="&this;a_c"/>
     <rdfs:range rdf:resource="&this;a_c_a"/>
+    <rdfs:domain rdf:resource="&this;a_c"/>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="&this;r_b"/>
+  <owl:ObjectProperty rdf:about="&this;r_b">
+    <rdfs:range rdf:resource="&this;a_b"/>
+    <rdfs:domain rdf:resource="&this;a_a"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="&this;r_e"/>
   <owl:ObjectProperty rdf:about="&this;r_d">
     <rdfs:range rdf:resource="&this;a_c"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="&this;r_a">
-    <rdfs:domain rdf:resource="&this;a_a_a"/>
-    <rdfs:domain rdf:resource="&this;a_c"/>
     <rdfs:range rdf:resource="&this;a_a_b"/>
+    <rdfs:domain rdf:resource="&this;a_c"/>
+    <rdfs:domain rdf:resource="&this;a_a_a"/>
   </owl:ObjectProperty>
 </rdf:RDF>

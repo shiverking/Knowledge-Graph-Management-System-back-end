@@ -1,58 +1,143 @@
 <?xml version="1.0"?>
-<!DOCTYPE rdf:RDF [
-  <!ENTITY here 'http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#'>
-  <!ENTITY owl 'http://www.w3.org/2002/07/owl#'>
-  <!ENTITY rdf 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
-  <!ENTITY xsd 'http://www.w3.org/2001/XMLSchema#'>
-  <!ENTITY this 'http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#'>
-  <!ENTITY rdfs 'http://www.w3.org/2000/01/rdf-schema#'>]>
-<rdf:RDF
-    xmlns:this="&this;"
-    xmlns:rdf="&rdf;"
-    xmlns:owl="&owl;"
-    xmlns:rdfs="&rdfs;"
-    xmlns:xsd="&xsd;">
-  <owl:Ontology rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore"/>
-  <owl:Class rdf:about="&this;a_c">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;a"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;a_b">
-    <rdfs:subClassOf rdf:resource="&this;a"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;a_a">
-    <rdfs:subClassOf rdf:resource="&this;a"/>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#a_b_b"/>
-  <owl:Class rdf:about="&this;a_a_b">
-    <rdfs:subClassOf rdf:resource="&this;a_a"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;a_b_a">
-    <rdfs:subClassOf rdf:resource="&this;a_b"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;a_a_a">
-    <rdfs:subClassOf rdf:resource="&this;a_a"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;a_c_a">
-    <rdfs:subClassOf rdf:resource="&this;a_c"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;a_b_c">
-    <rdfs:subClassOf rdf:resource="&this;a_b"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;a_b_b">
-    <rdfs:subClassOf rdf:resource="&this;a_b"/>
-  </owl:Class>
-  <owl:ObjectProperty rdf:about="&this;r_c">
-    <rdfs:range rdf:resource="&this;a_c_a"/>
-    <rdfs:domain rdf:resource="&this;a_c"/>
-  </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="&this;r_b">
-    <rdfs:range rdf:resource="&this;a_b_c"/>
-    <rdfs:domain rdf:resource="&this;a_b_a"/>
-  </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="&this;r_a">
-    <rdfs:range rdf:resource="&this;a_a_b"/>
-    <rdfs:domain rdf:resource="&this;a_a_a"/>
-  </owl:ObjectProperty>
+<rdf:RDF xmlns="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#"
+     xml:base="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:this="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#r_a -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#r_a">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#a_a"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#a_b"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#r_b -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#r_b">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#a_b"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#a_d_a"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#r_c -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#r_c">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#a_c"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#a_d"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#a -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#a"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#a_a -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#a_a">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#a"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#a_a_a -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#a_a_a">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#a_a"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#a_b -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#a_b">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#a"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#a_b_a -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#a_b_a">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#a_b"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#a_b_b -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#a_b_b">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#a_b"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#a_c -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#a_c">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#a"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#a_d -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#a_d">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#a"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#a_d_a -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#a_d_a">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#a_d"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#a_d_b -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#a_d_b">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#a_d"/>
+    </owl:Class>
 </rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+
