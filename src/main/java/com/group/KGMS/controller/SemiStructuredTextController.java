@@ -5,20 +5,18 @@ import com.group.KGMS.service.SemistructuredDataService;
 import com.group.KGMS.utils.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
+@RequestMapping("/semistructure")
 public class SemiStructuredTextController {
     @Autowired
     SemistructuredDataService semistructuredDataService;
 
-    @PostMapping("/semistructure/getSemistructuredDataBycid")
-    @ResponseBody
-    public JsonResult getCandidateTriples(@RequestParam("page") Integer page, @RequestParam("limit") Integer limit, @RequestParam("cid") Integer cid){
+    @GetMapping("/getSemistructuredDataBycid/{page}/{limit}/{cid}")
+    public JsonResult getCandidateTriples(@PathVariable("page") Integer page, @PathVariable("limit") Integer limit, @PathVariable("cid") Integer cid){
         return semistructuredDataService.getSemistructuredDataBycid(page,limit,cid);
     }
 

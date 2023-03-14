@@ -15,6 +15,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @Document(collection = "crawl") //指定要对应的文档名（表名）
 public class T_crawler {
+
     private Integer cid;
     private String name;
     private String spider_name;
