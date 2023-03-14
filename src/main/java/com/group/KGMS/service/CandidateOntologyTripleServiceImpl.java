@@ -10,6 +10,6 @@ import org.springframework.stereotype.Service;
  * @Description:
  */
 @Service
-public class CandidateOntologyTripleServiceImpl implements CandidateOntologyTripleService{
+public class CandidateOntologyTripleServiceImpl implements CandidateOntologyTripleService {
 
 }

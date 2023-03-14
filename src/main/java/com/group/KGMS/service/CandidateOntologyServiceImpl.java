@@ -25,7 +25,7 @@ public class CandidateOntologyServiceImpl implements CandidateOntologyService {
 
     @Override
     public PageInfo<CandidateOntology> getAllCandidateOntologyByPage(Integer pageNum, Integer limitNum) {
-        PageHelper.startPage(pageNum,limitNum);
+        PageHelper.startPage(pageNum, limitNum);
         List<CandidateOntology> candidateOntologyList = candidateOntologyMapper.getAllCandidateOntology();
         PageInfo<CandidateOntology> allCandidateOntologyByPage = new PageInfo<>(candidateOntologyList);
         return allCandidateOntologyByPage;

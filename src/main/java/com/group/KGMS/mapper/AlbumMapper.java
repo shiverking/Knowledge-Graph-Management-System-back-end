@@ -12,6 +12,8 @@ import java.util.List;
 @Repository
 public interface AlbumMapper {
     List<Album> findAllAlbum();
+
     int delete(int id);
+
     List<Image> findbyalbumid(int id);
 }

@@ -2,6 +2,7 @@ package com.group.KGMS.controller;
 
 import com.group.KGMS.entity.T_crawler;
 import com.group.KGMS.service.CrawlerService;
+import com.group.KGMS.utils.JsonResult;
 import com.sun.jna.Pointer;
 import com.sun.jna.platform.win32.Kernel32;
 import com.sun.jna.platform.win32.WinNT;
@@ -31,9 +32,10 @@ public class CrawlController {
     @Autowired
     private CrawlerService crawlerService;
 
-    @GetMapping ("/list")
-    public List<T_crawler> findAll() {
-        return crawlerService.findAll();
+
+    @GetMapping ("/list/{page}/{limit}")
+    public JsonResult findAll(@PathVariable("page") Integer page, @PathVariable("limit") Integer limit) {
+        return crawlerService.findAll(page,limit);
     }
 
     @GetMapping ("/list/status/{status}")

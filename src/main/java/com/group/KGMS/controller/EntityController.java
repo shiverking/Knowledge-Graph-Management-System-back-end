@@ -8,8 +8,12 @@ import com.group.KGMS.utils.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class EntityController {
@@ -27,5 +31,17 @@ public class EntityController {
         PageInfo<Entity> pageInfo = entityService.getAllEntityByPage(page,limit);
         //第一个是结果列表，第二个是总数
         return JsonResult.success("success",pageInfo.getList(),pageInfo.getTotal());
+    }
+    /**
+     * 模糊查找所有可能的实体集
+     * @param info
+     * @return
+     */
+    @PostMapping("/entity/getPossibleEntity")
+    @ResponseBody
+    public JsonResult getTriplesFromSameKg(@RequestBody Map<String, Object> info){
+        String restrict = (String)info.get("value");
+        List<String> result = entityService.fuzzyQueryOfEntities(restrict);
+        return JsonResult.success("success",result);
     }
 }

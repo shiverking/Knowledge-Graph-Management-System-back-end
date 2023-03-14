@@ -3,6 +3,7 @@ package com.group.KGMS.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * @作者 杨佳豪
@@ -12,6 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Document(collection = "crawl") //指定要对应的文档名（表名）
 public class T_crawler {
     private Integer cid;
     private String name;

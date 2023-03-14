@@ -1,6 +1,6 @@
 package com.group.KGMS;
 
-import com.group.KGMS.Repository.GraphNodeRepository;
+import com.group.KGMS.repository.GraphNodeRepository;
 import com.group.KGMS.entity.GraphNode;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +10,15 @@ import org.springframework.data.domain.ExampleMatcher;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @SpringBootTest
 public class Neo4jTest {
     @Autowired
     GraphNodeRepository graphNodeRepository;
+    @Test
+    public void testRes(){
+        System.out.println(graphNodeRepository);
+    }
     @Test
     public void testCreate(){
         GraphNode node = new GraphNode();

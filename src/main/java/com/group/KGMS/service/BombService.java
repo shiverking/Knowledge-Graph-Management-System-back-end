@@ -8,9 +8,14 @@ import java.util.List;
 
 public interface BombService {
     T_bomb findById(int id);
+
     PageInfo<T_bomb> findAllBomb(Integer page, Integer size);
+
     PageInfo<T_bomb> search(RuleForm ruleForm);
+
     int save(T_bomb bomb);
+
     int update(T_bomb bomb);
+
     int delete(int id);
 }

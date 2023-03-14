@@ -33,11 +33,9 @@ spring:
       uri: bolt://localhost:7687
       username: neo4j
       password: 123456
-    #mongodb
     mongodb:
       host: 42.192.6.2
       port: 34236
-      #数据库名称
       database: kgms
 mybatis:
   mapper-locations: classpath:project/mapper/*.xml

@@ -1,6 +1,8 @@
 package com.group.KGMS.service;
 
+
 import com.group.KGMS.entity.T_crawler;
+import com.group.KGMS.utils.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -18,10 +20,14 @@ public class CrawlerServiceImpl implements CrawlerService {
     private MongoTemplate mongoTemplate;
 
     @Override
-    public List<T_crawler> findAll() {
+    public JsonResult findAll(Integer pageNum, Integer pageSize) {
         Query query = new Query();
-        query.fields().include("cid").include("name").include("remark").include("status");
-        return mongoTemplate.find(query, T_crawler.class);
+        //设置起始数
+        query.skip((pageNum - 1) * pageSize);
+        //设置查询条数
+        query.limit(pageSize);
+        query.fields().include("cid").include("name").include("remark").include("status").include("cron");
+        return JsonResult.success(mongoTemplate.find(query, T_crawler.class),mongoTemplate.count(query,T_crawler.class));
     }
 
     @Override
