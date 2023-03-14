@@ -38,14 +38,14 @@ public class CrawlController {
         return crawlerService.findAll(page,limit);
     }
 
-    @GetMapping ("/list/status/{status}")
-    public List<T_crawler> findByStatus(@PathVariable("status") Integer status) {
-        return crawlerService.findByStatus(status);
+    @GetMapping ("/list/status={status}/{page}/{limit}")
+    public JsonResult findByStatus(@PathVariable("status") Integer status, @PathVariable("page") Integer page, @PathVariable("limit") Integer limit) {
+        return crawlerService.findByStatus(status, page, limit);
     }
 
-    @GetMapping ("/list/name/{name}")
-    public List<T_crawler> findByName(@PathVariable("name") String name) {
-        return crawlerService.findByName(name);
+    @GetMapping ("/list/name={name}/{page}/{limit}")
+    public JsonResult findByName(@PathVariable("name") String name, @PathVariable("page") Integer page, @PathVariable("limit") Integer limit) {
+        return crawlerService.findByName(name, page, limit);
     }
 
     @GetMapping ("/statistic")

@@ -31,15 +31,25 @@ public class CrawlerServiceImpl implements CrawlerService {
     }
 
     @Override
-    public List<T_crawler> findByStatus(int status) {
+    public JsonResult findByStatus(Integer status, Integer pageNum, Integer pageSize) {
         Query query = new Query(Criteria.where("status").is(status));
-        return mongoTemplate.find(query, T_crawler.class);
+        //设置起始数
+        query.skip((pageNum - 1) * pageSize);
+        //设置查询条数
+        query.limit(pageSize);
+        query.fields().include("cid").include("name").include("remark").include("status").include("cron");
+        return JsonResult.success(mongoTemplate.find(query, T_crawler.class),mongoTemplate.count(query,T_crawler.class));
     }
 
     @Override
-    public List<T_crawler> findByName(String name) {
+    public JsonResult findByName(String name, Integer pageNum, Integer pageSize) {
         Query query = new Query(Criteria.where("name").regex(name));
-        return mongoTemplate.find(query, T_crawler.class);
+        //设置起始数
+        query.skip((pageNum - 1) * pageSize);
+        //设置查询条数
+        query.limit(pageSize);
+        query.fields().include("cid").include("name").include("remark").include("status").include("cron");
+        return JsonResult.success(mongoTemplate.find(query, T_crawler.class),mongoTemplate.count(query,T_crawler.class));
     }
 
     @Override

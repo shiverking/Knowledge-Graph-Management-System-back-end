@@ -10,9 +10,9 @@ public interface CrawlerService {
 
     JsonResult findAll(Integer pageNum, Integer pageSize);
 
-    List<T_crawler> findByStatus(int status);
+    JsonResult findByStatus(Integer status, Integer pageNum, Integer pageSize);
 
-    List<T_crawler> findByName(String name);
+    JsonResult findByName(String name, Integer pageNum, Integer pageSize);
 
     Map<String, Long> statistic();
 
