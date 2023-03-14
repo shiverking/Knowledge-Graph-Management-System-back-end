@@ -3,6 +3,7 @@ package com.group.KGMS.service;
 import com.group.KGMS.entity.UnstructuredText;
 import com.group.KGMS.mapper.UnstructuredTextMapper;
 import com.group.KGMS.repository.UnstructuredTextRepository;
+import com.group.KGMS.utils.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -47,7 +48,25 @@ public class UntructuredTextServiceImpl implements UntructuredTextService {
 //        }
         return mongoTemplate.find(query, UnstructuredText.class);
     }
-
+    @Override
+    public JsonResult getUnstructuredTextByPageandcid(Integer pageNum, Integer pageSize, Integer cid) {
+        //创建查询对象
+        Query query = new Query();
+        //设置起始数
+        query.skip((pageNum - 1) * pageSize);
+        //设置查询条数
+        query.limit(pageSize);
+        if(cid!=null){
+            query.addCriteria(
+                    Criteria.where("cid").is(cid)
+            );
+        }
+        Query query1 = new Query();
+        query1.addCriteria(
+                Criteria.where("cid").is(cid)
+        );
+        return JsonResult.success(mongoTemplate.find(query, UnstructuredText.class),mongoTemplate.count(query1,UnstructuredText.class));
+    }
     @Override
     public Long getSumOfUnstructuredText() {
         return unstructuredTextRepository.count();
