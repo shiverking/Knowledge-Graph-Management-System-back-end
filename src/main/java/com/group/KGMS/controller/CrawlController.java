@@ -1,5 +1,6 @@
 package com.group.KGMS.controller;
 
+import com.group.KGMS.entity.Record;
 import com.group.KGMS.entity.T_crawler;
 import com.group.KGMS.service.CrawlerService;
 import com.group.KGMS.utils.JsonResult;
@@ -21,6 +22,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Field;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -36,7 +39,10 @@ public class CrawlController {
     public JsonResult findAll(@PathVariable("page") Integer page, @PathVariable("limit") Integer limit) {
         return crawlerService.findAll(page,limit);
     }
-
+    @GetMapping ("/findrecordbycid/{page}/{limit}/{cid}")
+    public JsonResult findrecordbycid(@PathVariable("page") Integer page, @PathVariable("limit") Integer limit,@PathVariable("cid") Integer cid) {
+        return crawlerService.findrecordbycid(page,limit,cid);
+    }
     @GetMapping ("/list/status/{status}")
     public List<T_crawler> findByStatus(@PathVariable("status") Integer status) {
         return crawlerService.findByStatus(status);
@@ -52,30 +58,35 @@ public class CrawlController {
         return crawlerService.statistic();
     }
 
-    @GetMapping ("/start")
-    public String start(){
+    @GetMapping ("/start/{cid}")
+    public int start(@PathVariable("cid") Integer cid){
         String result =null;
         String line = "";
+        int re=1;
         try {
-        	/*
-			附加：
-			String[] args1=new String[]{"/home/huan/anaconda2/bin/python","/home/huan/myfile/pythonfile/helloword.py"};
-            Process pr=Runtime.getRuntime().exec(args1);
-			String数组里的那一行很重要
-			首先一定要设置好你所使用的python的位置，切记不要直接使用python，因为系统会默认使用自带的python，所以一定要设置好你所使用的python的位置，否则可能会出现意想不到的问题（比如说我使用的是anaconda中的python，而ubuntu系统会默认调用自带的python，而我自带的python中并没有numpy库，所以会造成相应的代码不会执行的问题，所以设置好python的位置是很重要的）。还有就是要设置好py文件的位置，使用绝对路径。在这里插入代码片
-
-       还有就是可以看出，此方法可以满足我们python代码中调用第三方库的情况，简单实用。
-			*/
+            T_crawler t_crawler = crawlerService.findpathBycid(cid);
+            String path=t_crawler.getPath();
+            String spidername=t_crawler.getSpider_name();
+            crawlerService.setcrawlstatusBycid(cid,1);
+            String id =crawlerService.addrecord(cid);
 //            proc = Runtime.getRuntime().exec("E:\\代码\\DataCleaning\\venv\\Scripts\\python E:\\代码\\DataCleaning\\DataCleaning.py"+" "+aircraft);
-            String[] args1=new String[]{"E:\\Anaconda\\python.exe","E:\\代码\\FKFD\\militory_factory\\militory_factory\\main.py"};
+            String[] args1=new String[]{"E://Anaconda//python.exe","E:\\PycharmProjects\\FKFD专项\\Scenario\\main.py",path,spidername};
             proc = Runtime.getRuntime().exec(args1);
+            re =proc.waitFor();
             BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream()));
             while ((line = in.readLine()) != null) {
-                return line;
+                System.out.println( line);
             }
             in.close();
-            proc.waitFor();
             proc.destroy();
+            if (re==0){
+                crawlerService.setcrawlstatusBycid(cid,0);
+                crawlerService.setrecordstatusBycid(id,0);
+            }
+            else {
+                crawlerService.setcrawlstatusBycid(cid,-1);
+                crawlerService.setrecordstatusBycid(id,-1);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -85,7 +96,7 @@ public class CrawlController {
         catch (Throwable e) {
             e.printStackTrace();
         }
-        return line;
+        return re;
     }
     public static void clearStream(InputStream stream) {
         String line = null;

@@ -1,6 +1,7 @@
 package com.group.KGMS.service;
 
 import com.group.KGMS.entity.UnstructuredText;
+import com.group.KGMS.utils.JsonResult;
 
 import java.util.List;
 
@@ -11,4 +12,6 @@ public interface UntructuredTextService {
     List<UnstructuredText> getUnstructuredTextByPage(Integer pageNum, Integer limitNum);
     //查询所有数据的综述
     Long getSumOfUnstructuredText();
+    //分页获取特定爬虫的非结构化文本
+    JsonResult getUnstructuredTextByPageandcid(Integer pageNum, Integer limitNum, Integer cid);
 }
