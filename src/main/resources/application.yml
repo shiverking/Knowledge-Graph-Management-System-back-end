@@ -37,6 +37,7 @@ spring:
       host: 42.192.6.2
       port: 34236
       database: kgms
+
 mybatis:
   mapper-locations: classpath:project/mapper/*.xml
 server:
