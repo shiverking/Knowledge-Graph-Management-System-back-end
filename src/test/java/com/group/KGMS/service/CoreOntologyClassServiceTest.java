@@ -39,7 +39,7 @@ public class CoreOntologyClassServiceTest {
 
     @Test
     public void testGetBeMergedClass(){
-        coreOntologyClassService.getBeMergedClass(5,1);
+        coreOntologyClassService.getBeMergedClass(12,1);
     }
 
     @Test

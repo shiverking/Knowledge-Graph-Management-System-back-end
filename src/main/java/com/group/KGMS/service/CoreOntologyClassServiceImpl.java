@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -125,14 +126,16 @@ public class CoreOntologyClassServiceImpl extends ServiceImpl<CoreOntologyClassM
         //给list去重
         List<CandidateOntologyClass> beMergedClass = getBeMergedClass(beMergedClassId, candidateOntologyId);
         HashSet<CandidateOntologyClass> beMergedClassSet = new HashSet<>(beMergedClass);
+        List<CandidateOntologyClass> finalClassList = new ArrayList<>(beMergedClassSet);
         OntModel ontModel = CoreOWLUtil.owl2OntModel();
-        while (!beMergedClassSet.isEmpty()){
-            for(CandidateOntologyClass clazz : beMergedClassSet){
+        while (!finalClassList.isEmpty()){
+            for (int i = 0; i < finalClassList.size(); i++) {
+                CandidateOntologyClass clazz = finalClassList.get(i);
                 //如果这个类已存在，就从set集合中弹出
                 LambdaQueryWrapper<CoreOntologyClass> lambdaQueryWrapper = new LambdaQueryWrapper<>();
                 lambdaQueryWrapper.eq(CoreOntologyClass::getName, clazz.getName());
                 if (coreOntologyClassMapper.exists(lambdaQueryWrapper)) {
-                    beMergedClassSet.remove(clazz);
+                    finalClassList.remove(clazz);
                     break;
                 }
                 System.out.println("不存在的clazz = " + clazz.getName());
@@ -144,14 +147,12 @@ public class CoreOntologyClassServiceImpl extends ServiceImpl<CoreOntologyClassM
                     OntClass fatherClass = CoreOWLUtil.createClass(ontModel, coreOntologyClass.getName());
                     OntClass sonClass = CoreOWLUtil.createClass(ontModel, newOntoClass.getName());
                     CoreOWLUtil.addSubClass(ontModel, fatherClass, sonClass);
-                    beMergedClassSet.remove(clazz);
+                    finalClassList.remove(clazz);
                     break;
                 }
                 //非根节点
                 if(clazz.getParentId() != null){
                     CandidateOntologyClass fartherClazz = candidateOntologyClassMapper.selectById(clazz.getParentId());
-                    //有可能这个非根节点的父类不在这个set里
-                    beMergedClassSet.add(fartherClazz);
                     LambdaQueryWrapper<CoreOntologyClass> lqw = new LambdaQueryWrapper<>();
                     lqw.eq(CoreOntologyClass::getName, fartherClazz.getName());
                     if(coreOntologyClassMapper.exists(lqw)){
@@ -161,11 +162,102 @@ public class CoreOntologyClassServiceImpl extends ServiceImpl<CoreOntologyClassM
                         OntClass fatherOntoClass = CoreOWLUtil.createClass(ontModel, fatherCoreClass.getName());
                         OntClass sonOntoClass = CoreOWLUtil.createClass(ontModel, clazz.getName());
                         CoreOWLUtil.addSubClass(ontModel, fatherOntoClass, sonOntoClass);
-                        beMergedClassSet.remove(clazz);
+                        finalClassList.remove(clazz);
                         break;
+                    }else {
+                        //有可能这个非根节点的父类不在这个list里
+                        if(!finalClassList.contains(fartherClazz)){
+                            finalClassList.add(fartherClazz);
+                        }
+                        finalClassList.remove(clazz);
+                        finalClassList.add(clazz);
+                        i--;
                     }
                 }
             }
         }
+
+//        while (!beMergedClassSet.isEmpty()){
+//            Iterator<CandidateOntologyClass> iterator = beMergedClassSet.iterator();
+//            while (iterator.hasNext()){
+//                CandidateOntologyClass clazz = iterator.next();
+//                //如果这个类已存在，就从set集合中弹出
+//                LambdaQueryWrapper<CoreOntologyClass> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+//                lambdaQueryWrapper.eq(CoreOntologyClass::getName, clazz.getName());
+//                if (coreOntologyClassMapper.exists(lambdaQueryWrapper)) {
+//                    iterator.remove();
+//                    break;
+//                }
+//                System.out.println("不存在的clazz = " + clazz.getName());
+//                //根节点
+//                if(clazz.getParentId() == null){
+//                    CoreOntologyClass coreOntologyClass = coreOntologyClassMapper.selectById(coreOntologyClassId);
+//                    CoreOntologyClass newOntoClass = new CoreOntologyClass(clazz.getName(), coreOntologyClassId);
+//                    coreOntologyClassMapper.insert(newOntoClass);
+//                    OntClass fatherClass = CoreOWLUtil.createClass(ontModel, coreOntologyClass.getName());
+//                    OntClass sonClass = CoreOWLUtil.createClass(ontModel, newOntoClass.getName());
+//                    CoreOWLUtil.addSubClass(ontModel, fatherClass, sonClass);
+//                    iterator.remove();
+//                    break;
+//                }
+//                //非根节点
+//                if(clazz.getParentId() != null){
+//                    CandidateOntologyClass fartherClazz = candidateOntologyClassMapper.selectById(clazz.getParentId());
+//                    //有可能这个非根节点的父类不在这个set里
+//                    beMergedClassSet.add(fartherClazz);
+//                    LambdaQueryWrapper<CoreOntologyClass> lqw = new LambdaQueryWrapper<>();
+//                    lqw.eq(CoreOntologyClass::getName, fartherClazz.getName());
+//                    if(coreOntologyClassMapper.exists(lqw)){
+//                        CoreOntologyClass fatherCoreClass = coreOntologyClassMapper.selectOne(lqw);
+//                        CoreOntologyClass newClass = new CoreOntologyClass(clazz.getName(), fatherCoreClass.getId());
+//                        coreOntologyClassMapper.insert(newClass);
+//                        OntClass fatherOntoClass = CoreOWLUtil.createClass(ontModel, fatherCoreClass.getName());
+//                        OntClass sonOntoClass = CoreOWLUtil.createClass(ontModel, clazz.getName());
+//                        CoreOWLUtil.addSubClass(ontModel, fatherOntoClass, sonOntoClass);
+//                        iterator.remove();
+//                        break;
+//                    }
+//                }
+//            }
+////            for(CandidateOntologyClass clazz : beMergedClassSet){
+////                //如果这个类已存在，就从set集合中弹出
+////                LambdaQueryWrapper<CoreOntologyClass> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+////                lambdaQueryWrapper.eq(CoreOntologyClass::getName, clazz.getName());
+////                if (coreOntologyClassMapper.exists(lambdaQueryWrapper)) {
+////                    beMergedClassSet.remove(clazz);
+////                    break;
+////                }
+////                System.out.println("不存在的clazz = " + clazz.getName());
+////                //根节点
+////                if(clazz.getParentId() == null){
+////                    CoreOntologyClass coreOntologyClass = coreOntologyClassMapper.selectById(coreOntologyClassId);
+////                    CoreOntologyClass newOntoClass = new CoreOntologyClass(clazz.getName(), coreOntologyClassId);
+////                    coreOntologyClassMapper.insert(newOntoClass);
+////                    OntClass fatherClass = CoreOWLUtil.createClass(ontModel, coreOntologyClass.getName());
+////                    OntClass sonClass = CoreOWLUtil.createClass(ontModel, newOntoClass.getName());
+////                    CoreOWLUtil.addSubClass(ontModel, fatherClass, sonClass);
+////                    beMergedClassSet.remove(clazz);
+////                    break;
+////                }
+////                //非根节点
+////                if(clazz.getParentId() != null){
+////                    CandidateOntologyClass fartherClazz = candidateOntologyClassMapper.selectById(clazz.getParentId());
+////                    //有可能这个非根节点的父类不在这个set里
+////                    beMergedClassSet.add(fartherClazz);
+////                    LambdaQueryWrapper<CoreOntologyClass> lqw = new LambdaQueryWrapper<>();
+////                    lqw.eq(CoreOntologyClass::getName, fartherClazz.getName());
+////                    if(coreOntologyClassMapper.exists(lqw)){
+////                        CoreOntologyClass fatherCoreClass = coreOntologyClassMapper.selectOne(lqw);
+////                        CoreOntologyClass newClass = new CoreOntologyClass(clazz.getName(), fatherCoreClass.getId());
+////                        coreOntologyClassMapper.insert(newClass);
+////                        OntClass fatherOntoClass = CoreOWLUtil.createClass(ontModel, fatherCoreClass.getName());
+////                        OntClass sonOntoClass = CoreOWLUtil.createClass(ontModel, clazz.getName());
+////                        CoreOWLUtil.addSubClass(ontModel, fatherOntoClass, sonOntoClass);
+////                        beMergedClassSet.remove(clazz);
+////                        break;
+////                    }
+////                }
+////            }
+//        }
     }
 }
