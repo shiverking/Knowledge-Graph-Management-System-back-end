@@ -10,14 +10,17 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+
 @Service
 public class RelationServiceImpl implements RelationService {
     @Autowired
     RelationMapper relationMapper;
     @Resource
     SqlSessionFactory sqlSessionFactory;
+
     /**
      * 判断实体是否已经存在
+     *
      * @param name
      * @return
      */
@@ -28,7 +31,7 @@ public class RelationServiceImpl implements RelationService {
 
     @Override
     public Long insertNewRelation(Relation relation) {
-        if(relationMapper.insertNewRelation(relation)==1){
+        if (relationMapper.insertNewRelation(relation) == 1) {
             return relation.getId();
         }
         return Long.valueOf(-1);
@@ -36,8 +39,13 @@ public class RelationServiceImpl implements RelationService {
 
     @Override
     public PageInfo<Relation> getAllRelationByPage(Integer pageNum, Integer limitNum) {
-        PageHelper.startPage(pageNum,limitNum);
+        PageHelper.startPage(pageNum, limitNum);
         PageInfo<Relation> info = new PageInfo<Relation>(relationMapper.getAllRelation());
         return info;
+    }
+
+    @Override
+    public List<String> fuzzyQueryOfRelations(String restrict) {
+        return relationMapper.selectRelationIntangibly(restrict);
     }
 }

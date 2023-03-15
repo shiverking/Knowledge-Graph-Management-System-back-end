@@ -10,5 +10,6 @@ import java.util.List;
 @Repository
 public interface TaskMapper {
     int save(T_task task);
+
     List<T_task> findByPlanid(int plan_id);
 }

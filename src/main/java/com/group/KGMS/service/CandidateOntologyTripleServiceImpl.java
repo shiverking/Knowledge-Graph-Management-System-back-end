@@ -24,7 +24,6 @@ import java.util.Random;
  * @CreateTime: 2023-03-07  00:31
  * @Description:
  */
-
 @Service
 public class CandidateOntologyTripleServiceImpl extends ServiceImpl<CandidateOntologyTripleMapper, CandidateOntologyTriple> implements CandidateOntologyTripleService{
 

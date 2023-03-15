@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -52,5 +53,10 @@ public class EntityServiceImpl implements EntityService {
     @Override
     public Map<String, Object> selectSpecificCorrelation(Long triple_id) {
         return entityMapper.selectSpecificCorrelation(triple_id);
+    }
+
+    @Override
+    public List<String> fuzzyQueryOfEntities(String restrict) {
+        return entityMapper.selectEntityIntangibly(restrict);
     }
 }

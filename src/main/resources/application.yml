@@ -27,12 +27,22 @@ spring:
       hiddenmethod:
         filter:
           enabled: true
+    #neo4j
+  data:
+    neo4j:
+      uri: bolt://localhost:7687
+      username: neo4j
+      password: 123456
+    mongodb:
+      host: 42.192.6.2
+      port: 34236
+      database: kgms
 
 mybatis:
   mapper-locations: classpath:project/mapper/*.xml
 
 server:
-  port: 8081
+  port: 12345
 #  pagehelper配置
 pagehelper:
   helper-dialect:: mysql

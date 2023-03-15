@@ -13,5 +13,5 @@ import com.group.KGMS.entity.CandidateOntology;
 
 public interface CandidateOntologyService {
     //分页获取所有候选本体
-    PageInfo<CandidateOntology> getAllCandidateOntologyByPage(Integer pageNum,Integer limitNum);
+    PageInfo<CandidateOntology> getAllCandidateOntologyByPage(Integer pageNum, Integer limitNum);
 }

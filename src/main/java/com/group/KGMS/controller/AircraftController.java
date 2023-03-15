@@ -6,14 +6,17 @@ import com.group.KGMS.entity.RuleForm;
 
 //import com.group.KGMS.repository.AircraftRepository;
 import com.group.KGMS.service.AircraftService;
+import com.sun.jna.Pointer;
+import com.sun.jna.platform.win32.Kernel32;
+import com.sun.jna.platform.win32.WinNT;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.web.bind.annotation.*;
 
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.lang.reflect.Field;
+import java.nio.charset.Charset;
 import java.util.List;
 
 @RestController
@@ -23,17 +26,17 @@ public class AircraftController {
 //    private AircraftRepository aircraftRepository;
     @Autowired
     private AircraftService aircraftService;
+    private  Process proc ;
 
     @GetMapping("/findAll/{page}/{size}")
     public PageInfo<T_aircraft> findAll(@PathVariable("page") Integer page, @PathVariable("size") Integer size){
 
         return aircraftService.findAllAircraft(page,size);
     }
-    @PostMapping ("/clean")
-    public String clean(@RequestBody List<T_aircraft> aircraft){
+    @GetMapping ("/start")
+    public String start(){
         String result =null;
-        String line = null;
-        Process proc;
+        String line = "";
         try {
         	/*
 			附加：
@@ -44,17 +47,23 @@ public class AircraftController {
 
        还有就是可以看出，此方法可以满足我们python代码中调用第三方库的情况，简单实用。
 			*/
-            proc = Runtime.getRuntime().exec("E:\\代码\\DataCleaning\\venv\\Scripts\\python E:\\代码\\DataCleaning\\DataCleaning.py"+" "+aircraft);
+//            proc = Runtime.getRuntime().exec("E:\\代码\\DataCleaning\\venv\\Scripts\\python E:\\代码\\DataCleaning\\DataCleaning.py"+" "+aircraft);
+            String[] args1=new String[]{"E:\\Anaconda\\python.exe","E:\\代码\\FKFD\\militory_factory\\militory_factory\\main.py"};
+            proc = Runtime.getRuntime().exec(args1);
             BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream()));
-
             while ((line = in.readLine()) != null) {
                 return line;
             }
             in.close();
             proc.waitFor();
+            proc.destroy();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (InterruptedException e) {
+        }
+//        catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+        catch (Throwable e) {
             e.printStackTrace();
         }
         return line;

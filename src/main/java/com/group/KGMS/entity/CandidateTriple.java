@@ -24,4 +24,5 @@ public class CandidateTriple {
     private String headCategory;
     private String tailCategory;
     private String status;
+    private String source;
 }
