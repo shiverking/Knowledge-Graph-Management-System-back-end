@@ -124,6 +124,7 @@
             <artifactId>apache-jena-libs</artifactId>
             <type>pom</type>
             <version>3.6.0</version>
+        </dependency>
         <!-- mongodb-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
