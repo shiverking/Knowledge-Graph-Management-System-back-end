@@ -250,14 +250,59 @@ public class TripleController {
         int strategy = Integer.valueOf(String.valueOf(info.get("strategy")));
         List<Map<String, Object>> kg = (List<Map<String, Object>>) info.get("kg");
         List<Integer> ids = (List<Integer>) info.get("oldKgId");
-        //1保留候选图谱
+        //实体对齐列表和map
+        List<Map<String, Object>> mergeList = (List<Map<String, Object>>) info.get("mergeTable");
+        Map<Integer,Map<String,String>> mergeMap = new HashMap<>();
+        //如果存在对齐结果,记录对齐结果
+        if(mergeList.size()>0){
+            //k->v k为原值 v为新值
+            for(Map<String, Object> map : mergeList){
+                Map<String,String> tmpMap  = new HashMap<>();
+                tmpMap.put("from",(String)map.get("from"));
+                tmpMap.put("to",(String)map.get("to"));
+                tmpMap.put("direction",(String)map.get("direction"));
+                mergeMap.put((int)map.get("fromId"),tmpMap);
+            }
+        }
+        //1保留候选图谱,目前只有这一种策略
         if(strategy==1) {
             for(int i=0;i<kg.size();i++){
+                //插入操作结果
                 if(kg.get(i).get("res")!=null&&kg.get(i).get("res").equals("检测不通过")){
                     kg.get(i).put("operation","忽略");
                 }
                 else{
                     kg.get(i).put("operation","插入");
+                    //修改head_from 和 tail_from
+                    Map<String,String> alignMap = mergeMap.get((int)kg.get(i).get("id"));
+                    //如果有对齐记录
+                    if(alignMap!=null){
+                        //注意 from代表 候选图谱，to代表核心图谱
+                        //修改为核心图谱中的实体
+                        if(alignMap.get("direction").equals("left")){
+                            //如果是头实体要修改 head_from 记录对齐前的实体
+                            if(kg.get(i).get("head").equals(alignMap.get("from"))){
+                                kg.get(i).put("head_from",alignMap.get("from"));
+                                kg.get(i).put("head",alignMap.get("to"));
+                            }
+                            //如果是尾实体要修改
+                            if(kg.get(i).get("tail").equals(alignMap.get("from"))){
+                                kg.get(i).put("tail_from",alignMap.get("from"));
+                                kg.get(i).put("tail",alignMap.get("to"));
+                            }
+                        }
+                        //修改核心图谱中的实体
+                        else if(alignMap.get("direction").equals("right")){
+                            //如果是根据头实体修改
+                            if(kg.get(i).get("head").equals(alignMap.get("from"))){
+                                kg.get(i).put("head_from","修改核心实体:"+alignMap.get("to"));
+                            }
+                            //如果是根据尾实体修改
+                            if(kg.get(i).get("tail").equals(alignMap.get("from"))){
+                                kg.get(i).put("tail_from","修改核心实体:"+alignMap.get("to"));
+                            }
+                        }
+                    }
                 }
             }
             //修改isNew列
