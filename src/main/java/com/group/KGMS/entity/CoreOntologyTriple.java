@@ -4,21 +4,23 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @BelongsProject: Knowledge-Graph-Management-System-back-end
  * @BelongsPackage: com.group.KGMS.entity
  * @Author: zt
- * @CreateTime: 2022-12-08  19:14
- * @Description: 候选本体中对象属性形成的三元组的pojo，对应candidate_onto_object_property这个表
+ * @CreateTime: 2023-03-09  00:44
+ * @Description:
  */
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName("candidate_onto_object_property")
-public class CandidateOntologyTriple {
+@TableName("core_onto_object_property")
+public class CoreOntologyTriple {
 
     @TableId(type = IdType.AUTO)
     private Integer id;
@@ -29,9 +31,6 @@ public class CandidateOntologyTriple {
     @TableField("head_class_name")
     private String headClassName;
 
-    @TableField("relation_id")
-    private Integer relationId;
-
     @TableField("relation_name")
     private String relationName;
 
@@ -41,22 +40,11 @@ public class CandidateOntologyTriple {
     @TableField("tail_class_name")
     private String tailClassName;
 
-    @TableField("belong_candidate_id")
-    private Integer belongCandidateOntologyId;
-
-    public CandidateOntologyTriple(Integer headClassId, String headClassName, String relationName, Integer tailClassId, String tailClassName, Integer belongCandidateOntologyId) {
+    public CoreOntologyTriple(Integer headClassId, String headClassName, String relationName, Integer tailClassId, String tailClassName) {
         this.headClassId = headClassId;
         this.headClassName = headClassName;
         this.relationName = relationName;
         this.tailClassId = tailClassId;
         this.tailClassName = tailClassName;
-        this.belongCandidateOntologyId = belongCandidateOntologyId;
-    }
-
-    public CandidateOntologyTriple(String headClassName, String relationName, String tailClassName, Integer belongCandidateOntologyId) {
-        this.headClassName = headClassName;
-        this.relationName = relationName;
-        this.tailClassName = tailClassName;
-        this.belongCandidateOntologyId = belongCandidateOntologyId;
     }
 }
