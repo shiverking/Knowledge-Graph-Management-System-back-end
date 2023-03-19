@@ -4,20 +4,19 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Date;
-
 /**
- * @author ：闫崇傲
- * @description：非结构化文本mongodb类
- * @date ：2023/3/3 16:26
+ * @author ：冯鑫
+ * @description：非结构化文本mongodb类（原始数据）
+ * @date ：2023/3/14
  */
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Document(collection = "unstructured_text_translate") //指定要对应的文档名（表名）
-public class UnstructuredText {
+@Document(collection = "unstructured_text_original") //指定要对应的文档名（表名）
+public class UnstructuredTextOriginal {
     @Id
     private String _id;
     //作者
@@ -35,5 +34,6 @@ public class UnstructuredText {
     //抽取状态
     private String status;
     //爬虫cid
+    @Indexed
     private Integer cid;
 }
