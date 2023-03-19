@@ -415,18 +415,25 @@ public class TripleController {
 //            }
             List<Map<String,Object>> mergeList = cacheService.appendNewMergeToVersion(res);
             List<Map<String,Object>> completionList = cacheService.appendNewCompletionToVersion(res);
+//            List<Map<String,Object>> evaluationList = cacheService.appendNewEvaluationToVersion(res);
             if(mergeList!=null&&mergeList.size()>0){
-                //将其插入核心图谱
+                //将其插入核心图谱(MySQL)
                 if(tripleService.insertAllMergeChange(mergeList)!=1) {
                     first = false;
                 }
             }
             if(completionList!=null&&completionList.size()>0){
-                //将补全改动插入核心图谱
+                //将补全改动插入核心图谱(MySQL)
                 if(tripleService.insertCompletionChange(completionList)!=1) {
                    second = false;
                 }
             }
+//            if(evaluationList!=null&&evaluationList.size()>0){
+//                //将质量评估改动插入核心图谱(MySQL)
+//                if(tripleService.insertEvaluationChange(evaluationList)!=1) {
+//                    third = false;
+//                }
+//            }
             if(first&&second&&third){
                 return JsonResult.success("success");
             }

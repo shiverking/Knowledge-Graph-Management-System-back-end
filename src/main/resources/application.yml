@@ -52,6 +52,6 @@ pagehelper:
 
 #开启mybatis-plus日志
 mybatis-plus:
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   mapper-locations: classpath:project/mapper/*.xml

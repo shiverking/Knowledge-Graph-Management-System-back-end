@@ -2,9 +2,7 @@ package com.group.KGMS.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.group.KGMS.entity.Triple;
 import com.group.KGMS.mapper.CacheMapper;
-import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -223,8 +221,7 @@ public class CacheServiceImpl implements CacheService {
     }
 
     @Override
-    public int appendNewEvaluationToVersion(String versionId) {
-        int result = 1;
+    public List<Map<String, Object>> appendNewEvaluationToVersion(String versionId) {
         List<Map<String, Object>> evaluationCacheList = cacheMapper.getAllEvaluationCache();
         try {
             SqlSession openSession = sqlSessionFactory.openSession(ExecutorType.BATCH);
@@ -250,9 +247,9 @@ public class CacheServiceImpl implements CacheService {
             openSession.close();
         } catch (Exception e) {
             System.out.println(e);
-            result = 0;
+            return null;
         }
-        return result;
+        return evaluationCacheList;
     }
 
     /**

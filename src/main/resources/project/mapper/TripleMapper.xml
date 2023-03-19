@@ -30,6 +30,12 @@
             id=#{tripleId}
          </where>
     </update>
+    <update id="updateEntityHeadName">
+        update core_kg set head = #{newName} where head = #{oldName};
+    </update>
+    <update id="updateEntityTailName">
+        update core_kg set tail = #{newName} where tail = #{oldName};
+    </update>
     <delete id="deleteCandidateTriples">
         delete from candidate_triples where id = #{id}
     </delete>

@@ -29,4 +29,10 @@ public interface TripleMapper {
 
     //向核心图谱插入补全改动
     int insertCompletionChange(@Param("head") String head, @Param("relation") String relation, @Param("tail") String tail, @Param("time") Date time);
+
+    //在核心图谱中修改头实体
+    int updateEntityHeadName(@Param("oldName")String oldName, @Param("newName")String newName);
+
+    //在核心图谱中修改尾实体
+    int updateEntityTailName(@Param("oldName")String oldName, @Param("newName")String newName);
 }

@@ -261,6 +261,38 @@ public class TripleServiceImpl implements TripleService {
     }
 
     /**
+     * 将所有存在实体对齐的三元组加入核心图谱
+     * @param triples
+     * @return
+     */
+    @Override
+    public int insertMergeChangeNameChange(List<Map<String, String>> triples) {
+        int result = 1;
+        try {
+            SqlSession openSession = sqlSessionFactory.openSession(ExecutorType.BATCH);
+            TripleMapper tmpMapper = openSession.getMapper(TripleMapper.class);
+            for (Map<String, String> record : triples) {
+                //如果不需要修改数据库中的实体，则直接插入
+                tmpMapper.insertMergeChange(record.get("head"), record.get("relation"), record.get("tail"), new Date());
+                //如果需要修改修改数据库中的实体，则记录后修改
+                if(record.get("headChange")!=null){
+                    updateCoreKgEntityName(record.get("headChange"),record.get("head"));
+                }
+                if(record.get("tailChange")!=null){
+                    updateCoreKgEntityName(record.get("tailChange"),record.get("tail"));
+                }
+            }
+            openSession.commit();
+            openSession.clearCache();
+            openSession.close();
+        } catch (Exception e) {
+            result = 0;
+            System.out.println(e);
+        }
+        return result;
+    }
+
+    /**
      * 将所有三元组，经过分类后加入核心图谱
      *
      * @param triples
@@ -269,7 +301,7 @@ public class TripleServiceImpl implements TripleService {
     @Override
     public int insertAllMergeChange(List<Map<String, Object>> triples) {
         List<Map<String, String>> noEntityNameChange = new ArrayList<>();
-        List<Map<String, String>> EntityNameChange = new ArrayList<>();
+        List<Map<String, String>> entityNameChange = new ArrayList<>();
         for (Map<String, Object> map : triples) {
             if (map.get("head_from").toString().equals("null") && map.get("tail_from").toString().equals("null") && map.get("operation").equals("插入")) {
                 Map<String, String> newMap = new HashMap<>();
@@ -278,9 +310,37 @@ public class TripleServiceImpl implements TripleService {
                 newMap.put("tail", (String) map.get("tail"));
                 noEntityNameChange.add(newMap);
             }
+            else if((!map.get("head_from").toString().equals("null") || !map.get("tail_from").toString().equals("null")) && map.get("operation").equals("插入")){
+                Map<String, String> newMap = new HashMap<>();
+                //如果核心图谱中的实体没有变，只是候选三元组中的实体改变,则插入核心图谱即可
+                if(!map.get("head_from").toString().contains("修改核心实体") && !map.get("tail_from").toString().contains("修改核心实体")){
+                    newMap.put("head", (String) map.get("head"));
+                    newMap.put("relation", (String) map.get("relation"));
+                    newMap.put("tail", (String) map.get("tail"));
+                }
+                else{
+                    newMap.put("head", (String) map.get("head"));
+                    newMap.put("relation", (String) map.get("relation"));
+                    newMap.put("tail", (String) map.get("tail"));
+                    if(map.get("head_from").toString().contains("修改核心实体")){
+                        String entity = map.get("head_from").toString().split(":")[1];
+                        //后续根据这个字段修改core kg中的实体
+                        newMap.put("headChange", entity);
+                    }
+                    if(map.get("tail_from").toString().contains("修改核心实体")){
+                        String entity = map.get("tail_from").toString().split(":")[1];
+                        //后续根据这个字段修改core kg中的实体
+                        newMap.put("tailChange", entity);
+                    }
+                }
+                entityNameChange.add(newMap);
+            }
         }
-        //先只做没有实体对齐名称改变的
-        return insertMergeChangeNoNameChange(noEntityNameChange);
+        //修改没有对齐的和有对齐的
+        if(insertMergeChangeNoNameChange(noEntityNameChange)==1&&insertMergeChangeNameChange(entityNameChange)==1){
+            return 1;
+        }
+        return 0;
     }
 
     /**
@@ -306,5 +366,44 @@ public class TripleServiceImpl implements TripleService {
             System.out.println(e);
         }
         return result;
+    }
+
+    /**
+     * 将质量评估改动插入核心图谱
+     *
+     * @param records
+     * @return
+     */
+    @Override
+    public int insertEvaluationChange(List<Map<String, Object>> records) {
+        int result = 1;
+//        try {
+//            SqlSession openSession = sqlSessionFactory.openSession(ExecutorType.BATCH);
+//            TripleMapper tmpMapper = openSession.getMapper(TripleMapper.class);
+//            for (Map<String, Object> map : records) {
+//                tmpMapper.inset((String) map.get("head"), (String) map.get("rel"), (String) map.get("tail"), new Date());
+//            }
+//            openSession.commit();
+//            openSession.clearCache();
+//            openSession.close();
+//        } catch (Exception e) {
+//            result = 0;
+//            System.out.println(e);
+//        }
+        return result;
+    }
+
+    /**
+     * 修改核心图谱中的实体名称
+     * @param oldName
+     * @param newName
+     * @return
+     */
+    @Override
+    public int updateCoreKgEntityName(String oldName, String newName) {
+        if(tripleMapper.updateEntityHeadName(oldName,newName)==1&&tripleMapper.updateEntityTailName(oldName, newName)==1){
+            return 1;
+        }
+        return 0;
     }
 }
