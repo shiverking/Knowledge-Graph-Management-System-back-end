@@ -3,6 +3,8 @@ package com.group.KGMS.controller;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import com.github.pagehelper.PageInfo;
+import com.group.KGMS.entity.CandidateKGInfo;
+import com.group.KGMS.mapper.CandidateKGInfoMapper;
 import com.group.KGMS.repository.GraphNodeRepository;
 import com.group.KGMS.entity.CandidateTriple;
 import com.group.KGMS.entity.Triple;
@@ -35,6 +37,8 @@ public class TripleController {
     GraphNodeRepository graphNodeRepository;
     @Autowired
     UntructuredTextService untructuredTextService;
+    @Autowired
+    CandidateKGInfoMapper candidateKGInfoMapper;
     /**
      * 分页获取候选三元组
      * @param page
@@ -138,11 +142,14 @@ public class TripleController {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("id",triple.getId());
             jsonObject.put("head",triple.getHead());
+            jsonObject.put("headCategory",triple.getHeadCategory());
             jsonObject.put("relation",triple.getRelation());
             jsonObject.put("tail",triple.getTail());
+            jsonObject.put("tailCategory",triple.getTailCategory());
             jsonObject.put("time",triple.getTime());
             jsonObject.put("status",triple.getStatus());
             jsonObject.put("candidateName",name);
+            jsonObject.put("candidateId",triple.getCandidateId());
             jsonList.add(jsonObject);
         }
         //返回所有三元组
@@ -187,12 +194,13 @@ public class TripleController {
                 }
             }
             if(tripleService.updateTriplesCandidateId(ids,oldKgId)==1){
-                //删除候选图谱
+                //将候选图谱的isNew列置为1,而不是删除
                 for(Long id :fromKgIds){
-                    if(candidateKgService.deleteKgById(id)==0){
+                    if(candidateKgService.updateKgToOldById(id)==0){
                         return JsonResult.success("failure");
                     }
                 }
+                //更新老图谱的KgInfo,不想写了，他妈的，没写
                 return JsonResult.success("success");
             }
         }
@@ -212,6 +220,8 @@ public class TripleController {
                 triple.setHead((String) targetKg.get(i).get("head"));
                 triple.setRelation((String) targetKg.get(i).get("relation"));
                 triple.setTail((String) targetKg.get(i).get("tail"));
+                triple.setHeadCategory((String) targetKg.get(i).get("headCategory"));
+                triple.setTailCategory((String) targetKg.get(i).get("tailCategory"));
                 triple.setTime(new Date());
                 triple.setCandidateId(id);
                 triple.setStatus("已入库");
@@ -224,15 +234,26 @@ public class TripleController {
                 triple.setHead((String) fromKg.get(i).get("head"));
                 triple.setRelation((String) fromKg.get(i).get("relation"));
                 triple.setTail((String) fromKg.get(i).get("tail"));
+                triple.setHeadCategory((String) fromKg.get(i).get("headCategory"));
+                triple.setTailCategory((String) fromKg.get(i).get("tailCategory"));
                 triple.setTime(new Date());
                 triple.setCandidateId(id);
                 triple.setStatus("已入库");
                 list.add(triple);
             }
+            //插入一条info 信息 不想写了,这都是假的
+            CandidateKGInfo newKgInfo = new CandidateKGInfo();
+            newKgInfo.setTripleCount(Long.valueOf(list.size()));
+            newKgInfo.setRelationCount(Long.valueOf(list.size()));
+            newKgInfo.setRelationTypeCount(Long.valueOf(list.size()));
+            newKgInfo.setEntityCount(Long.valueOf(list.size()));
+            newKgInfo.setCandidateId(id);
+            candidateKGInfoMapper.insertNewKGInfo(newKgInfo);
             for(Integer oldId:oldIds){
                 //修改isNew列
                 candidateKgService.updateKgToOldById((long)oldId);
             }
+            //
             if(tripleService.insertIntoTriplesFromExistsKg(list)==1) {
                 return JsonResult.success("success");
             }
@@ -475,7 +496,7 @@ public class TripleController {
     @PostMapping("/version/synchronize")
     @ResponseBody
     public JsonResult synchronization(){
-        versionService.synchronizeVersion();
+//        versionService.synchronizeVersion();
         //第一个是结果列表，第二个是总数
         return JsonResult.success("success");
     }

@@ -33,9 +33,11 @@ public class CacheServiceImpl implements CacheService {
             CacheMapper tmpMapper = openSession.getMapper(CacheMapper.class);
             for (int i = 0; i < list.size(); i++) {
                 String head = String.valueOf(list.get(i).get("head"));
+                String headCategory = String.valueOf(list.get(i).get("headCategory"));
                 String head_from = String.valueOf(list.get(i).get("head_from"));
                 String relation = String.valueOf(list.get(i).get("relation"));
                 String tail = String.valueOf(list.get(i).get("tail"));
+                String tailCategory = String.valueOf(list.get(i).get("tailCategory"));
                 String tail_from = String.valueOf(list.get(i).get("tail_from"));
                 String operation = String.valueOf(list.get(i).get("operation"));
                 Date time = new Date();
@@ -43,7 +45,7 @@ public class CacheServiceImpl implements CacheService {
                 if (operation.equals("插入") && list.get(i).get("score") != null) {
                     score = Double.valueOf(String.valueOf(list.get(i).get("score")));
                 }
-                tmpMapper.insertNewMergeCache(head, head_from, relation, tail, tail_from, score, operation, time);
+                tmpMapper.insertNewMergeCache(head,headCategory,head_from,relation,tail,tailCategory,tail_from,score,operation,time);
             }
             openSession.commit();
             openSession.clearCache();
@@ -175,14 +177,16 @@ public class CacheServiceImpl implements CacheService {
             CacheMapper tmpMapper = openSession.getMapper(CacheMapper.class);
             for (int i = 0; i < mergeCacheList.size(); i++) {
                 String head = String.valueOf(mergeCacheList.get(i).get("head"));
+                String headCategory = String.valueOf(mergeCacheList.get(i).get("head_category"));
                 String head_from = String.valueOf(mergeCacheList.get(i).get("head_from"));
                 String relation = String.valueOf(mergeCacheList.get(i).get("relation"));
                 String tail = String.valueOf(mergeCacheList.get(i).get("tail"));
+                String tailCategory = String.valueOf(mergeCacheList.get(i).get("tail_category"));
                 String tail_from = String.valueOf(mergeCacheList.get(i).get("tail_from"));
                 String operation = String.valueOf(mergeCacheList.get(i).get("operation"));
                 Date time = new Date();
                 Double score = Double.valueOf(String.valueOf(mergeCacheList.get(i).get("score")));
-                tmpMapper.insertNewMerge(versionId, head, head_from, relation, tail, tail_from, score, operation, time);
+                tmpMapper.insertNewMerge(versionId, head, headCategory,head_from, relation, tail,tailCategory, tail_from, score, operation, time);
             }
             //清空缓存表
             tmpMapper.clearMergeCache();

@@ -26,7 +26,7 @@ public interface CandidateKgService {
     int updateKgToOldById(Long id);
 
     //插入一条新的INFO信息
-    int getCandiateKGInfo(CandidateKGInfo info);
+    int insertCandiateKGInfo(CandidateKGInfo info);
 
     //根据Id查找INFO信息
     CandidateKGInfo getCandiateKGInfo(Long id);

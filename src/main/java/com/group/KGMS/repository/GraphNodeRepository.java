@@ -18,8 +18,10 @@ public interface GraphNodeRepository extends Neo4jRepository<GraphNode,String> {
     @Query("MATCH (a),(b) WHERE a.name = {0} AND b.name = {2} MERGE (a)-[r:relation{name:{1}}]->(b)")
     void creatRelationByName(String from,String label,String to);
     //根据name建立节点，如果该节点的name存在则不建立
+//    @Query("MERGE (n:$label {name:$name}) ON CREATE SET n.type = $type")
+//    void creatNode(String name, String type, String label);
     @Query("MERGE (n:node {name:{0}}) ON CREATE SET n.type = {1}")
-    void creatNode(String name,String type);
+    void creatNode(String name,String type,String label);
     //根据name查找节点并修改其type
     @Query("MATCH (n:node { name: {0}}) SET n.type ={1}  RETURN n")
     GraphNode modifyNodeType(String name,String newType);
