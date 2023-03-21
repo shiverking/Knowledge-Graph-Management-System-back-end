@@ -10,7 +10,7 @@ import java.util.Map;
 @Mapper
 public interface CacheMapper {
     //将临时记录加入缓存表
-    int insertNewMergeCache(@Param("head") String head, @Param("head_from") String head_from, @Param("relation") String relation, @Param("tail") String tail, @Param("tail_from") String tail_from,
+    int insertNewMergeCache(@Param("head") String head, @Param("headCategory")String headCategory,@Param("head_from") String head_from, @Param("relation") String relation, @Param("tail") String tail,@Param("tailCategory")String tailCategory ,@Param("tail_from") String tail_from,
                             @Param("score") double score, @Param("operation") String operation, @Param("time") Date time);
 
     List<Map<String, Object>> getAllMergeCache();
@@ -18,7 +18,7 @@ public interface CacheMapper {
     int clearMergeCache();
 
     //插入版本表
-    int insertNewMerge(@Param("version_id") String version_id, @Param("head") String head, @Param("head_from") String head_from, @Param("relation") String relation, @Param("tail") String tail, @Param("tail_from") String tail_from,
+    int insertNewMerge(@Param("version_id") String version_id, @Param("head") String head, @Param("headCategory")String headCategory,@Param("head_from") String head_from, @Param("relation") String relation, @Param("tail") String tail,@Param("tailCategory")String tailCategory, @Param("tail_from") String tail_from,
                        @Param("score") double score, @Param("operation") String operation, @Param("time") Date time);
 
     //将补全临时记录加入缓存表

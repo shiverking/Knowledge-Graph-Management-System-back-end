@@ -5,18 +5,20 @@
     <resultMap id="TripleResultMap" type="com.group.KGMS.entity.Triple">
         <result column="id" property="id"/>
         <result column="head" property="head" jdbcType="VARCHAR"/>
+        <result column="head_category" property="headCategory" jdbcType="VARCHAR"/>
         <result column="relation" property="relation" jdbcType="VARCHAR"/>
         <result column="tail" property="tail" jdbcType="VARCHAR"/>
+        <result column="tail_category" property="tailCategory" jdbcType="VARCHAR"/>
         <result column="time" property="time" jdbcType="DATE"/>
         <result column="candidate_id" property="candidateId"/>
         <result column="status" property="status" jdbcType="VARCHAR"/>
     </resultMap>
     <insert id="insertCandidateTripleIntoTriple" keyProperty="id" useGeneratedKeys = "true">
-        insert into all_triples(head,relation,tail,time, candidate_id,status) values
-        (#{head}, #{relation}, #{tail}, #{time}, #{candidateId}, #{status})
+        insert into all_triples(head,head_category,relation,tail,tail_category,time, candidate_id,status) values
+        (#{head},#{headCategory}, #{relation}, #{tail},#{tailCategory}, #{time}, #{candidateId}, #{status})
     </insert>
     <insert id="insertMergeChange">
-        insert ignore into core_kg(head,relation,tail,time) values (#{head}, #{relation}, #{tail},#{time})
+        insert ignore into core_kg(head,head_type,relation,tail,tail_type,time) values (#{head},#{headCategory},#{relation},#{tail},#{tailCategory},#{time})
     </insert>
     <insert id="insertCompletionChange">
         insert ignore into core_kg(head,relation,tail,time) values (#{head}, #{relation}, #{tail},#{time})

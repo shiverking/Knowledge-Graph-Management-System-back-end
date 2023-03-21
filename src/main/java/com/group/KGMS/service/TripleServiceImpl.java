@@ -50,7 +50,9 @@ public class TripleServiceImpl implements TripleService {
         for (int i = 0; i < list.size(); i++) {
             Triple triple = new Triple();
             triple.setHead(list.get(i).getHead());
+            triple.setHeadCategory(list.get(i).getHeadCategory());
             triple.setTail(list.get(i).getTail());
+            triple.setTailCategory(list.get(i).getTailCategory());
             triple.setRelation(list.get(i).getRelation());
             triple.setTime(new Date());
             triple.setCandidateId(candidateKgId);
@@ -125,7 +127,9 @@ public class TripleServiceImpl implements TripleService {
             Long oldId = list.get(i).getId();
             Triple triple = new Triple();
             triple.setHead(list.get(i).getHead());
+            triple.setHeadCategory(list.get(i).getHeadCategory());
             triple.setTail(list.get(i).getTail());
+            triple.setTailCategory(list.get(i).getTailCategory());
             triple.setRelation(list.get(i).getRelation());
             triple.setTime(new Date());
             triple.setCandidateId(list.get(i).getCandidateId());
@@ -248,7 +252,7 @@ public class TripleServiceImpl implements TripleService {
             SqlSession openSession = sqlSessionFactory.openSession(ExecutorType.BATCH);
             TripleMapper tmpMapper = openSession.getMapper(TripleMapper.class);
             for (Map<String, String> record : triples) {
-                tmpMapper.insertMergeChange(record.get("head"), record.get("relation"), record.get("tail"), new Date());
+                tmpMapper.insertMergeChange(record.get("head"), record.get("headCategory"),record.get("relation"), record.get("tail"),record.get("tailCategory"), new Date());
             }
             openSession.commit();
             openSession.clearCache();
@@ -306,8 +310,10 @@ public class TripleServiceImpl implements TripleService {
             if (map.get("head_from").toString().equals("null") && map.get("tail_from").toString().equals("null") && map.get("operation").equals("插入")) {
                 Map<String, String> newMap = new HashMap<>();
                 newMap.put("head", (String) map.get("head"));
+                newMap.put("headCategory", (String) map.get("head_category"));
                 newMap.put("relation", (String) map.get("relation"));
                 newMap.put("tail", (String) map.get("tail"));
+                newMap.put("tailCategory", (String) map.get("tail_category"));
                 noEntityNameChange.add(newMap);
             }
             else if((!map.get("head_from").toString().equals("null") || !map.get("tail_from").toString().equals("null")) && map.get("operation").equals("插入")){

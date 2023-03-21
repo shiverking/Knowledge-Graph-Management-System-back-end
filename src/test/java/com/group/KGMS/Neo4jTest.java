@@ -49,7 +49,7 @@ public class Neo4jTest {
     }
     @Test
     public void testCypher(){
-//        graphNodeRepository.creatRelationByName("测试关系4");
+        graphNodeRepository.creatNode("测试节点一","测试类型1","测试种类1");
 //        GraphNode node = graphNodeRepository.creatNode("测试节点6","测试属性6");
 //        if(node!=null){
 //            System.out.println("success");

@@ -25,7 +25,7 @@ public interface TripleMapper {
     int updateCandidateIdOfTriple(@Param("tripleId") Long tripleId, @Param("newCandidateId") Long newCandidateId);
 
     //向核心图谱插入融合改动
-    int insertMergeChange(@Param("head") String head, @Param("relation") String relation, @Param("tail") String tail, @Param("time") Date time);
+    int insertMergeChange(@Param("head") String head, @Param("headCategory") String headCategory,@Param("relation") String relation, @Param("tail") String tail, @Param("tailCategory") String tailCategory, @Param("time") Date time);
 
     //向核心图谱插入补全改动
     int insertCompletionChange(@Param("head") String head, @Param("relation") String relation, @Param("tail") String tail, @Param("time") Date time);

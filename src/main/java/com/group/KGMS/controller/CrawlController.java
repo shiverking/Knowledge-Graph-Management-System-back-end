@@ -34,7 +34,10 @@ public class CrawlController {
 
     @Autowired
     private CrawlerService crawlerService;
-
+    @GetMapping ("/findAllnopage")
+    public List<T_crawler> findAllnopage() {
+        return crawlerService.findAllnopage();
+    }
     @GetMapping ("/list/{page}/{limit}")
     public JsonResult findAll(@PathVariable("page") Integer page, @PathVariable("limit") Integer limit) {
         return crawlerService.findAll(page,limit);
