@@ -34,6 +34,11 @@ public class CandidateOntologyController {
     @Autowired
     private CandidateOntologyTripleService candidateOntologyTripleService;
 
+    @PostMapping("/addCandidateOntology")
+    public JsonResult addCandidateOntology(@RequestBody CandidateOntology newOnto){
+        return candidateOntologyService.save(newOnto);
+    }
+
     /*
      * @Description: 分页获取候选本体
      * @Author: zt

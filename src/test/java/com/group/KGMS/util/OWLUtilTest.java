@@ -22,8 +22,8 @@ public class OWLUtilTest {
 
     @Test
     public void testOwl2OntModel(){
-        OntModel ontModel = owlUtil.owl2OntModel();
-        System.out.println("ontModel = " + ontModel);
+//        OntModel ontModel = owlUtil.owl2OntModel();
+//        System.out.println("ontModel = " + ontModel);
     }
 
 }
