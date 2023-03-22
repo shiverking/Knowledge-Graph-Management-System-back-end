@@ -76,6 +76,9 @@ public class CoreOntologyClassServiceImpl extends ServiceImpl<CoreOntologyClassM
 
     @Override
     public void remove(String className) throws Exception {
+        if("Thing".equals(className)){
+            throw new RuntimeException("不能删除根节点");
+        }
         LambdaQueryWrapper<CoreOntologyClass> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(CoreOntologyClass::getName, className);
         CoreOntologyClass delClass = coreOntologyClassMapper.selectOne(lambdaQueryWrapper);

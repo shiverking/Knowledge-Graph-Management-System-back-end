@@ -3,9 +3,11 @@ package com.group.KGMS.service;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.group.KGMS.entity.CandidateOntology;
 import com.group.KGMS.entity.CandidateOntologyClass;
 import com.group.KGMS.entity.CandidateOntologyTriple;
 import com.group.KGMS.mapper.CandidateOntologyClassMapper;
+import com.group.KGMS.mapper.CandidateOntologyMapper;
 import com.group.KGMS.mapper.CandidateOntologyTripleMapper;
 import com.group.KGMS.utils.OWLUtil;
 import org.apache.jena.ontology.OntClass;
@@ -13,6 +15,7 @@ import org.apache.jena.ontology.OntModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.List;
 import java.util.Random;
@@ -32,6 +35,9 @@ public class CandidateOntologyTripleServiceImpl extends ServiceImpl<CandidateOnt
 
     @Autowired
     private CandidateOntologyTripleMapper candidateOntologyTripleMapper;
+
+    @Resource
+    private CandidateOntologyMapper candidateOntologyMapper;
 
     @Override
     public List<CandidateOntologyTriple> getAllRelationByCandidateOntologyId(Integer candidateOntologyId) {
@@ -53,10 +59,11 @@ public class CandidateOntologyTripleServiceImpl extends ServiceImpl<CandidateOnt
             throw new RuntimeException("这个关系已经存在，不可重复添加");
         }
         //在文件中根据传过来的数据在文件中进行添加
-        OntModel ontModel = OWLUtil.owl2OntModel();
-        OntClass headClass = OWLUtil.createClass(ontModel, headClassName);
-        OntClass tailClass = OWLUtil.createClass(ontModel, tailClassName);
-        OWLUtil.addRelation(ontModel, headClass, tailClass, relation);
+        CandidateOntology candidateOntology = candidateOntologyMapper.selectById(candidateOntologyId);
+        OntModel ontModel = OWLUtil.owl2OntModel(candidateOntology.getName());
+        OntClass headClass = OWLUtil.createClass(ontModel, headClassName, candidateOntology.getName());
+        OntClass tailClass = OWLUtil.createClass(ontModel, tailClassName, candidateOntology.getName());
+        OWLUtil.addRelation(ontModel, headClass, tailClass, relation, candidateOntology.getName());
         //需要根据传过来的id查找到对应的类的对象
         LambdaQueryWrapper<CandidateOntologyClass> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(CandidateOntologyClass::getName, headClassName)
@@ -80,7 +87,8 @@ public class CandidateOntologyTripleServiceImpl extends ServiceImpl<CandidateOnt
                 .eq(CandidateOntologyTriple::getRelationName, relation)
                 .eq(CandidateOntologyTriple::getBelongCandidateOntologyId, candidateOntologyId);
         candidateOntologyTripleMapper.delete(lambdaQueryWrapper);
-        OntModel ontModel = OWLUtil.owl2OntModel();
+        CandidateOntology candidateOntology = candidateOntologyMapper.selectById(candidateOntologyId);
+        OntModel ontModel = OWLUtil.owl2OntModel(candidateOntology.getName());
         //根据头尾类id在存储类的表里查找到对应的类名，再使用OWLUtil工具类获取到OntClass对象
         LambdaQueryWrapper<CandidateOntologyClass> lqw = new LambdaQueryWrapper<>();
         lqw.eq(CandidateOntologyClass::getId, headClassId)
@@ -91,8 +99,8 @@ public class CandidateOntologyTripleServiceImpl extends ServiceImpl<CandidateOnt
                 .eq(CandidateOntologyClass::getBelongCandidateId, candidateOntologyId);
         CandidateOntologyClass tailClass = candidateOntologyClassMapper.selectOne(lqw1);
         //在OWL文件中删除掉想要删除的关系的头类和尾类，因为OWL文件中关系不能移除
-        OntClass domain = OWLUtil.createClass(ontModel, headClass.getName());
-        OntClass range = OWLUtil.createClass(ontModel, tailClass.getName());
-        OWLUtil.removeRelation(ontModel, relation, domain, range);
+        OntClass domain = OWLUtil.createClass(ontModel, headClass.getName(), candidateOntology.getName());
+        OntClass range = OWLUtil.createClass(ontModel, tailClass.getName(), candidateOntology.getName());
+        OWLUtil.removeRelation(ontModel, relation, domain, range, candidateOntology.getName());
     }
 }

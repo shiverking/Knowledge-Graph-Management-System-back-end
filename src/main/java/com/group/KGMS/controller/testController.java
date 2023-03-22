@@ -1,11 +1,13 @@
 package com.group.KGMS.controller;
 
+import com.group.KGMS.service.BigDataService;
 import com.group.KGMS.utils.JsonResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Map;
+import javax.annotation.Resource;
+
 
 /**
  * @BelongsProject: Knowledge-Graph-Management-System-back-end
@@ -18,10 +20,13 @@ import java.util.Map;
 @RestController
 public class testController {
 
+    @Resource
+    private BigDataService bigDataService;
+
     @PostMapping("/bigdata/ontoModel")
-    public JsonResult getOnto(@RequestBody Map map){
-        System.out.println("map = " + map);
-        return JsonResult.success("ok");
+    public JsonResult getOntoFormBigdata(@RequestBody JsonResult result){
+        return bigDataService.saveOnto(result);
     }
+
 
 }

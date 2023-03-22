@@ -1,11 +1,13 @@
 package com.group.KGMS.utils;
 
 import org.apache.jena.ontology.*;
+import org.apache.jena.ontology.impl.OntModelImpl;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.RDFWriter;
 import org.apache.jena.vocabulary.OWL;
 import org.springframework.stereotype.Component;
 
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -19,6 +21,21 @@ import java.io.IOException;
 
 @Component
 public class OWLUtil {
+
+    public static void addOWL(String owlName) throws IOException {
+        //输出owl文件到文件系统
+        String filepath = "src/main/resources/owl/" + owlName + ".owl";
+        FileOutputStream fileOS = new FileOutputStream(filepath);
+//        RDFWriter rdfWriter = baseOnt.getWriter("RDF/XML");
+        OntModel ontModel = ModelFactory.createOntologyModel();
+        RDFWriter rdfWriter = ontModel.getWriter("RDF/XML");
+        rdfWriter.setProperty("showXMLDeclaration","true");
+        rdfWriter.setProperty("showDoctypeDeclaration", "true");
+        rdfWriter.write(ontModel, fileOS, null);
+        //用writer就不需要用下面的方法了
+        //baseOnt.write(fileOS, "RDF/XML");
+        fileOS.close();
+    }
 
     /*
      * @Description: 返回OWL文件的资源开头名
@@ -49,9 +66,9 @@ public class OWLUtil {
      * @param: [ontModel]
      * @return: void
      **/
-    public static void ontModel2Owl(OntModel ontModel) throws IOException {
+    public static void ontModel2Owl(OntModel ontModel, String owlName) throws IOException {
         //输出owl文件到文件系统
-        String filepath = "src/main/resources/owl/fkfddb.owl";
+        String filepath = "src/main/resources/owl/" + owlName + ".owl";
         FileOutputStream fileOS = new FileOutputStream(filepath);
 //        RDFWriter rdfWriter = baseOnt.getWriter("RDF/XML");
         RDFWriter rdfWriter = ontModel.getWriter("RDF/XML");
@@ -70,12 +87,12 @@ public class OWLUtil {
      * @param: []
      * @return: org.apache.jena.ontology.OntModel
      **/
-    public static OntModel owl2OntModel(){
+    public static OntModel owl2OntModel(String owlName){
         //设置本体的命名空间
         String SOURCE = OWLUtil.getSourceName();
         OntDocumentManager ontDocMgr = new OntDocumentManager();
         //设置本体owl文件的位置
-        ontDocMgr.addAltEntry(SOURCE, "file:src/main/resources/owl/fkfddb.owl");
+        ontDocMgr.addAltEntry(SOURCE, "file:src/main/resources/owl/" + owlName + ".owl");
         OntModelSpec ontModelSpec = new OntModelSpec(OntModelSpec.OWL_MEM);
         ontModelSpec.setDocumentManager(ontDocMgr);
         // asserted ontology
@@ -91,10 +108,10 @@ public class OWLUtil {
      * @param: [ontModel 读取OWL文件生成的OntModel类对象, className 新增加类的名称]
      * @return: org.apache.jena.ontology.OntClass
      **/
-    public static OntClass createClass(OntModel ontModel, String className) throws IOException {
+    public static OntClass createClass(OntModel ontModel, String className, String owlName) throws IOException {
         String nameSpace = OWLUtil.getNameSpace();
         OntClass newClass = ontModel.createClass(nameSpace + className);
-        OWLUtil.ontModel2Owl(ontModel);
+        OWLUtil.ontModel2Owl(ontModel, owlName);
         return newClass;
     }
 
@@ -105,9 +122,9 @@ public class OWLUtil {
      * @param: [ontModel 读取OWL文件生成的OntModel类对象, fatherClass 父类, sonClass 子类]
      * @return: void
      **/
-    public static void addSubClass(OntModel ontModel, OntClass fatherClass, OntClass sonClass) throws IOException {
+    public static void addSubClass(OntModel ontModel, OntClass fatherClass, OntClass sonClass, String owlName) throws IOException {
         fatherClass.addSubClass(sonClass);
-        OWLUtil.ontModel2Owl(ontModel);
+        OWLUtil.ontModel2Owl(ontModel, owlName);
     }
 
     /*
@@ -117,12 +134,12 @@ public class OWLUtil {
      * @param: [ontModel 读取OWL文件生成的OntModel类对象, sourceClass 头类, targetClass 尾类, relationName 关系名称]
      * @return: org.apache.jena.ontology.ObjectProperty
      **/
-    public static ObjectProperty addRelation(OntModel ontModel, OntClass sourceClass, OntClass targetClass, String relationName) throws IOException {
+    public static ObjectProperty addRelation(OntModel ontModel, OntClass sourceClass, OntClass targetClass, String relationName, String owlName) throws IOException {
         String nameSpace = OWLUtil.getNameSpace();
         ObjectProperty newRelation = ontModel.createObjectProperty(nameSpace + relationName);
         newRelation.addDomain(sourceClass);
         newRelation.addRange(targetClass);
-        OWLUtil.ontModel2Owl(ontModel);
+        OWLUtil.ontModel2Owl(ontModel, owlName);
         return newRelation;
     }
 
@@ -133,11 +150,11 @@ public class OWLUtil {
      * @param: [ontModel 读取OWL文件生成的OntModel类对象, ontClass 需要被添加的类别, propertyName 属性名称]
      * @return: org.apache.jena.ontology.DatatypeProperty
      **/
-    public DatatypeProperty addProperty(OntModel ontModel, OntClass ontClass, String propertyName) throws IOException {
+    public DatatypeProperty addProperty(OntModel ontModel, OntClass ontClass, String propertyName, String owlName) throws IOException {
         String nameSpace = OWLUtil.getNameSpace();
         DatatypeProperty newProperty = ontModel.createDatatypeProperty(nameSpace + propertyName);
         newProperty.addDomain(ontClass);
-        OWLUtil.ontModel2Owl(ontModel);
+        OWLUtil.ontModel2Owl(ontModel, owlName);
         return newProperty;
     }
 
@@ -148,10 +165,10 @@ public class OWLUtil {
      * @param: [ontModel 读取OWL文件生成的OntModel类对象, classname 需要删除的类的名称]
      * @return: void
      **/
-    public static void removeClass(OntModel ontModel, String classname) throws Exception {
-        OntClass ontClass = OWLUtil.createClass(ontModel, classname);
+    public static void removeClass(OntModel ontModel, String classname, String owlName) throws Exception {
+        OntClass ontClass = OWLUtil.createClass(ontModel, classname, owlName);
         ontClass.remove();
-        OWLUtil.ontModel2Owl(ontModel);
+        OWLUtil.ontModel2Owl(ontModel, owlName);
     }
 
     /*
@@ -161,7 +178,7 @@ public class OWLUtil {
      * @param: [ontModel, propertyName 关系的名称, ontClass 要从这个关系中移除的类]
      * @return: void
      **/
-    public static void removeRelationDomainAndRange(OntModel ontModel, String propertyName, OntClass ontClass) throws IOException {
+    public static void removeRelationDomainAndRange(OntModel ontModel, String propertyName, OntClass ontClass, String owlName) throws IOException {
         String nameSpace =OWLUtil.getNameSpace();
         ObjectProperty relation = ontModel.createObjectProperty(nameSpace + propertyName);
         //只要这个类是这个关系的range或者domain，就进行删除
@@ -171,10 +188,10 @@ public class OWLUtil {
         if(relation.hasRange(ontClass)){
             relation.removeRange(ontClass);
         }
-        OWLUtil.ontModel2Owl(ontModel);
+        OWLUtil.ontModel2Owl(ontModel, owlName);
     }
 
-    public static void removeRelation(OntModel ontModel, String propertyName, OntClass domain, OntClass range) throws IOException {
+    public static void removeRelation(OntModel ontModel, String propertyName, OntClass domain, OntClass range, String owlName) throws IOException {
         String nameSpace = OWLUtil.getNameSpace();
         ObjectProperty relation = ontModel.createObjectProperty(nameSpace + propertyName);
         if(relation.hasDomain(domain)){
@@ -183,7 +200,7 @@ public class OWLUtil {
         if(relation.hasRange(range)){
             relation.removeRange(range);
         }
-        OWLUtil.ontModel2Owl(ontModel);
+        OWLUtil.ontModel2Owl(ontModel, owlName);
     }
 
 }
