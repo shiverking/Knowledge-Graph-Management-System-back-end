@@ -3,6 +3,7 @@ package com.group.KGMS.controller;
 import com.github.pagehelper.PageInfo;
 import com.group.KGMS.entity.CandidateTriple;
 import com.group.KGMS.entity.UnstructuredText;
+import com.group.KGMS.entity.UnstructuredTextOriginal;
 import com.group.KGMS.service.UntructuredTextService;
 import com.group.KGMS.utils.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
-
+@RestController
 @Controller
 public class UnstructuredTextController {
     @Autowired

@@ -1,11 +1,13 @@
 package com.group.KGMS.service;
 
 import com.group.KGMS.entity.UnstructuredText;
+import com.group.KGMS.entity.UnstructuredTextOriginal;
 import com.group.KGMS.mapper.UnstructuredTextMapper;
 import com.group.KGMS.repository.UnstructuredTextRepository;
 import com.group.KGMS.utils.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.BasicQuery;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
@@ -52,20 +54,17 @@ public class UntructuredTextServiceImpl implements UntructuredTextService {
     public JsonResult getUnstructuredTextByPageandcid(Integer pageNum, Integer pageSize, Integer cid) {
         //创建查询对象
         Query query = new Query();
+//        if(cid!=null){
+//            query.addCriteria(
+//                    Criteria.where("cid").is(cid)
+//            );
+//        }
         //设置起始数
         query.skip((pageNum - 1) * pageSize);
         //设置查询条数
         query.limit(pageSize);
-        if(cid!=null){
-            query.addCriteria(
-                    Criteria.where("cid").is(cid)
-            );
-        }
-        Query query1 = new Query();
-        query1.addCriteria(
-                Criteria.where("cid").is(cid)
-        );
-        return JsonResult.success(mongoTemplate.find(query, UnstructuredText.class),mongoTemplate.count(query1,UnstructuredText.class));
+        BasicQuery basicQuery = new BasicQuery(query.getQueryObject().toJson());
+        return JsonResult.success(mongoTemplate.find(query, UnstructuredTextOriginal.class),mongoTemplate.count(basicQuery,UnstructuredTextOriginal.class));
     }
     @Override
     public Long getSumOfUnstructuredText() {

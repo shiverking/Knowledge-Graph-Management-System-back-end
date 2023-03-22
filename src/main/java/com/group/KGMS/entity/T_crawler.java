@@ -25,4 +25,5 @@ public class T_crawler {
     private Integer status;
     private String cron;
     private String website;
+    private Integer imagecount;
 }
