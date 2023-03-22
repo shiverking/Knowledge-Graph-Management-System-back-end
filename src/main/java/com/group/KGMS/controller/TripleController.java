@@ -543,15 +543,16 @@ public class TripleController {
     }
     /**
      * 同步所有未同步的version
+     * 该函数暂时不用了,功能转移到python中
      * @return
      */
-    @PostMapping("/version/synchronize")
-    @ResponseBody
-    public JsonResult synchronization(){
+//    @PostMapping("/version/synchronize")
+//    @ResponseBody
+//    public JsonResult synchronization(){
 //        versionService.synchronizeVersion();
-        //第一个是结果列表，第二个是总数
-        return JsonResult.success("success");
-    }
+//        //第一个是结果列表，第二个是总数
+//        return JsonResult.success("success");
+//    }
     /**
      * 同步所有未同步的version
      * @return

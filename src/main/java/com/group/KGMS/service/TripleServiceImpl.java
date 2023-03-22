@@ -277,7 +277,7 @@ public class TripleServiceImpl implements TripleService {
             TripleMapper tmpMapper = openSession.getMapper(TripleMapper.class);
             for (Map<String, String> record : triples) {
                 //如果不需要修改数据库中的实体，则直接插入
-                tmpMapper.insertMergeChange(record.get("head"), record.get("relation"), record.get("tail"), new Date());
+                tmpMapper.insertMergeChange(record.get("head"), record.get("headCategory"),record.get("relation"), record.get("tail"),record.get("tailCategory"), new Date());
                 //如果需要修改修改数据库中的实体，则记录后修改
                 if(record.get("headChange")!=null){
                     updateCoreKgEntityName(record.get("headChange"),record.get("head"));
@@ -323,11 +323,15 @@ public class TripleServiceImpl implements TripleService {
                     newMap.put("head", (String) map.get("head"));
                     newMap.put("relation", (String) map.get("relation"));
                     newMap.put("tail", (String) map.get("tail"));
+                    newMap.put("headCategory", (String) map.get("head_category"));
+                    newMap.put("tailCategory", (String) map.get("tail_category"));
                 }
                 else{
                     newMap.put("head", (String) map.get("head"));
                     newMap.put("relation", (String) map.get("relation"));
                     newMap.put("tail", (String) map.get("tail"));
+                    newMap.put("headCategory", (String) map.get("head_category"));
+                    newMap.put("tailCategory", (String) map.get("tail_category"));
                     if(map.get("head_from").toString().contains("修改核心实体")){
                         String entity = map.get("head_from").toString().split(":")[1];
                         //后续根据这个字段修改core kg中的实体
