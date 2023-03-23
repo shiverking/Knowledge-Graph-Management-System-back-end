@@ -84,12 +84,14 @@ public class CacheServiceImpl implements CacheService {
             CacheMapper tmpMapper = openSession.getMapper(CacheMapper.class);
             for (int i = 0; i < list.size(); i++) {
                 String head = String.valueOf(list.get(i).get("head"));
+                String headCategory = String.valueOf(list.get(i).get("head_typ"));
                 String relation = String.valueOf(list.get(i).get("rel"));
                 String tail = String.valueOf(list.get(i).get("tail"));
+                String tailCategory = String.valueOf(list.get(i).get("tail_typ"));
                 String pred_form = String.valueOf(list.get(i).get("pred_form"));
                 Double pred_prob = Double.valueOf(String.valueOf(list.get(i).get("pred_prob")));
                 Date time = new Date();
-                tmpMapper.insertNewCompletionCache(head, relation, tail, pred_form, pred_prob, time);
+                tmpMapper.insertNewCompletionCache(head, headCategory, relation, tail,tailCategory , pred_form, pred_prob, time);
             }
             openSession.commit();
             openSession.clearCache();

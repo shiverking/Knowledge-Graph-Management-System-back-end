@@ -19,8 +19,8 @@
         select * from cache_merge_detail
     </select>
     <insert id="insertNewCompletionCache">
-        insert into  cache_completion_detail(head,rel,tail,pred_prob,pred_form,time) values
-        (#{head}, #{rel}, #{tail}, #{pred_prob}, #{pred_form},#{time})
+        insert into  cache_completion_detail(head,rel,tail,pred_prob,pred_form,time,head_category,tail_category) values
+        (#{head}, #{rel}, #{tail}, #{pred_prob}, #{pred_form},#{time},#{headCategory},#{tailCategory})
     </insert>
     <select id="getAllCompletionCache" resultType="java.util.Map">
         select * from cache_completion_detail

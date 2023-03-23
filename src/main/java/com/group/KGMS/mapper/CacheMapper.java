@@ -22,7 +22,7 @@ public interface CacheMapper {
                        @Param("score") double score, @Param("operation") String operation, @Param("time") Date time);
 
     //将补全临时记录加入缓存表
-    int insertNewCompletionCache(@Param("head") String head, @Param("rel") String rel, @Param("tail") String tail, @Param("pred_form") String pred_form,
+    int insertNewCompletionCache(@Param("head") String head, @Param("headCategory")String headCategory,@Param("rel") String rel, @Param("tail") String tail, @Param("tailCategory")String tailCategory , @Param("pred_form") String pred_form,
                                  @Param("pred_prob") Double pred_prob, @Param("time") Date time);
 
     List<Map<String, Object>> getAllCompletionCache();
