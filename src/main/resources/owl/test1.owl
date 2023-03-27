@@ -37,10 +37,10 @@
   </rdfs:Class>
   <rdfs:Class rdf:about="&rdfs;Datatype">
     <rdfs:subClassOf rdf:resource="&rdfs;Datatype"/>
-    <rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
     <rdfs:subClassOf>
       <rdfs:Class rdf:about="&rdfs;Class"/>
     </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
     <rdf:type rdf:resource="&rdfs;Resource"/>
   </rdfs:Class>
   <rdfs:Class rdf:about="&rdfs;Class">
@@ -81,22 +81,14 @@
   </rdfs:Class>
   <rdfs:Class rdf:about="&rdfs;ContainerMembershipProperty">
     <rdfs:subClassOf rdf:resource="&rdfs;ContainerMembershipProperty"/>
-    <rdfs:subClassOf rdf:resource="&rdf;Property"/>
     <rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
+    <rdfs:subClassOf rdf:resource="&rdf;Property"/>
     <rdf:type rdf:resource="&rdfs;Resource"/>
   </rdfs:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#哈哈哈"/>
-  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#再试试">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#新试试"/>
-    </rdfs:subClassOf>
-  </owl:Class>
   <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#Thing"/>
-  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#新试试">
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#a">
     <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#Thing"/>
   </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#啊是擦"/>
-  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#嗯"/>
   <rdf:Property rdf:about="&rdf;predicate">
     <rdfs:domain rdf:resource="&rdf;Statement"/>
     <rdfs:subPropertyOf rdf:resource="&rdf;predicate"/>

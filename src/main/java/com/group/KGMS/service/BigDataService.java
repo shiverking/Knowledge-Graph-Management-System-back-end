@@ -1,5 +1,6 @@
 package com.group.KGMS.service;
 
+import com.group.KGMS.dto.OntologyDto;
 import com.group.KGMS.utils.JsonResult;
 
 /**
@@ -11,5 +12,11 @@ import com.group.KGMS.utils.JsonResult;
  */
 
 public interface BigDataService {
-    JsonResult saveOnto(JsonResult result);
+    JsonResult saveOnto(OntologyDto ontologyDto);
+
+    JsonResult getClassList();
+
+    JsonResult getRelationList();
+
+    JsonResult getAttributeList();
 }

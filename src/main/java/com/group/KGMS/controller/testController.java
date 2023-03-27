@@ -1,12 +1,12 @@
 package com.group.KGMS.controller;
 
+import com.group.KGMS.dto.OntologyDto;
 import com.group.KGMS.service.BigDataService;
 import com.group.KGMS.utils.JsonResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.print.attribute.standard.JobSheets;
 
 
 /**
@@ -18,14 +18,31 @@ import javax.annotation.Resource;
  */
 
 @RestController
+@RequestMapping("/bigdata")
 public class testController {
 
     @Resource
     private BigDataService bigDataService;
 
-    @PostMapping("/bigdata/ontoModel")
-    public JsonResult getOntoFormBigdata(@RequestBody JsonResult result){
-        return bigDataService.saveOnto(result);
+    @PostMapping("/ontoModel")
+    public JsonResult getOntoFormBigdata(@RequestBody OntologyDto ontologyDto){
+        System.out.println("ontologyDto = " + ontologyDto);
+        return bigDataService.saveOnto(ontologyDto);
+    }
+
+    @GetMapping("/getClass")
+    public JsonResult getClassList(){
+        return bigDataService.getClassList();
+    }
+
+    @GetMapping("/getRelation")
+    public JsonResult getRelationList(){
+        return bigDataService.getRelationList();
+    }
+
+    @GetMapping("/getAttribute")
+    public JsonResult getAttributeList(){
+        return bigDataService.getAttributeList();
     }
 
 

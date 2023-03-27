@@ -1,6 +1,7 @@
 package com.group.KGMS.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.group.KGMS.entity.CandidateOntology;
@@ -27,7 +28,7 @@ import java.util.List;
  */
 
 @Service
-public class CandidateOntologyServiceImpl implements CandidateOntologyService {
+public class CandidateOntologyServiceImpl extends ServiceImpl<CandidateOntologyMapper, CandidateOntology> implements CandidateOntologyService {
 
     @Autowired
     private CandidateOntologyMapper candidateOntologyMapper;
@@ -44,7 +45,7 @@ public class CandidateOntologyServiceImpl implements CandidateOntologyService {
 
     @Override
     @Transactional
-    public JsonResult save(CandidateOntology newOnto) {
+    public JsonResult saveOnto(CandidateOntology newOnto) {
         LambdaQueryWrapper<CandidateOntology> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(CandidateOntology::getName, newOnto.getName());
         CandidateOntology ontology = candidateOntologyMapper.selectOne(queryWrapper);

@@ -43,6 +43,9 @@ mybatis:
 
 server:
   port: 12345
+#  compression:
+#    enabled: true
+
 #  pagehelper配置
 pagehelper:
   helper-dialect:: mysql

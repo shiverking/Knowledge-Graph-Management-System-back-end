@@ -36,7 +36,7 @@ public class RelationDto {
     private String endId;
 
     @TableField("create_at")
-    private Date createAt;
+    private Date createdAt;
 
     @TableField("detail")
     private String detail;

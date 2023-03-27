@@ -35,9 +35,7 @@ public class BigDataServiceImpl implements BigDataService{
     private AttributeDtoMapper attributeDtoMapper;
 
     @Override
-    public JsonResult saveOnto(JsonResult result) {
-        Object resultDataObj = result.getData();
-        OntologyDto ontologyDto = BeanUtil.toBean(resultDataObj, OntologyDto.class);
+    public JsonResult saveOnto(OntologyDto ontologyDto) {
         List<ClassDto> classDtos = ontologyDto.getClassDtos();
         for(ClassDto classDto: classDtos){
             classDtoMapper.insert(classDto);
@@ -51,5 +49,23 @@ public class BigDataServiceImpl implements BigDataService{
             attributeDtoMapper.insert(attributeDto);
         }
         return JsonResult.success();
+    }
+
+    @Override
+    public JsonResult getClassList() {
+        List<ClassDto> classDtoList = classDtoMapper.selectList(null);
+        return JsonResult.success(classDtoList);
+    }
+
+    @Override
+    public JsonResult getRelationList() {
+        List<RelationDto> relationDtoList = relationDtoMapper.selectList(null);
+        return JsonResult.success(relationDtoList);
+    }
+
+    @Override
+    public JsonResult getAttributeList() {
+        List<AttributeDto> attributeDtoList = attributeDtoMapper.selectList(null);
+        return JsonResult.success(attributeDtoList);
     }
 }
