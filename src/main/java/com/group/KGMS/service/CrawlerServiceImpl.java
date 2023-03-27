@@ -7,13 +7,17 @@ import com.group.KGMS.entity.SemistructuredDataOriginal;
 import com.group.KGMS.entity.T_crawler;
 import com.group.KGMS.utils.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.BasicQuery;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -27,37 +31,21 @@ public class CrawlerServiceImpl implements CrawlerService {
     private MongoTemplate mongoTemplate;
 
     @Override
-    public JsonResult findAll(Integer pageNum, Integer pageSize) {
+    public JsonResult findByCondition(String name, Integer status, Integer pageNum, Integer pageSize) {
         Query query = new Query();
+        if(!name.isEmpty()) {
+            query.addCriteria(Criteria.where("name").regex(name));
+        }
+        if(status != null) {
+            query.addCriteria(Criteria.where("status").is(status));
+        }
         //设置起始数
         query.skip((pageNum - 1) * pageSize);
         //设置查询条数
         query.limit(pageSize);
-        query.fields().include("cid").include("name").include("remark").include("status").include("cron");
+        query.fields().include("cid").include("name").include("remark").include("status").include("cron").include("website");
         BasicQuery basicQuery = new BasicQuery(query.getQueryObject().toJson());
-        return JsonResult.success(mongoTemplate.find(query, T_crawler.class),mongoTemplate.count(basicQuery,T_crawler.class));
-    }
-
-    @Override
-    public JsonResult findByStatus(Integer status, Integer pageNum, Integer pageSize) {
-        Query query = new Query(Criteria.where("status").is(status));
-        //设置起始数
-        query.skip((pageNum - 1) * pageSize);
-        //设置查询条数
-        query.limit(pageSize);
-        query.fields().include("cid").include("name").include("remark").include("status").include("cron");
-        return JsonResult.success(mongoTemplate.find(query, T_crawler.class),mongoTemplate.count(query,T_crawler.class));
-    }
-
-    @Override
-    public JsonResult findByName(String name, Integer pageNum, Integer pageSize) {
-        Query query = new Query(Criteria.where("name").regex(name));
-        //设置起始数
-        query.skip((pageNum - 1) * pageSize);
-        //设置查询条数
-        query.limit(pageSize);
-        query.fields().include("cid").include("name").include("remark").include("status").include("cron");
-        return JsonResult.success(mongoTemplate.find(query, T_crawler.class),mongoTemplate.count(query,T_crawler.class));
+        return JsonResult.success(mongoTemplate.find(query, T_crawler.class), mongoTemplate.count(basicQuery,T_crawler.class));
     }
 
     @Override
@@ -76,9 +64,49 @@ public class CrawlerServiceImpl implements CrawlerService {
     }
 
     @Override
+    public int addCrawler(T_crawler crawler) {
+        Query query = new Query();
+        query.with(Sort.by(Sort.Order.desc("cid")));
+        query.limit(1);
+        query.fields().include("cid");
+        T_crawler res = mongoTemplate.findOne(query, T_crawler.class);
+        crawler.setCid(res.getCid() + 1);
+        crawler.setStatus(0);
+        crawler.setPath("/" + crawler.getSpider_name());
+        T_crawler back = mongoTemplate.save(crawler);
+        if(back != null) {
+            return 1;
+        }
+        else{
+            return 0;
+        }
+    }
+
+    @Override
     public T_crawler findpathBycid(Integer cid) {
         Query query = new Query(Criteria.where("cid").is(cid));
         return mongoTemplate.findOne(query, T_crawler.class);
+    }
+
+    @Override
+    public void uploadCrawlerFile(MultipartFile file) throws Exception {
+        String filename = file.getOriginalFilename();
+        String storePath = "C:\\Users\\20806\\Desktop\\crawlerFile\\";
+
+        File fileDir = new File(storePath);
+        File[] files = fileDir.listFiles();
+        for (File f : files) {
+            if(f.getName() == filename) {
+                f.delete();
+            }
+        }
+
+        String path = storePath + filename;
+        File filePath = new File(path);
+        BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(filePath));
+        outputStream.write(file.getBytes());
+        outputStream.flush();
+        outputStream.close();
     }
 
     @Override

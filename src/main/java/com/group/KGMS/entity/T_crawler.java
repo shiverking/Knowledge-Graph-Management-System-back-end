@@ -23,6 +23,6 @@ public class T_crawler {
     private String remark;
     private Integer pid;
     private Integer status;
-    private String corn;
+    private String cron;
     private String website;
 }
