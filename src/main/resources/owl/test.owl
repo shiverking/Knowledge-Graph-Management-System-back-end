@@ -9,156 +9,145 @@
     xmlns:owl="&owl;"
     xmlns:rdfs="&rdfs;"
     xmlns:xsd="&xsd;">
-  <rdfs:Datatype rdf:about="&rdf;XMLLiteral">
+  <rdfs:Class rdf:about="&rdf;XMLLiteral">
     <rdf:type>
-      <rdfs:Class rdf:about="&rdfs;Resource"/>
+      <rdfs:Resource rdf:about="&rdfs;Resource">
+        <rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
+        <rdf:type>
+          <rdfs:Resource rdf:about="&rdfs;Class">
+            <rdfs:subClassOf rdf:resource="&rdfs;Class"/>
+            <rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
+            <rdf:type rdf:resource="&rdfs;Class"/>
+          </rdfs:Resource>
+        </rdf:type>
+      </rdfs:Resource>
     </rdf:type>
     <rdf:type>
-      <rdfs:Class rdf:about="&rdfs;Class"/>
+      <rdfs:Resource rdf:about="&rdfs;Datatype">
+        <rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
+        <rdfs:subClassOf rdf:resource="&rdfs;Class"/>
+        <rdfs:subClassOf rdf:resource="&rdfs;Datatype"/>
+        <rdf:type rdf:resource="&rdfs;Class"/>
+      </rdfs:Resource>
     </rdf:type>
-  </rdfs:Datatype>
-  <rdfs:Class rdf:about="&rdfs;Resource">
-    <rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
-    <rdf:type rdf:resource="&rdfs;Resource"/>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="&rdf;Bag">
-    <rdfs:subClassOf rdf:resource="&rdf;Bag"/>
-    <rdfs:subClassOf>
-      <rdfs:Class rdf:about="&rdfs;Container"/>
-    </rdfs:subClassOf>
-    <rdf:type rdf:resource="&rdfs;Resource"/>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="&rdf;Seq">
-    <rdfs:subClassOf rdf:resource="&rdf;Seq"/>
-    <rdfs:subClassOf>
-      <rdfs:Class rdf:about="&rdfs;Container"/>
-    </rdfs:subClassOf>
-    <rdf:type rdf:resource="&rdfs;Resource"/>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="&rdfs;Datatype">
-    <rdfs:subClassOf rdf:resource="&rdfs;Datatype"/>
-    <rdfs:subClassOf>
-      <rdfs:Class rdf:about="&rdfs;Class"/>
-    </rdfs:subClassOf>
-    <rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
-    <rdf:type rdf:resource="&rdfs;Resource"/>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="&rdfs;Class">
-    <rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
-    <rdfs:subClassOf rdf:resource="&rdfs;Class"/>
-    <rdf:type rdf:resource="&rdfs;Resource"/>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="&rdf;List">
-    <rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
-    <rdfs:subClassOf rdf:resource="&rdf;List"/>
-    <rdf:type rdf:resource="&rdfs;Resource"/>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="&rdfs;Literal">
-    <rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
-    <rdfs:subClassOf rdf:resource="&rdfs;Literal"/>
-    <rdf:type rdf:resource="&rdfs;Resource"/>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="&rdf;Statement">
-    <rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
-    <rdfs:subClassOf rdf:resource="&rdf;Statement"/>
-    <rdf:type rdf:resource="&rdfs;Resource"/>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="&rdf;Property">
-    <rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
-    <rdfs:subClassOf rdf:resource="&rdf;Property"/>
-    <rdf:type rdf:resource="&rdfs;Resource"/>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="&rdf;Alt">
-    <rdfs:subClassOf rdf:resource="&rdf;Alt"/>
-    <rdfs:subClassOf>
-      <rdfs:Class rdf:about="&rdfs;Container"/>
-    </rdfs:subClassOf>
-    <rdf:type rdf:resource="&rdfs;Resource"/>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="&rdfs;Container">
-    <rdfs:subClassOf rdf:resource="&rdfs;Container"/>
-    <rdf:type rdf:resource="&rdfs;Resource"/>
-  </rdfs:Class>
-  <rdfs:Class rdf:about="&rdfs;ContainerMembershipProperty">
-    <rdfs:subClassOf rdf:resource="&rdfs;ContainerMembershipProperty"/>
-    <rdfs:subClassOf rdf:resource="&rdf;Property"/>
-    <rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
-    <rdf:type rdf:resource="&rdfs;Resource"/>
   </rdfs:Class>
   <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#Thing"/>
-  <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#测试">
-    <rdfs:domain rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#Thing"/>
-  </owl:ObjectProperty>
-  <rdf:Property rdf:about="&rdf;predicate">
-    <rdfs:domain rdf:resource="&rdf;Statement"/>
-    <rdfs:subPropertyOf rdf:resource="&rdf;predicate"/>
-    <rdf:type rdf:resource="&rdfs;Resource"/>
-  </rdf:Property>
-  <rdf:Property rdf:about="&rdfs;isDefinedBy">
-    <rdfs:subPropertyOf rdf:resource="&rdfs;isDefinedBy"/>
-    <rdfs:subPropertyOf>
-      <rdf:Property rdf:about="&rdfs;seeAlso"/>
-    </rdfs:subPropertyOf>
-    <rdf:type rdf:resource="&rdfs;Resource"/>
-  </rdf:Property>
-  <rdf:Property rdf:about="&rdf;type">
+  <rdfs:Resource rdf:about="&rdf;nil">
+    <rdf:type>
+      <rdfs:Resource rdf:about="&rdf;List">
+        <rdfs:subClassOf rdf:resource="&rdf;List"/>
+        <rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
+        <rdf:type rdf:resource="&rdfs;Class"/>
+      </rdfs:Resource>
+    </rdf:type>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdfs;comment">
+    <rdfs:range>
+      <rdfs:Resource rdf:about="&rdfs;Literal">
+        <rdfs:subClassOf rdf:resource="&rdfs;Literal"/>
+        <rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
+        <rdf:type rdf:resource="&rdfs;Class"/>
+      </rdfs:Resource>
+    </rdfs:range>
+    <rdf:type>
+      <rdfs:Resource rdf:about="&rdf;Property">
+        <rdfs:subClassOf rdf:resource="&rdf;Property"/>
+        <rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
+        <rdf:type rdf:resource="&rdfs;Class"/>
+      </rdfs:Resource>
+    </rdf:type>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdfs;domain">
     <rdfs:range rdf:resource="&rdfs;Class"/>
-    <rdf:type rdf:resource="&rdfs;Resource"/>
-  </rdf:Property>
-  <rdf:Property rdf:about="&rdf;rest">
-    <rdfs:domain rdf:resource="&rdf;List"/>
-    <rdfs:range rdf:resource="&rdf;List"/>
-    <rdfs:subPropertyOf rdf:resource="&rdf;rest"/>
-    <rdf:type rdf:resource="&rdfs;Resource"/>
-  </rdf:Property>
-  <rdf:Property rdf:about="&rdfs;range">
     <rdfs:domain rdf:resource="&rdf;Property"/>
+    <rdf:type rdf:resource="&rdf;Property"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdfs;subClassOf">
     <rdfs:range rdf:resource="&rdfs;Class"/>
-    <rdf:type rdf:resource="&rdfs;Resource"/>
-  </rdf:Property>
-  <rdf:Property rdf:about="&rdfs;seeAlso">
-    <rdfs:subPropertyOf rdf:resource="&rdfs;seeAlso"/>
-    <rdf:type rdf:resource="&rdfs;Resource"/>
-  </rdf:Property>
-  <rdf:Property rdf:about="&rdf;subject">
-    <rdfs:domain rdf:resource="&rdf;Statement"/>
-    <rdfs:subPropertyOf rdf:resource="&rdf;subject"/>
-    <rdf:type rdf:resource="&rdfs;Resource"/>
-  </rdf:Property>
-  <rdf:Property rdf:about="&rdfs;comment">
-    <rdfs:range rdf:resource="&rdfs;Literal"/>
-    <rdf:type rdf:resource="&rdfs;Resource"/>
-  </rdf:Property>
-  <rdf:Property rdf:about="&rdf;object">
-    <rdfs:domain rdf:resource="&rdf;Statement"/>
-    <rdfs:subPropertyOf rdf:resource="&rdf;object"/>
-    <rdf:type rdf:resource="&rdfs;Resource"/>
-  </rdf:Property>
-  <rdf:Property rdf:about="&rdfs;domain">
-    <rdfs:domain rdf:resource="&rdf;Property"/>
-    <rdfs:range rdf:resource="&rdfs;Class"/>
-    <rdf:type rdf:resource="&rdfs;Resource"/>
-  </rdf:Property>
-  <rdf:Property rdf:about="&rdfs;label">
-    <rdfs:range rdf:resource="&rdfs;Literal"/>
-    <rdf:type rdf:resource="&rdfs;Resource"/>
-  </rdf:Property>
-  <rdf:Property rdf:about="&rdfs;subPropertyOf">
-    <rdfs:domain rdf:resource="&rdf;Property"/>
-    <rdfs:range rdf:resource="&rdf;Property"/>
-    <rdf:type rdf:resource="&rdfs;Resource"/>
-  </rdf:Property>
-  <rdf:Property rdf:about="&rdf;first">
-    <rdfs:domain rdf:resource="&rdf;List"/>
-    <rdfs:subPropertyOf rdf:resource="&rdf;first"/>
-    <rdf:type rdf:resource="&rdfs;Resource"/>
-  </rdf:Property>
-  <rdf:Property rdf:about="&rdfs;subClassOf">
     <rdfs:domain rdf:resource="&rdfs;Class"/>
+    <rdf:type rdf:resource="&rdf;Property"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdf;type">
     <rdfs:range rdf:resource="&rdfs;Class"/>
-    <rdf:type rdf:resource="&rdfs;Resource"/>
-  </rdf:Property>
-  <rdf:List rdf:about="&rdf;nil">
-    <rdf:type rdf:resource="&rdfs;Resource"/>
-  </rdf:List>
+    <rdf:type rdf:resource="&rdf;Property"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdfs;range">
+    <rdfs:range rdf:resource="&rdfs;Class"/>
+    <rdfs:domain rdf:resource="&rdf;Property"/>
+    <rdf:type rdf:resource="&rdf;Property"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdfs;label">
+    <rdfs:range rdf:resource="&rdfs;Literal"/>
+    <rdf:type rdf:resource="&rdf;Property"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdfs;subPropertyOf">
+    <rdfs:range rdf:resource="&rdf;Property"/>
+    <rdfs:domain rdf:resource="&rdf;Property"/>
+    <rdf:type rdf:resource="&rdf;Property"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdf;Statement">
+    <rdfs:subClassOf rdf:resource="&rdf;Statement"/>
+    <rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
+    <rdf:type rdf:resource="&rdfs;Class"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdfs;Container">
+    <rdfs:subClassOf rdf:resource="&rdfs;Container"/>
+    <rdf:type rdf:resource="&rdfs;Class"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdfs;seeAlso">
+    <rdfs:subPropertyOf rdf:resource="&rdfs;seeAlso"/>
+    <rdf:type rdf:resource="&rdf;Property"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdf;predicate">
+    <rdfs:subPropertyOf rdf:resource="&rdf;predicate"/>
+    <rdfs:domain rdf:resource="&rdf;Statement"/>
+    <rdf:type rdf:resource="&rdf;Property"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdfs;isDefinedBy">
+    <rdfs:subPropertyOf rdf:resource="&rdfs;seeAlso"/>
+    <rdfs:subPropertyOf rdf:resource="&rdfs;isDefinedBy"/>
+    <rdf:type rdf:resource="&rdf;Property"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdf;rest">
+    <rdfs:subPropertyOf rdf:resource="&rdf;rest"/>
+    <rdfs:range rdf:resource="&rdf;List"/>
+    <rdfs:domain rdf:resource="&rdf;List"/>
+    <rdf:type rdf:resource="&rdf;Property"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdfs;ContainerMembershipProperty">
+    <rdfs:subClassOf rdf:resource="&rdf;Property"/>
+    <rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
+    <rdfs:subClassOf rdf:resource="&rdfs;ContainerMembershipProperty"/>
+    <rdf:type rdf:resource="&rdfs;Class"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdf;subject">
+    <rdfs:subPropertyOf rdf:resource="&rdf;subject"/>
+    <rdfs:domain rdf:resource="&rdf;Statement"/>
+    <rdf:type rdf:resource="&rdf;Property"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdf;object">
+    <rdfs:subPropertyOf rdf:resource="&rdf;object"/>
+    <rdfs:domain rdf:resource="&rdf;Statement"/>
+    <rdf:type rdf:resource="&rdf;Property"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdf;Bag">
+    <rdfs:subClassOf rdf:resource="&rdfs;Container"/>
+    <rdfs:subClassOf rdf:resource="&rdf;Bag"/>
+    <rdf:type rdf:resource="&rdfs;Class"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdf;Seq">
+    <rdfs:subClassOf rdf:resource="&rdfs;Container"/>
+    <rdfs:subClassOf rdf:resource="&rdf;Seq"/>
+    <rdf:type rdf:resource="&rdfs;Class"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdf;Alt">
+    <rdfs:subClassOf rdf:resource="&rdfs;Container"/>
+    <rdfs:subClassOf rdf:resource="&rdf;Alt"/>
+    <rdf:type rdf:resource="&rdfs;Class"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdf;first">
+    <rdfs:subPropertyOf rdf:resource="&rdf;first"/>
+    <rdfs:domain rdf:resource="&rdf;List"/>
+    <rdf:type rdf:resource="&rdf;Property"/>
+  </rdfs:Resource>
 </rdf:RDF>

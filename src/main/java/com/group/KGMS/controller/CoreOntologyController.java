@@ -1,8 +1,10 @@
 package com.group.KGMS.controller;
 
 import com.alibaba.fastjson2.JSONObject;
+import com.group.KGMS.entity.CoreOntologyAttribute;
 import com.group.KGMS.entity.CoreOntologyClass;
 import com.group.KGMS.entity.CoreOntologyTriple;
+import com.group.KGMS.service.CoreOntologyAttributeService;
 import com.group.KGMS.service.CoreOntologyClassService;
 import com.group.KGMS.service.CoreOntologyTripleService;
 import com.group.KGMS.utils.JsonResult;
@@ -10,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import sun.net.idn.Punycode;
 
+import javax.annotation.Resource;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.io.IOException;
 import java.util.List;
 
@@ -30,6 +34,9 @@ public class CoreOntologyController {
 
     @Autowired
     private CoreOntologyTripleService coreOntologyTripleService;
+
+    @Resource
+    private CoreOntologyAttributeService coreOntologyAttributeService;
 
 
     /*
@@ -165,5 +172,20 @@ public class CoreOntologyController {
             return JsonResult.error("融合失败");
         }
         return JsonResult.success("success");
+    }
+
+    @GetMapping("/getAttribute/{id}")
+    public JsonResult getAttribute(@PathVariable("id") Integer id){
+        return coreOntologyAttributeService.getAttributesByClassId(id);
+    }
+
+    @PostMapping("/addAttribute")
+    public JsonResult addAttribute(@RequestBody CoreOntologyAttribute newAttribute){
+        return coreOntologyAttributeService.addAttribute(newAttribute);
+    }
+
+    @DeleteMapping("/deleteAttribute/{attributeId}")
+    public JsonResult deleteAttribute(@PathVariable("attributeId") Integer attributeId){
+        return coreOntologyAttributeService.deleteAttribute(attributeId);
     }
 }

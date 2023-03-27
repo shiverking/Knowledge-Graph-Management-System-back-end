@@ -33,7 +33,7 @@ public class ClassDto {
     private String parentId;
 
     @TableField("create_at")
-    private Date createAt;
+    private Date createdAt;
 
     @TableField("detail")
     private String detail;

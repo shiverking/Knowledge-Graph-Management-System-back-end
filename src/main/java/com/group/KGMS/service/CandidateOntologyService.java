@@ -1,5 +1,6 @@
 package com.group.KGMS.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.pagehelper.PageInfo;
 import com.group.KGMS.entity.CandidateOntology;
 import com.group.KGMS.utils.JsonResult;
@@ -12,10 +13,10 @@ import com.group.KGMS.utils.JsonResult;
  * @Description:
  */
 
-public interface CandidateOntologyService {
+public interface CandidateOntologyService extends IService<CandidateOntology> {
     //分页获取所有候选本体
     PageInfo<CandidateOntology> getAllCandidateOntologyByPage(Integer pageNum, Integer limitNum);
 
     //添加本体
-    JsonResult save(CandidateOntology newOnto);
+    JsonResult saveOnto(CandidateOntology newOnto);
 }

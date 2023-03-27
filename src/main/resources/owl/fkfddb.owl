@@ -328,6 +328,10 @@
   <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#789"/>
   <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#999"/>
   <owl:ObjectProperty rdf:about="&here;协助"/>
+  <owl:ObjectProperty rdf:about="&here;csa">
+    <rdfs:domain rdf:resource="&here;支线"/>
+    <rdfs:range rdf:resource="&here;地空导弹"/>
+  </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="&here;r_c"/>
   <owl:ObjectProperty rdf:about="&here;r_b"/>
   <owl:ObjectProperty rdf:about="&here;text"/>
@@ -345,4 +349,14 @@
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="&here;null"/>
   <owl:ObjectProperty rdf:about="&here;caasc"/>
+  <owl:DatatypeProperty rdf:about="&here;射程">
+    <rdfs:domain rdf:resource="&here;导弹武器"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="&here;长度">
+    <rdfs:domain rdf:resource="&here;导弹武器"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="&here;测试下">
+    <rdfs:domain rdf:resource="&here;地空导弹"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="&here;重量"/>
 </rdf:RDF>

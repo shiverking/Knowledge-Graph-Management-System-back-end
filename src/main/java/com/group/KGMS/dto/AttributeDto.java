@@ -36,7 +36,7 @@ public class AttributeDto {
     private String valueType;
 
     @TableField("create_at")
-    private Date createAt;
+    private Date createdAt;
 
     @TableField("detail")
     private String detail;

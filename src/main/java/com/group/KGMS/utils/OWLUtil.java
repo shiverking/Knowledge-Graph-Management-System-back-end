@@ -150,12 +150,26 @@ public class OWLUtil {
      * @param: [ontModel 读取OWL文件生成的OntModel类对象, ontClass 需要被添加的类别, propertyName 属性名称]
      * @return: org.apache.jena.ontology.DatatypeProperty
      **/
-    public DatatypeProperty addProperty(OntModel ontModel, OntClass ontClass, String propertyName, String owlName) throws IOException {
+    public static DatatypeProperty addProperty(OntModel ontModel, OntClass ontClass, String propertyName, String owlName) throws IOException {
         String nameSpace = OWLUtil.getNameSpace();
         DatatypeProperty newProperty = ontModel.createDatatypeProperty(nameSpace + propertyName);
         newProperty.addDomain(ontClass);
         OWLUtil.ontModel2Owl(ontModel, owlName);
         return newProperty;
+    }
+
+    /*
+     * @Description: 删除类中的某个属性
+     * @Author: zt
+     * @Date: 2023/3/27 16:30
+     * @param: [ontModel, ontClass, propertyName, owlName]
+     * @return: void
+     **/
+    public static void removeProperty(OntModel ontModel, OntClass ontClass, String propertyName, String owlName) throws IOException {
+        String nameSpace = OWLUtil.getNameSpace();
+        DatatypeProperty newProperty = ontModel.createDatatypeProperty(nameSpace + propertyName);
+        newProperty.removeDomain(ontClass);
+        OWLUtil.ontModel2Owl(ontModel, owlName);
     }
 
     /*

@@ -11,6 +11,7 @@ import com.group.KGMS.mapper.CandidateOntologyClassMapper;
 import com.group.KGMS.mapper.CoreOntologyClassMapper;
 import com.group.KGMS.mapper.CoreOntologyTripleMapper;
 import com.group.KGMS.utils.CoreOWLUtil;
+import com.group.KGMS.utils.JsonResult;
 import com.group.KGMS.utils.OWLUtil;
 import com.group.KGMS.utils.TreeJsonCoreOntologyClass;
 import org.apache.jena.ontology.OntClass;
@@ -18,6 +19,7 @@ import org.apache.jena.ontology.OntModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -45,6 +47,7 @@ public class CoreOntologyClassServiceImpl extends ServiceImpl<CoreOntologyClassM
 
     @Autowired
     private CandidateOntologyClassMapper candidateOntologyClassMapper;
+
 
     @Override
     public CoreOntologyClass getRootClass() {
@@ -263,4 +266,5 @@ public class CoreOntologyClassServiceImpl extends ServiceImpl<CoreOntologyClassM
 ////            }
 //        }
     }
+
 }
