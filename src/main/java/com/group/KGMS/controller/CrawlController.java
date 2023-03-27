@@ -44,6 +44,16 @@ public class CrawlController {
     public JsonResult findByCondition(String name, Integer status, Integer page, Integer limit) {
         return crawlerService.findByCondition(name, status, page, limit);
     }
+    
+    @GetMapping ("/findAllnopage")
+    public List<T_crawler> findAllnopage() {
+        return crawlerService.findAllnopage();
+    }
+    
+    @GetMapping ("/list/{page}/{limit}")
+    public JsonResult findAll(@PathVariable("page") Integer page, @PathVariable("limit") Integer limit) {
+        return crawlerService.findAll(page,limit);
+    }
 
     @GetMapping ("/findrecordbycid/{page}/{limit}/{cid}")
     public JsonResult findrecordbycid(@PathVariable("page") Integer page, @PathVariable("limit") Integer limit,@PathVariable("cid") Integer cid) {

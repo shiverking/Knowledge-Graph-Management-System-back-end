@@ -27,4 +27,7 @@ public interface CrawlerService {
     JsonResult findrecordbycid(Integer pageNum, Integer pageSize,Integer cid);
 
     int addCrawler(T_crawler crawler);
+
+    List<T_crawler> findAllnopage();
+
 }

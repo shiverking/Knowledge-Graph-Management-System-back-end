@@ -148,4 +148,12 @@ public class CrawlerServiceImpl implements CrawlerService {
         BasicQuery basicQuery = new BasicQuery(query.getQueryObject().toJson());
         return JsonResult.success(mongoTemplate.find(query, Record.class),mongoTemplate.count(basicQuery, Record.class));
     }
+
+    @Override
+    public List<T_crawler> findAllnopage() {
+        Query query = new Query();
+        BasicQuery basicQuery = new BasicQuery(query.getQueryObject().toJson());
+        return mongoTemplate.find(basicQuery, T_crawler.class);
+    }
+
 }

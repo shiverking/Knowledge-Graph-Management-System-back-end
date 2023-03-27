@@ -31,12 +31,6 @@ public class SemistructuredDataServiceImpl implements SemistructuredDataService 
             );
         }
         BasicQuery basicQuery = new BasicQuery(query.getQueryObject().toJson());
-//        如果有条件的话
-//        if (conditions != null) {
-//            for (String field: conditions.keySet()) {
-//                query.addCriteria(new Criteria(field).is(conditions.get(field)));
-//            }
-//        }
         return JsonResult.success(mongoTemplate.find(query, SemistructuredDataOriginal.class),mongoTemplate.count(basicQuery,SemistructuredDataOriginal.class));
 
     }
