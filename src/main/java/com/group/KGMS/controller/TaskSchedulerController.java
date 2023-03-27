@@ -67,8 +67,14 @@ public class TaskSchedulerController {
     @ResponseBody
     @PostMapping("/manualUpdate")
     public JsonResult manualUpdate() {
-        String url = "http://127.0.0.1:8088/test";
+        //修改时，TripleSearchTask中的路径也要同时修改
+        String url = "http://192.168.1.10:8888/ontology-model/getInstance";
         Date latestTime = requestMapper.getLatestTime();
+        if(latestTime == null){
+            Calendar calendar=Calendar.getInstance();
+            calendar.set(2000, 0, 1); // 2000年1月1日
+            latestTime=calendar.getTime();
+        }
         //获取最新时刻
         Date nextTime = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
@@ -95,7 +101,7 @@ public class TaskSchedulerController {
         }
         String uuid = UUID.randomUUID().toString();
         if(requestMapper.insertNewRecord(new RequestInfo(uuid,new Date(),num,"success"))==1) {
-            return JsonResult.success("success",nextTime);
+            return JsonResult.success("success",latestTime);
         }
         return JsonResult.error();
     }

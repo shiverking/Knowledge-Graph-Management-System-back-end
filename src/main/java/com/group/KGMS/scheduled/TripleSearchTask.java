@@ -13,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
@@ -30,9 +31,13 @@ public class TripleSearchTask implements Runnable{
         RestTemplate restTemplate = SpringContextUtils.getApplicationContext().getBean(RestTemplate.class);
         CandidateTripleMapper candidateTripleMapper = SpringContextUtils.getApplicationContext().getBean(CandidateTripleMapper.class);
         RequestMapper requestMapper = SpringContextUtils.getApplicationContext().getBean(RequestMapper.class);
-
-        String url = "http://127.0.0.1:8088/test";
+        String url = "http://192.168.1.10:8888/ontology-model/getInstance";
         Date latestTime = requestMapper.getLatestTime();
+        if(latestTime == null){
+            Calendar calendar=Calendar.getInstance();
+            calendar.set(2000, 0, 1); // 2000年1月1日
+            latestTime=calendar.getTime();
+        }
         //获取最新时刻
         Date nextTime = new Date();
         //加5分钟
