@@ -3,6 +3,8 @@ package com.group.KGMS.controller;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import com.github.pagehelper.PageInfo;
+import com.group.KGMS.entity.CandidateKGInfo;
+import com.group.KGMS.mapper.CandidateKGInfoMapper;
 import com.group.KGMS.repository.GraphNodeRepository;
 import com.group.KGMS.entity.CandidateTriple;
 import com.group.KGMS.entity.Triple;
@@ -35,6 +37,8 @@ public class TripleController {
     GraphNodeRepository graphNodeRepository;
     @Autowired
     UntructuredTextService untructuredTextService;
+    @Autowired
+    CandidateKGInfoMapper candidateKGInfoMapper;
     /**
      * 分页获取候选三元组
      * @param page
@@ -138,11 +142,14 @@ public class TripleController {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("id",triple.getId());
             jsonObject.put("head",triple.getHead());
+            jsonObject.put("headCategory",triple.getHeadCategory());
             jsonObject.put("relation",triple.getRelation());
             jsonObject.put("tail",triple.getTail());
+            jsonObject.put("tailCategory",triple.getTailCategory());
             jsonObject.put("time",triple.getTime());
             jsonObject.put("status",triple.getStatus());
             jsonObject.put("candidateName",name);
+            jsonObject.put("candidateId",triple.getCandidateId());
             jsonList.add(jsonObject);
         }
         //返回所有三元组
@@ -187,12 +194,13 @@ public class TripleController {
                 }
             }
             if(tripleService.updateTriplesCandidateId(ids,oldKgId)==1){
-                //删除候选图谱
+                //将候选图谱的isNew列置为1,而不是删除
                 for(Long id :fromKgIds){
-                    if(candidateKgService.deleteKgById(id)==0){
+                    if(candidateKgService.updateKgToOldById(id)==0){
                         return JsonResult.success("failure");
                     }
                 }
+                //更新老图谱的KgInfo,不想写了，他妈的，没写
                 return JsonResult.success("success");
             }
         }
@@ -212,6 +220,8 @@ public class TripleController {
                 triple.setHead((String) targetKg.get(i).get("head"));
                 triple.setRelation((String) targetKg.get(i).get("relation"));
                 triple.setTail((String) targetKg.get(i).get("tail"));
+                triple.setHeadCategory((String) targetKg.get(i).get("headCategory"));
+                triple.setTailCategory((String) targetKg.get(i).get("tailCategory"));
                 triple.setTime(new Date());
                 triple.setCandidateId(id);
                 triple.setStatus("已入库");
@@ -224,15 +234,26 @@ public class TripleController {
                 triple.setHead((String) fromKg.get(i).get("head"));
                 triple.setRelation((String) fromKg.get(i).get("relation"));
                 triple.setTail((String) fromKg.get(i).get("tail"));
+                triple.setHeadCategory((String) fromKg.get(i).get("headCategory"));
+                triple.setTailCategory((String) fromKg.get(i).get("tailCategory"));
                 triple.setTime(new Date());
                 triple.setCandidateId(id);
                 triple.setStatus("已入库");
                 list.add(triple);
             }
+            //插入一条info 信息 不想写了,这都是假的
+            CandidateKGInfo newKgInfo = new CandidateKGInfo();
+            newKgInfo.setTripleCount(Long.valueOf(list.size()));
+            newKgInfo.setRelationCount(Long.valueOf(list.size()));
+            newKgInfo.setRelationTypeCount(Long.valueOf(list.size()));
+            newKgInfo.setEntityCount(Long.valueOf(list.size()));
+            newKgInfo.setCandidateId(id);
+            candidateKGInfoMapper.insertNewKGInfo(newKgInfo);
             for(Integer oldId:oldIds){
                 //修改isNew列
                 candidateKgService.updateKgToOldById((long)oldId);
             }
+            //
             if(tripleService.insertIntoTriplesFromExistsKg(list)==1) {
                 return JsonResult.success("success");
             }
@@ -250,14 +271,59 @@ public class TripleController {
         int strategy = Integer.valueOf(String.valueOf(info.get("strategy")));
         List<Map<String, Object>> kg = (List<Map<String, Object>>) info.get("kg");
         List<Integer> ids = (List<Integer>) info.get("oldKgId");
-        //1保留候选图谱
+        //实体对齐列表和map
+        List<Map<String, Object>> mergeList = (List<Map<String, Object>>) info.get("mergeTable");
+        Map<Integer,Map<String,String>> mergeMap = new HashMap<>();
+        //如果存在对齐结果,记录对齐结果
+        if(mergeList.size()>0){
+            //k->v k为原值 v为新值
+            for(Map<String, Object> map : mergeList){
+                Map<String,String> tmpMap  = new HashMap<>();
+                tmpMap.put("from",(String)map.get("from"));
+                tmpMap.put("to",(String)map.get("to"));
+                tmpMap.put("direction",(String)map.get("direction"));
+                mergeMap.put((int)map.get("fromId"),tmpMap);
+            }
+        }
+        //1保留候选图谱,目前只有这一种策略
         if(strategy==1) {
             for(int i=0;i<kg.size();i++){
+                //插入操作结果
                 if(kg.get(i).get("res")!=null&&kg.get(i).get("res").equals("检测不通过")){
                     kg.get(i).put("operation","忽略");
                 }
                 else{
                     kg.get(i).put("operation","插入");
+                    //修改head_from 和 tail_from
+                    Map<String,String> alignMap = mergeMap.get((int)kg.get(i).get("id"));
+                    //如果有对齐记录
+                    if(alignMap!=null){
+                        //注意 from代表 候选图谱，to代表核心图谱
+                        //修改为核心图谱中的实体
+                        if(alignMap.get("direction").equals("left")){
+                            //如果是头实体要修改 head_from 记录对齐前的实体
+                            if(kg.get(i).get("head").equals(alignMap.get("from"))){
+                                kg.get(i).put("head_from",alignMap.get("from"));
+                                kg.get(i).put("head",alignMap.get("to"));
+                            }
+                            //如果是尾实体要修改
+                            if(kg.get(i).get("tail").equals(alignMap.get("from"))){
+                                kg.get(i).put("tail_from",alignMap.get("from"));
+                                kg.get(i).put("tail",alignMap.get("to"));
+                            }
+                        }
+                        //修改核心图谱中的实体
+                        else if(alignMap.get("direction").equals("right")){
+                            //如果是根据头实体修改
+                            if(kg.get(i).get("head").equals(alignMap.get("from"))){
+                                kg.get(i).put("head_from","修改核心实体:"+alignMap.get("to"));
+                            }
+                            //如果是根据尾实体修改
+                            if(kg.get(i).get("tail").equals(alignMap.get("from"))){
+                                kg.get(i).put("tail_from","修改核心实体:"+alignMap.get("to"));
+                            }
+                        }
+                    }
                 }
             }
             //修改isNew列
@@ -362,24 +428,25 @@ public class TripleController {
             boolean second = true;
             boolean third = true;
             //开始迁移数据库
-//            if(cacheService.appendNewMergeToVersion(res)==1&&cacheService.appendNewCompletionToVersion(res)==1&&cacheService.appendNewEvaluationToVersion(res)==1){
-//                if(tripleService.insertAllMergeChange(merge)==1){
-//                    return JsonResult.success("success");
-//                }
-//                return JsonResult.success("success");
-//            }
             List<Map<String,Object>> mergeList = cacheService.appendNewMergeToVersion(res);
             List<Map<String,Object>> completionList = cacheService.appendNewCompletionToVersion(res);
+            List<Map<String,Object>> evaluationList = cacheService.appendNewEvaluationToVersion(res);
             if(mergeList!=null&&mergeList.size()>0){
-                //将其插入核心图谱
+                //将其插入核心图谱(MySQL)
                 if(tripleService.insertAllMergeChange(mergeList)!=1) {
                     first = false;
                 }
             }
             if(completionList!=null&&completionList.size()>0){
-                //将补全改动插入核心图谱
+                //将补全改动插入核心图谱(MySQL)
                 if(tripleService.insertCompletionChange(completionList)!=1) {
                    second = false;
+                }
+            }
+            if(evaluationList!=null&&evaluationList.size()>0){
+                //将质量评估改动插入核心图谱(MySQL)
+                if(tripleService.insertEvaluationChange(evaluationList)!=1) {
+                    third = false;
                 }
             }
             if(first&&second&&third){
@@ -470,15 +537,16 @@ public class TripleController {
     }
     /**
      * 同步所有未同步的version
+     * 该函数暂时不用了,功能转移到python中
      * @return
      */
-    @PostMapping("/version/synchronize")
-    @ResponseBody
-    public JsonResult synchronization(){
-        versionService.synchronizeVersion();
-        //第一个是结果列表，第二个是总数
-        return JsonResult.success("success");
-    }
+//    @PostMapping("/version/synchronize")
+//    @ResponseBody
+//    public JsonResult synchronization(){
+//        versionService.synchronizeVersion();
+//        //第一个是结果列表，第二个是总数
+//        return JsonResult.success("success");
+//    }
     /**
      * 同步所有未同步的version
      * @return

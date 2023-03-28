@@ -3,8 +3,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.group.KGMS.mapper.CacheMapper">
     <insert id="insertNewMergeCache">
-        insert into  cache_merge_detail(head,head_from,relation,tail,tail_from,score,operation,time) values
-        (#{head}, #{head_from}, #{relation}, #{tail}, #{tail_from}, #{score},#{operation},#{time})
+        insert into  cache_merge_detail(head,head_category,head_from,relation,tail,tail_category,tail_from,score,operation,time) values
+        (#{head},#{headCategory}, #{head_from}, #{relation}, #{tail}, #{tailCategory},#{tail_from}, #{score},#{operation},#{time})
     </insert>
     <delete id="clearMergeCache">
         truncate table cache_merge_detail
@@ -19,8 +19,8 @@
         select * from cache_merge_detail
     </select>
     <insert id="insertNewCompletionCache">
-        insert into  cache_completion_detail(head,rel,tail,pred_prob,pred_form,time) values
-        (#{head}, #{rel}, #{tail}, #{pred_prob}, #{pred_form},#{time})
+        insert into  cache_completion_detail(head,rel,tail,time,head_category,tail_category) values
+        (#{head}, #{rel}, #{tail},#{time},#{headCategory},#{tailCategory})
     </insert>
     <select id="getAllCompletionCache" resultType="java.util.Map">
         select * from cache_completion_detail
@@ -30,12 +30,12 @@
         (#{head}, #{rel}, #{tail}, #{tail_typ}, #{tail_typ_new},#{head_typ},#{head_typ_new}, #{head_new}, #{rel_new}, #{tail_new}, #{update_form},#{error_typ})
     </insert>
     <insert id="insertNewMerge">
-         insert into  version_merge_detail(version_id,head,head_from,relation,tail,tail_from,score,operation,time) values
-        (#{version_id},#{head}, #{head_from}, #{relation}, #{tail}, #{tail_from}, #{score},#{operation},#{time})
+         insert into  version_merge_detail(version_id,head,head_category,head_from,relation,tail,tail_category,tail_from,score,operation,time) values
+        (#{version_id},#{head}, #{headCategory},#{head_from}, #{relation}, #{tail}, #{tailCategory},#{tail_from}, #{score},#{operation},#{time})
     </insert>
     <insert id="insertNewCompletion">
-        insert into  version_completion_detail(version_id,head,rel,tail,pred_prob,pred_form,time) values
-        (#{version_id},#{head}, #{rel}, #{tail}, #{pred_prob}, #{pred_form},#{time})
+        insert ignore into version_completion_detail(version_id,head,rel,tail,time) values
+        (#{version_id},#{head}, #{rel}, #{tail},#{time})
     </insert>
     <insert id="insertNewEvaluation">
         insert into  version_evaluation_detail(version_id,head,rel,tail,tail_typ,tail_typ_new,head_typ,head_typ_new,head_new,rel_new,tail_new,update_form,error_typ) values
