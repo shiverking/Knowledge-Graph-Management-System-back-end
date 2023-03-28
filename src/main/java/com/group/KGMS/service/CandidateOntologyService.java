@@ -19,4 +19,13 @@ public interface CandidateOntologyService extends IService<CandidateOntology> {
 
     //添加本体
     JsonResult saveOnto(CandidateOntology newOnto);
+
+    /*
+     * @Description: 结构化数据生成候选本体
+     * @Author: zt
+     * @Date: 2023/3/28 13:15
+     * @param: []
+     * @return: com.group.KGMS.utils.JsonResult
+     **/
+    JsonResult structuredDataToOntology(String candidateOntoName);
 }
