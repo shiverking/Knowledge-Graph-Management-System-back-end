@@ -4,39 +4,38 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.*;
-
-import java.util.Date;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @BelongsProject: Knowledge-Graph-Management-System-back-end
  * @BelongsPackage: com.group.KGMS.entity
  * @Author: zt
- * @CreateTime: 2022-12-02  16:26
- * @Description: 候选本体的pojo
+ * @CreateTime: 2023-03-23  15:36
+ * @Description:
  */
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
-@TableName("candidate_onto")
-public class CandidateOntology {
+@TableName("candidate_onto_data_property")
+public class CandidateOntologyAttribute {
 
     @TableId(type = IdType.AUTO)
     private Integer id;
 
-    @TableField("name")
-    private String name;
+    @TableField("class_id")
+    private Integer classId;
 
-    @TableField("creator_name")
-    private String creatorName;
+    @TableField("class_name")
+    private String className;
 
-    @TableField("create_time")
-    private Date createTime;
-
-    @TableField("change_time")
-    private Date changeTime;
+    @TableField("attribute_name")
+    private String attributeName;
 
     @TableField("comment")
     private String comment;
+
+    @TableField("belong_candidate_id")
+    private Integer belongCandidateId;
+
 }

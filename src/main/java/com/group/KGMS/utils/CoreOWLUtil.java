@@ -5,6 +5,7 @@ import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.RDFWriter;
 import org.springframework.stereotype.Component;
 
+import javax.swing.plaf.ViewportUI;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -132,12 +133,26 @@ public class CoreOWLUtil {
      * @param: [ontModel 读取OWL文件生成的OntModel类对象, ontClass 需要被添加的类别, propertyName 属性名称]
      * @return: org.apache.jena.ontology.DatatypeProperty
      **/
-    public DatatypeProperty addProperty(OntModel ontModel, OntClass ontClass, String propertyName) throws IOException {
+    public static DatatypeProperty addProperty(OntModel ontModel, OntClass ontClass, String propertyName) throws IOException {
         String nameSpace = CoreOWLUtil.getNameSpace();
         DatatypeProperty newProperty = ontModel.createDatatypeProperty(nameSpace + propertyName);
         newProperty.addDomain(ontClass);
         CoreOWLUtil.ontModel2Owl(ontModel);
         return newProperty;
+    }
+
+    /*
+     * @Description: 删除指定的类中的属性信息
+     * @Author: zt
+     * @Date: 2023/3/27 15:39
+     * @param: [ontModel, ontClass, propertyName]
+     * @return: void
+     **/
+    public static void removeProperty(OntModel ontModel, OntClass ontClass, String propertyName) throws IOException {
+        String nameSpace = CoreOWLUtil.getNameSpace();
+        DatatypeProperty newProperty = ontModel.createDatatypeProperty(nameSpace + propertyName);
+        newProperty.removeDomain(ontClass);
+        CoreOWLUtil.ontModel2Owl(ontModel);
     }
 
     /*
