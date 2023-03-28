@@ -360,46 +360,72 @@ public class TripleServiceImpl implements TripleService {
      * @return
      */
     @Override
-    public int insertCompletionChange(List<Map<String, Object>> triples) {
+    public int insertEvaluationChange(List<Map<String, Object>> triples) {
         int result = 1;
+        List<Map<String, Object>> deleteGroup = new ArrayList<>();
+        List<Map<String, Object>> updateEntityCategory = new ArrayList<>();
+        List<Map<String, Object>> updateRelationGroup = new ArrayList<>();
+        //分类
+        for (Map<String, Object> map : triples) {
+            if(map.get("update_form").equals(new Long(0))){
+                deleteGroup.add(map);
+            }
+            else if(map.get("update_form").equals(new Long(1))){
+                updateEntityCategory.add(map);
+            }
+            else if(map.get("update_form").equals(new Long(2))){
+                updateRelationGroup.add(map);
+            }
+        }
+        SqlSession openSession = sqlSessionFactory.openSession(ExecutorType.BATCH);
+        TripleMapper tmpMapper = openSession.getMapper(TripleMapper.class);
         try {
-            SqlSession openSession = sqlSessionFactory.openSession(ExecutorType.BATCH);
-            TripleMapper tmpMapper = openSession.getMapper(TripleMapper.class);
-            for (Map<String, Object> map : triples) {
-                tmpMapper.insertCompletionChange((String) map.get("head"), (String) map.get("rel"), (String) map.get("tail"), new Date());
+            //处理删除组
+            for (Map<String, Object> map : deleteGroup) {
+                tmpMapper.evaluationDelete((String) map.get("head"), (String) map.get("rel"), (String) map.get("tail"));
+            }
+            //处理修改实体组
+            for (Map<String, Object> map : updateEntityCategory) {
+                tmpMapper.evaluationUpdateEntityCategory((String) map.get("head"), (String) map.get("rel"), (String) map.get("tail"),(String) map.get("head_typ_new"),(String) map.get("tail_typ_new"));
+            }
+            //处理修改关系组
+            for (Map<String, Object> map : updateRelationGroup) {
+                tmpMapper.evaluationUpdateRelation((String) map.get("head"), (String) map.get("rel"), (String) map.get("tail"),(String) map.get("rel_new"));
             }
             openSession.commit();
             openSession.clearCache();
             openSession.close();
         } catch (Exception e) {
+            openSession.rollback();
             result = 0;
-            System.out.println(e);
+            e.printStackTrace();
         }
         return result;
     }
 
     /**
-     * 将质量评估改动插入核心图谱
+     * 将补全改动插入核心图谱
      *
      * @param records
      * @return
      */
     @Override
-    public int insertEvaluationChange(List<Map<String, Object>> records) {
+    public int insertCompletionChange(List<Map<String, Object>> records) {
         int result = 1;
-//        try {
-//            SqlSession openSession = sqlSessionFactory.openSession(ExecutorType.BATCH);
-//            TripleMapper tmpMapper = openSession.getMapper(TripleMapper.class);
-//            for (Map<String, Object> map : records) {
-//                tmpMapper.inset((String) map.get("head"), (String) map.get("rel"), (String) map.get("tail"), new Date());
-//            }
-//            openSession.commit();
-//            openSession.clearCache();
-//            openSession.close();
-//        } catch (Exception e) {
-//            result = 0;
-//            System.out.println(e);
-//        }
+        SqlSession openSession = sqlSessionFactory.openSession(ExecutorType.BATCH);
+        TripleMapper tmpMapper = openSession.getMapper(TripleMapper.class);
+        try {
+            for (Map<String, Object> map : records) {
+                tmpMapper.insertCompletionChange((String) map.get("head"), (String) map.get("rel"), (String) map.get("tail"),(String) map.get("head_category"), (String) map.get("tail_category"),new Date());
+            }
+            openSession.commit();
+            openSession.clearCache();
+            openSession.close();
+        } catch (Exception e) {
+            openSession.rollback();
+            result = 0;
+            System.out.println(e);
+        }
         return result;
     }
 

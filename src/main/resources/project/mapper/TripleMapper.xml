@@ -21,7 +21,7 @@
         insert ignore into core_kg(head,head_type,relation,tail,tail_type,time) values (#{head},#{headCategory},#{relation},#{tail},#{tailCategory},#{time})
     </insert>
     <insert id="insertCompletionChange">
-        insert ignore into core_kg(head,relation,tail,time) values (#{head}, #{relation}, #{tail},#{time})
+        insert ignore into core_kg(head,relation,tail,head_type,tail_type,time) values (#{head}, #{relation}, #{tail},#{headCategory},#{tailCategory},#{time})
     </insert>
     <update id="updateCandidateIdOfTriple" >
         UPDATE all_triples
@@ -38,8 +38,17 @@
     <update id="updateEntityTailName">
         update core_kg set tail = #{newName} where tail = #{oldName};
     </update>
+    <update id="evaluationUpdateEntityCategory">
+        update core_kg set head_type = #{newHeadCategory}, tail_type = #{newTailCategory} where head = #{head} and relation= #{relation} and tail = #{tail}
+    </update>
+    <update id="evaluationUpdateRelation">
+        update core_kg set relation = #{newRel} where head = #{head} and relation = #{relation} and tail= #{tail}
+    </update>
     <delete id="deleteCandidateTriples">
         delete from candidate_triples where id = #{id}
+    </delete>
+    <delete id="evaluationDelete">
+        delete from core_kg where head = #{head} and relation =#{relation} and tail = #{tail}
     </delete>
     <select id="getAllTriple" resultType="com.group.KGMS.entity.Triple" resultMap="TripleResultMap">
         select * from all_triples

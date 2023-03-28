@@ -88,10 +88,8 @@ public class CacheServiceImpl implements CacheService {
                 String relation = String.valueOf(list.get(i).get("rel"));
                 String tail = String.valueOf(list.get(i).get("tail"));
                 String tailCategory = String.valueOf(list.get(i).get("tail_typ"));
-                String pred_form = String.valueOf(list.get(i).get("pred_form"));
-                Double pred_prob = Double.valueOf(String.valueOf(list.get(i).get("pred_prob")));
                 Date time = new Date();
-                tmpMapper.insertNewCompletionCache(head, headCategory, relation, tail,tailCategory , pred_form, pred_prob, time);
+                tmpMapper.insertNewCompletionCache(head, headCategory, relation, tail,tailCategory , time);
             }
             openSession.commit();
             openSession.clearCache();
@@ -210,10 +208,8 @@ public class CacheServiceImpl implements CacheService {
                 String head = String.valueOf(completionCacheList.get(i).get("head"));
                 String relation = String.valueOf(completionCacheList.get(i).get("rel"));
                 String tail = String.valueOf(completionCacheList.get(i).get("tail"));
-                String pred_form = String.valueOf(completionCacheList.get(i).get("pred_form"));
-                Double pred_prob = Double.valueOf(String.valueOf(completionCacheList.get(i).get("pred_prob")));
                 Date time = new Date();
-                tmpMapper.insertNewCompletion(versionId, head, relation, tail, pred_form, pred_prob, time);
+                tmpMapper.insertNewCompletion(versionId, head, relation, tail, time);
             }
             tmpMapper.clearCompletionCache();
             openSession.commit();

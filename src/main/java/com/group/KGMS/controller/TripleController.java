@@ -428,15 +428,9 @@ public class TripleController {
             boolean second = true;
             boolean third = true;
             //开始迁移数据库
-//            if(cacheService.appendNewMergeToVersion(res)==1&&cacheService.appendNewCompletionToVersion(res)==1&&cacheService.appendNewEvaluationToVersion(res)==1){
-//                if(tripleService.insertAllMergeChange(merge)==1){
-//                    return JsonResult.success("success");
-//                }
-//                return JsonResult.success("success");
-//            }
             List<Map<String,Object>> mergeList = cacheService.appendNewMergeToVersion(res);
             List<Map<String,Object>> completionList = cacheService.appendNewCompletionToVersion(res);
-//            List<Map<String,Object>> evaluationList = cacheService.appendNewEvaluationToVersion(res);
+            List<Map<String,Object>> evaluationList = cacheService.appendNewEvaluationToVersion(res);
             if(mergeList!=null&&mergeList.size()>0){
                 //将其插入核心图谱(MySQL)
                 if(tripleService.insertAllMergeChange(mergeList)!=1) {
@@ -449,12 +443,12 @@ public class TripleController {
                    second = false;
                 }
             }
-//            if(evaluationList!=null&&evaluationList.size()>0){
-//                //将质量评估改动插入核心图谱(MySQL)
-//                if(tripleService.insertEvaluationChange(evaluationList)!=1) {
-//                    third = false;
-//                }
-//            }
+            if(evaluationList!=null&&evaluationList.size()>0){
+                //将质量评估改动插入核心图谱(MySQL)
+                if(tripleService.insertEvaluationChange(evaluationList)!=1) {
+                    third = false;
+                }
+            }
             if(first&&second&&third){
                 return JsonResult.success("success");
             }

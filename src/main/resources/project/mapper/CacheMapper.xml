@@ -19,8 +19,8 @@
         select * from cache_merge_detail
     </select>
     <insert id="insertNewCompletionCache">
-        insert into  cache_completion_detail(head,rel,tail,pred_prob,pred_form,time,head_category,tail_category) values
-        (#{head}, #{rel}, #{tail}, #{pred_prob}, #{pred_form},#{time},#{headCategory},#{tailCategory})
+        insert into  cache_completion_detail(head,rel,tail,time,head_category,tail_category) values
+        (#{head}, #{rel}, #{tail},#{time},#{headCategory},#{tailCategory})
     </insert>
     <select id="getAllCompletionCache" resultType="java.util.Map">
         select * from cache_completion_detail
@@ -34,8 +34,8 @@
         (#{version_id},#{head}, #{headCategory},#{head_from}, #{relation}, #{tail}, #{tailCategory},#{tail_from}, #{score},#{operation},#{time})
     </insert>
     <insert id="insertNewCompletion">
-        insert into  version_completion_detail(version_id,head,rel,tail,pred_prob,pred_form,time) values
-        (#{version_id},#{head}, #{rel}, #{tail}, #{pred_prob}, #{pred_form},#{time})
+        insert ignore into version_completion_detail(version_id,head,rel,tail,time) values
+        (#{version_id},#{head}, #{rel}, #{tail},#{time})
     </insert>
     <insert id="insertNewEvaluation">
         insert into  version_evaluation_detail(version_id,head,rel,tail,tail_typ,tail_typ_new,head_typ,head_typ_new,head_new,rel_new,tail_new,update_form,error_typ) values

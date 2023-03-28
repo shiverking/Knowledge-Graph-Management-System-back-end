@@ -22,15 +22,13 @@ public interface CacheMapper {
                        @Param("score") double score, @Param("operation") String operation, @Param("time") Date time);
 
     //将补全临时记录加入缓存表
-    int insertNewCompletionCache(@Param("head") String head, @Param("headCategory")String headCategory,@Param("rel") String rel, @Param("tail") String tail, @Param("tailCategory")String tailCategory , @Param("pred_form") String pred_form,
-                                 @Param("pred_prob") Double pred_prob, @Param("time") Date time);
+    int insertNewCompletionCache(@Param("head") String head, @Param("headCategory")String headCategory,@Param("rel") String rel, @Param("tail") String tail, @Param("tailCategory")String tailCategory, @Param("time") Date time);
 
     List<Map<String, Object>> getAllCompletionCache();
 
     int clearCompletionCache();
 
-    int insertNewCompletion(@Param("version_id") String version_id, @Param("head") String head, @Param("rel") String rel, @Param("tail") String tail, @Param("pred_form") String pred_form,
-                            @Param("pred_prob") Double pred_prob, @Param("time") Date time);
+    int insertNewCompletion(@Param("version_id") String version_id, @Param("head") String head, @Param("rel") String rel, @Param("tail") String tail, @Param("time") Date time);
 
     //将质量评估记录加入缓存表
     int insertNewEvaluationCache(@Param("head") String head, @Param("rel") String rel, @Param("tail") String tail, @Param("tail_typ") String tail_typ, @Param("tail_typ_new") String tail_typ_new, @Param("head_typ") String head_typ,
