@@ -62,9 +62,7 @@ public class CandidateOntologyAttributeServiceImpl extends ServiceImpl<Candidate
     @Override
     public JsonResult deleteAttribute(Integer attributeId) {
         try {
-            System.out.println("attributeId = " + attributeId);
             CandidateOntologyAttribute candidateOntologyAttribute = getById(attributeId);
-            System.out.println("candidateOntologyAttribute = " + candidateOntologyAttribute);
             CandidateOntology candidateOntology = candidateOntologyService.getById(candidateOntologyAttribute.getBelongCandidateId());
             OntModel ontModel = OWLUtil.owl2OntModel(candidateOntology.getName());
             OntClass ontClass = OWLUtil.createClass(ontModel, candidateOntologyAttribute.getClassName(), candidateOntology.getName());

@@ -12,6 +12,7 @@ import com.group.KGMS.service.CandidateOntologyClassService;
 import com.group.KGMS.service.CandidateOntologyService;
 import com.group.KGMS.service.CandidateOntologyTripleService;
 import com.group.KGMS.utils.JsonResult;
+import org.hibernate.collection.internal.PersistentIdentifierBag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,6 +42,14 @@ public class CandidateOntologyController {
     @Resource
     private CandidateOntologyAttributeService candidateOntologyAttributeService;
 
+
+    /*
+     * @Description: 添加候选本体
+     * @Author: zt
+     * @Date: 2023/3/28 11:42
+     * @param: [newOnto]
+     * @return: com.group.KGMS.utils.JsonResult
+     **/
     @PostMapping("/addCandidateOntology")
     public JsonResult addCandidateOntology(@RequestBody CandidateOntology newOnto){
         return candidateOntologyService.saveOnto(newOnto);
@@ -201,6 +210,18 @@ public class CandidateOntologyController {
     @DeleteMapping("/deleteAttribute/{attributeId}")
     public JsonResult deleteAttribute(@PathVariable("attributeId") Integer attributeId){
         return candidateOntologyAttributeService.deleteAttribute(attributeId);
+    }
+
+    /*
+     * @Description: 结构化数据生成候选本体
+     * @Author: zt
+     * @Date: 2023/3/28 13:15
+     * @param: []
+     * @return: com.group.KGMS.utils.JsonResult
+     **/
+    @GetMapping("/structuredDataToOntology/{candidateOntoName}")
+    public JsonResult structuredDataToOntology(@PathVariable("candidateOntoName") String candidateOntoName){
+        return candidateOntologyService.structuredDataToOntology(candidateOntoName);
     }
 
 }
