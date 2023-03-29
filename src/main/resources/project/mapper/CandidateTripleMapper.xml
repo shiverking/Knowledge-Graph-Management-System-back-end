@@ -16,6 +16,10 @@
         INSERT INTO candidate_triples(head,relation,tail,head_category,tail_category,status,source,time)
         VALUES (#{head},#{relation},#{tail},#{head_category},#{tail_category},#{status},#{source},#{time});
     </insert>
+    <insert id="insertCandidateAttributes">
+       INSERT INTO candidate_attributes(head,head_category,attributeName,attributeValue,source,time)
+        VALUES (#{head},#{headCategory},#{attributeName},#{attributeValue},#{source},#{time});
+    </insert>
     <update id="updateCandidateTripleById">
         update candidate_triples
         <set>

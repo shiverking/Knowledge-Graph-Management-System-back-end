@@ -50,7 +50,9 @@ public class TripleServiceImpl implements TripleService {
         for (int i = 0; i < list.size(); i++) {
             Triple triple = new Triple();
             triple.setHead(list.get(i).getHead());
+            triple.setHeadCategory(list.get(i).getHeadCategory());
             triple.setTail(list.get(i).getTail());
+            triple.setTailCategory(list.get(i).getTailCategory());
             triple.setRelation(list.get(i).getRelation());
             triple.setTime(new Date());
             triple.setCandidateId(candidateKgId);
@@ -125,7 +127,9 @@ public class TripleServiceImpl implements TripleService {
             Long oldId = list.get(i).getId();
             Triple triple = new Triple();
             triple.setHead(list.get(i).getHead());
+            triple.setHeadCategory(list.get(i).getHeadCategory());
             triple.setTail(list.get(i).getTail());
+            triple.setTailCategory(list.get(i).getTailCategory());
             triple.setRelation(list.get(i).getRelation());
             triple.setTime(new Date());
             triple.setCandidateId(list.get(i).getCandidateId());
@@ -248,7 +252,39 @@ public class TripleServiceImpl implements TripleService {
             SqlSession openSession = sqlSessionFactory.openSession(ExecutorType.BATCH);
             TripleMapper tmpMapper = openSession.getMapper(TripleMapper.class);
             for (Map<String, String> record : triples) {
-                tmpMapper.insertMergeChange(record.get("head"), record.get("relation"), record.get("tail"), new Date());
+                tmpMapper.insertMergeChange(record.get("head"), record.get("headCategory"),record.get("relation"), record.get("tail"),record.get("tailCategory"), new Date());
+            }
+            openSession.commit();
+            openSession.clearCache();
+            openSession.close();
+        } catch (Exception e) {
+            result = 0;
+            System.out.println(e);
+        }
+        return result;
+    }
+
+    /**
+     * 将所有存在实体对齐的三元组加入核心图谱
+     * @param triples
+     * @return
+     */
+    @Override
+    public int insertMergeChangeNameChange(List<Map<String, String>> triples) {
+        int result = 1;
+        try {
+            SqlSession openSession = sqlSessionFactory.openSession(ExecutorType.BATCH);
+            TripleMapper tmpMapper = openSession.getMapper(TripleMapper.class);
+            for (Map<String, String> record : triples) {
+                //如果不需要修改数据库中的实体，则直接插入
+                tmpMapper.insertMergeChange(record.get("head"), record.get("headCategory"),record.get("relation"), record.get("tail"),record.get("tailCategory"), new Date());
+                //如果需要修改修改数据库中的实体，则记录后修改
+                if(record.get("headChange")!=null){
+                    updateCoreKgEntityName(record.get("headChange"),record.get("head"));
+                }
+                if(record.get("tailChange")!=null){
+                    updateCoreKgEntityName(record.get("tailChange"),record.get("tail"));
+                }
             }
             openSession.commit();
             openSession.clearCache();
@@ -269,18 +305,52 @@ public class TripleServiceImpl implements TripleService {
     @Override
     public int insertAllMergeChange(List<Map<String, Object>> triples) {
         List<Map<String, String>> noEntityNameChange = new ArrayList<>();
-        List<Map<String, String>> EntityNameChange = new ArrayList<>();
+        List<Map<String, String>> entityNameChange = new ArrayList<>();
         for (Map<String, Object> map : triples) {
             if (map.get("head_from").toString().equals("null") && map.get("tail_from").toString().equals("null") && map.get("operation").equals("插入")) {
                 Map<String, String> newMap = new HashMap<>();
                 newMap.put("head", (String) map.get("head"));
+                newMap.put("headCategory", (String) map.get("head_category"));
                 newMap.put("relation", (String) map.get("relation"));
                 newMap.put("tail", (String) map.get("tail"));
+                newMap.put("tailCategory", (String) map.get("tail_category"));
                 noEntityNameChange.add(newMap);
             }
+            else if((!map.get("head_from").toString().equals("null") || !map.get("tail_from").toString().equals("null")) && map.get("operation").equals("插入")){
+                Map<String, String> newMap = new HashMap<>();
+                //如果核心图谱中的实体没有变，只是候选三元组中的实体改变,则插入核心图谱即可
+                if(!map.get("head_from").toString().contains("修改核心实体") && !map.get("tail_from").toString().contains("修改核心实体")){
+                    newMap.put("head", (String) map.get("head"));
+                    newMap.put("relation", (String) map.get("relation"));
+                    newMap.put("tail", (String) map.get("tail"));
+                    newMap.put("headCategory", (String) map.get("head_category"));
+                    newMap.put("tailCategory", (String) map.get("tail_category"));
+                }
+                else{
+                    newMap.put("head", (String) map.get("head"));
+                    newMap.put("relation", (String) map.get("relation"));
+                    newMap.put("tail", (String) map.get("tail"));
+                    newMap.put("headCategory", (String) map.get("head_category"));
+                    newMap.put("tailCategory", (String) map.get("tail_category"));
+                    if(map.get("head_from").toString().contains("修改核心实体")){
+                        String entity = map.get("head_from").toString().split(":")[1];
+                        //后续根据这个字段修改core kg中的实体
+                        newMap.put("headChange", entity);
+                    }
+                    if(map.get("tail_from").toString().contains("修改核心实体")){
+                        String entity = map.get("tail_from").toString().split(":")[1];
+                        //后续根据这个字段修改core kg中的实体
+                        newMap.put("tailChange", entity);
+                    }
+                }
+                entityNameChange.add(newMap);
+            }
         }
-        //先只做没有实体对齐名称改变的
-        return insertMergeChangeNoNameChange(noEntityNameChange);
+        //修改没有对齐的和有对齐的
+        if(insertMergeChangeNoNameChange(noEntityNameChange)==1&&insertMergeChangeNameChange(entityNameChange)==1){
+            return 1;
+        }
+        return 0;
     }
 
     /**
@@ -290,21 +360,86 @@ public class TripleServiceImpl implements TripleService {
      * @return
      */
     @Override
-    public int insertCompletionChange(List<Map<String, Object>> triples) {
+    public int insertEvaluationChange(List<Map<String, Object>> triples) {
         int result = 1;
+        List<Map<String, Object>> deleteGroup = new ArrayList<>();
+        List<Map<String, Object>> updateEntityCategory = new ArrayList<>();
+        List<Map<String, Object>> updateRelationGroup = new ArrayList<>();
+        //分类
+        for (Map<String, Object> map : triples) {
+            if(map.get("update_form").equals(new Long(0))){
+                deleteGroup.add(map);
+            }
+            else if(map.get("update_form").equals(new Long(1))){
+                updateEntityCategory.add(map);
+            }
+            else if(map.get("update_form").equals(new Long(2))){
+                updateRelationGroup.add(map);
+            }
+        }
+        SqlSession openSession = sqlSessionFactory.openSession(ExecutorType.BATCH);
+        TripleMapper tmpMapper = openSession.getMapper(TripleMapper.class);
         try {
-            SqlSession openSession = sqlSessionFactory.openSession(ExecutorType.BATCH);
-            TripleMapper tmpMapper = openSession.getMapper(TripleMapper.class);
-            for (Map<String, Object> map : triples) {
-                tmpMapper.insertCompletionChange((String) map.get("head"), (String) map.get("rel"), (String) map.get("tail"), new Date());
+            //处理删除组
+            for (Map<String, Object> map : deleteGroup) {
+                tmpMapper.evaluationDelete((String) map.get("head"), (String) map.get("rel"), (String) map.get("tail"));
+            }
+            //处理修改实体组
+            for (Map<String, Object> map : updateEntityCategory) {
+                tmpMapper.evaluationUpdateEntityCategory((String) map.get("head"), (String) map.get("rel"), (String) map.get("tail"),(String) map.get("head_typ_new"),(String) map.get("tail_typ_new"));
+            }
+            //处理修改关系组
+            for (Map<String, Object> map : updateRelationGroup) {
+                tmpMapper.evaluationUpdateRelation((String) map.get("head"), (String) map.get("rel"), (String) map.get("tail"),(String) map.get("rel_new"));
             }
             openSession.commit();
             openSession.clearCache();
             openSession.close();
         } catch (Exception e) {
+            openSession.rollback();
+            result = 0;
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    /**
+     * 将补全改动插入核心图谱
+     *
+     * @param records
+     * @return
+     */
+    @Override
+    public int insertCompletionChange(List<Map<String, Object>> records) {
+        int result = 1;
+        SqlSession openSession = sqlSessionFactory.openSession(ExecutorType.BATCH);
+        TripleMapper tmpMapper = openSession.getMapper(TripleMapper.class);
+        try {
+            for (Map<String, Object> map : records) {
+                tmpMapper.insertCompletionChange((String) map.get("head"), (String) map.get("rel"), (String) map.get("tail"),(String) map.get("head_category"), (String) map.get("tail_category"),new Date());
+            }
+            openSession.commit();
+            openSession.clearCache();
+            openSession.close();
+        } catch (Exception e) {
+            openSession.rollback();
             result = 0;
             System.out.println(e);
         }
         return result;
+    }
+
+    /**
+     * 修改核心图谱中的实体名称
+     * @param oldName
+     * @param newName
+     * @return
+     */
+    @Override
+    public int updateCoreKgEntityName(String oldName, String newName) {
+        if(tripleMapper.updateEntityHeadName(oldName,newName)==1&&tripleMapper.updateEntityTailName(oldName, newName)==1){
+            return 1;
+        }
+        return 0;
     }
 }

@@ -2,9 +2,7 @@ package com.group.KGMS.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.group.KGMS.entity.Triple;
 import com.group.KGMS.mapper.CacheMapper;
-import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -33,9 +31,11 @@ public class CacheServiceImpl implements CacheService {
             CacheMapper tmpMapper = openSession.getMapper(CacheMapper.class);
             for (int i = 0; i < list.size(); i++) {
                 String head = String.valueOf(list.get(i).get("head"));
+                String headCategory = String.valueOf(list.get(i).get("headCategory"));
                 String head_from = String.valueOf(list.get(i).get("head_from"));
                 String relation = String.valueOf(list.get(i).get("relation"));
                 String tail = String.valueOf(list.get(i).get("tail"));
+                String tailCategory = String.valueOf(list.get(i).get("tailCategory"));
                 String tail_from = String.valueOf(list.get(i).get("tail_from"));
                 String operation = String.valueOf(list.get(i).get("operation"));
                 Date time = new Date();
@@ -43,7 +43,7 @@ public class CacheServiceImpl implements CacheService {
                 if (operation.equals("插入") && list.get(i).get("score") != null) {
                     score = Double.valueOf(String.valueOf(list.get(i).get("score")));
                 }
-                tmpMapper.insertNewMergeCache(head, head_from, relation, tail, tail_from, score, operation, time);
+                tmpMapper.insertNewMergeCache(head,headCategory,head_from,relation,tail,tailCategory,tail_from,score,operation,time);
             }
             openSession.commit();
             openSession.clearCache();
@@ -84,12 +84,12 @@ public class CacheServiceImpl implements CacheService {
             CacheMapper tmpMapper = openSession.getMapper(CacheMapper.class);
             for (int i = 0; i < list.size(); i++) {
                 String head = String.valueOf(list.get(i).get("head"));
+                String headCategory = String.valueOf(list.get(i).get("head_typ"));
                 String relation = String.valueOf(list.get(i).get("rel"));
                 String tail = String.valueOf(list.get(i).get("tail"));
-                String pred_form = String.valueOf(list.get(i).get("pred_form"));
-                Double pred_prob = Double.valueOf(String.valueOf(list.get(i).get("pred_prob")));
+                String tailCategory = String.valueOf(list.get(i).get("tail_typ"));
                 Date time = new Date();
-                tmpMapper.insertNewCompletionCache(head, relation, tail, pred_form, pred_prob, time);
+                tmpMapper.insertNewCompletionCache(head, headCategory, relation, tail,tailCategory , time);
             }
             openSession.commit();
             openSession.clearCache();
@@ -175,14 +175,16 @@ public class CacheServiceImpl implements CacheService {
             CacheMapper tmpMapper = openSession.getMapper(CacheMapper.class);
             for (int i = 0; i < mergeCacheList.size(); i++) {
                 String head = String.valueOf(mergeCacheList.get(i).get("head"));
+                String headCategory = String.valueOf(mergeCacheList.get(i).get("head_category"));
                 String head_from = String.valueOf(mergeCacheList.get(i).get("head_from"));
                 String relation = String.valueOf(mergeCacheList.get(i).get("relation"));
                 String tail = String.valueOf(mergeCacheList.get(i).get("tail"));
+                String tailCategory = String.valueOf(mergeCacheList.get(i).get("tail_category"));
                 String tail_from = String.valueOf(mergeCacheList.get(i).get("tail_from"));
                 String operation = String.valueOf(mergeCacheList.get(i).get("operation"));
                 Date time = new Date();
                 Double score = Double.valueOf(String.valueOf(mergeCacheList.get(i).get("score")));
-                tmpMapper.insertNewMerge(versionId, head, head_from, relation, tail, tail_from, score, operation, time);
+                tmpMapper.insertNewMerge(versionId, head, headCategory,head_from, relation, tail,tailCategory, tail_from, score, operation, time);
             }
             //清空缓存表
             tmpMapper.clearMergeCache();
@@ -206,10 +208,8 @@ public class CacheServiceImpl implements CacheService {
                 String head = String.valueOf(completionCacheList.get(i).get("head"));
                 String relation = String.valueOf(completionCacheList.get(i).get("rel"));
                 String tail = String.valueOf(completionCacheList.get(i).get("tail"));
-                String pred_form = String.valueOf(completionCacheList.get(i).get("pred_form"));
-                Double pred_prob = Double.valueOf(String.valueOf(completionCacheList.get(i).get("pred_prob")));
                 Date time = new Date();
-                tmpMapper.insertNewCompletion(versionId, head, relation, tail, pred_form, pred_prob, time);
+                tmpMapper.insertNewCompletion(versionId, head, relation, tail, time);
             }
             tmpMapper.clearCompletionCache();
             openSession.commit();
@@ -223,8 +223,7 @@ public class CacheServiceImpl implements CacheService {
     }
 
     @Override
-    public int appendNewEvaluationToVersion(String versionId) {
-        int result = 1;
+    public List<Map<String, Object>> appendNewEvaluationToVersion(String versionId) {
         List<Map<String, Object>> evaluationCacheList = cacheMapper.getAllEvaluationCache();
         try {
             SqlSession openSession = sqlSessionFactory.openSession(ExecutorType.BATCH);
@@ -250,9 +249,9 @@ public class CacheServiceImpl implements CacheService {
             openSession.close();
         } catch (Exception e) {
             System.out.println(e);
-            result = 0;
+            return null;
         }
-        return result;
+        return evaluationCacheList;
     }
 
     /**
