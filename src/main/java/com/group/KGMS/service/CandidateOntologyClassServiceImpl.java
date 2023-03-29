@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.group.KGMS.entity.CandidateOntology;
+import com.group.KGMS.entity.CandidateOntologyAttribute;
 import com.group.KGMS.entity.CandidateOntologyClass;
 import com.group.KGMS.entity.CandidateOntologyTriple;
 import com.group.KGMS.mapper.CandidateOntologyClassMapper;
@@ -14,6 +15,7 @@ import com.group.KGMS.utils.TreeJsonCandidateOntologyClass;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -39,6 +41,10 @@ public class CandidateOntologyClassServiceImpl extends ServiceImpl<CandidateOnto
 
     @Resource
     private CandidateOntologyMapper candidateOntologyMapper;
+
+    @Lazy
+    @Resource
+    private CandidateOntologyAttributeService candidateOntologyAttributeService;
 
     @Override
     public boolean save(String className, Integer parentId, Integer belongCandidateId) throws Exception{
@@ -100,6 +106,14 @@ public class CandidateOntologyClassServiceImpl extends ServiceImpl<CandidateOnto
         }
         candidateOntologyTripleMapper.delete(lambdaQueryWrapper);
         OWLUtil.removeClass(ontModel, className, candidateOntology.getName());
+        //找到要被删除的类所拥有的属性
+        List<CandidateOntologyAttribute> attributeList = candidateOntologyAttributeService.query().eq("class_name", className)
+                .eq("belong_candidate_id", belongCandidateId).list();
+        //挨个进行删除
+        for(CandidateOntologyAttribute attribute : attributeList){
+            OWLUtil.removeProperty(ontModel, ontClass, attribute.getAttributeName(), candidateOntology.getName());
+            candidateOntologyAttributeService.removeById(attribute.getId());
+        }
     }
 
     @Override
