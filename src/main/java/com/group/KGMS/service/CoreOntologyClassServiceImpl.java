@@ -3,10 +3,7 @@ package com.group.KGMS.service;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.group.KGMS.entity.CandidateOntologyClass;
-import com.group.KGMS.entity.CandidateOntologyTriple;
-import com.group.KGMS.entity.CoreOntologyClass;
-import com.group.KGMS.entity.CoreOntologyTriple;
+import com.group.KGMS.entity.*;
 import com.group.KGMS.mapper.CandidateOntologyClassMapper;
 import com.group.KGMS.mapper.CoreOntologyClassMapper;
 import com.group.KGMS.mapper.CoreOntologyTripleMapper;
@@ -47,6 +44,9 @@ public class CoreOntologyClassServiceImpl extends ServiceImpl<CoreOntologyClassM
 
     @Autowired
     private CandidateOntologyClassMapper candidateOntologyClassMapper;
+
+    @Resource
+    private CoreOntologyAttributeService coreOntologyAttributeService;
 
 
     @Override
@@ -106,6 +106,14 @@ public class CoreOntologyClassServiceImpl extends ServiceImpl<CoreOntologyClassM
         }
         coreOntologyTripleMapper.delete(lqw);
         CoreOWLUtil.removeClass(ontModel, className);
+        //找到要被删除的类拥有的属性
+        List<CoreOntologyAttribute> attributeList = coreOntologyAttributeService.query().eq("class_name", className).list();
+        //将这个类拥有的属性都进行删除
+        for (CoreOntologyAttribute attribute : attributeList){
+            OntClass ontClass1 = CoreOWLUtil.createClass(ontModel, className);
+            CoreOWLUtil.removeProperty(ontModel, ontClass1, attribute.getAttributeName());
+            coreOntologyAttributeService.removeById(attribute.getId());
+        }
     }
 
     @Override
