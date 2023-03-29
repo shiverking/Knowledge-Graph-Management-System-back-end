@@ -14,6 +14,7 @@ import com.group.KGMS.service.CandidateOntologyTripleService;
 import com.group.KGMS.utils.JsonResult;
 import org.hibernate.collection.internal.PersistentIdentifierBag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -222,6 +223,18 @@ public class CandidateOntologyController {
     @GetMapping("/structuredDataToOntology/{candidateOntoName}")
     public JsonResult structuredDataToOntology(@PathVariable("candidateOntoName") String candidateOntoName){
         return candidateOntologyService.structuredDataToOntology(candidateOntoName);
+    }
+
+    /*
+     * @Description: 删除某个候选本体
+     * @Author: zt
+     * @Date: 2023/3/28 18:05
+     * @param: [candidateOntoId]
+     * @return: com.group.KGMS.utils.JsonResult
+     **/
+    @DeleteMapping("/deleteCandidateOnto/{candidateOntoId}")
+    public JsonResult deleteCandidateOnto(@PathVariable("candidateOntoId") Integer candidateOntoId){
+        return candidateOntologyService.deleteCandidateOnto(candidateOntoId);
     }
 
 }

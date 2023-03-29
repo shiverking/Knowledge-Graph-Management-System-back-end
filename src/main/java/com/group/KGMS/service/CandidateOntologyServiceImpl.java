@@ -10,6 +10,7 @@ import com.group.KGMS.dto.RelationDto;
 import com.group.KGMS.entity.CandidateOntology;
 import com.group.KGMS.entity.CandidateOntologyAttribute;
 import com.group.KGMS.entity.CandidateOntologyClass;
+import com.group.KGMS.entity.CandidateOntologyTriple;
 import com.group.KGMS.mapper.CandidateOntologyClassMapper;
 import com.group.KGMS.mapper.CandidateOntologyMapper;
 import com.group.KGMS.utils.JsonResult;
@@ -22,6 +23,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 /**
@@ -166,6 +170,36 @@ public class CandidateOntologyServiceImpl extends ServiceImpl<CandidateOntologyM
             ontologyAttribute.setComment(attribute.getDetail());
             ontologyAttribute.setBelongCandidateId(candidateOntology.getId());
             candidateOntologyAttributeService.addAttribute(ontologyAttribute);
+        }
+        return JsonResult.success();
+    }
+
+    @Override
+    @Transactional
+    public JsonResult deleteCandidateOnto(Integer candidateOntoId) {
+        //查到要被删除的候选本体
+        CandidateOntology candidateOntology = getById(candidateOntoId);
+        try {
+            //删除所有候选本体id为candidateOntoId的类
+            LambdaQueryWrapper<CandidateOntologyClass> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+            lambdaQueryWrapper.eq(CandidateOntologyClass::getBelongCandidateId, candidateOntoId);
+            candidateOntologyClassService.remove(lambdaQueryWrapper);
+            //删除所有候选本体id为candidateOntoId的关系
+            LambdaQueryWrapper<CandidateOntologyTriple> lqw = new LambdaQueryWrapper<>();
+            lqw.eq(CandidateOntologyTriple::getBelongCandidateOntologyId, candidateOntoId);
+            candidateOntologyTripleService.remove(lqw);
+            //删除所有候选本体id为candidateOntoId的属性
+            LambdaQueryWrapper<CandidateOntologyAttribute> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.eq(CandidateOntologyAttribute::getBelongCandidateId, candidateOntoId);
+            candidateOntologyAttributeService.remove(queryWrapper);
+            //删除数据库中的候选本体
+            removeById(candidateOntoId);
+            //删除OWL文件
+            Path path = Paths.get("src/main/resources/owl/" + candidateOntology.getName() + ".owl");
+            Files.delete(path);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return JsonResult.error("删除失败");
         }
         return JsonResult.success();
     }

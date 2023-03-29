@@ -161,6 +161,13 @@ public class CoreOntologyController {
         return JsonResult.success("success");
     }
 
+    /*
+     * @Description: 两个本体融合
+     * @Author: zt
+     * @Date: 2023/3/28 18:00
+     * @param: [beMergedClassId 候选本体类id, candidateOntologyId 候选本体id, coreOntologyClassId 核心本体类id]
+     * @return: com.group.KGMS.utils.JsonResult
+     **/
     @PutMapping("/mergeOntology")
     public JsonResult mergeOntology(@RequestParam("beMergedClassId") Integer beMergedClassId,
                                     @RequestParam("candidateOntologyId") Integer candidateOntologyId,
@@ -188,4 +195,5 @@ public class CoreOntologyController {
     public JsonResult deleteAttribute(@PathVariable("attributeId") Integer attributeId){
         return coreOntologyAttributeService.deleteAttribute(attributeId);
     }
+
 }

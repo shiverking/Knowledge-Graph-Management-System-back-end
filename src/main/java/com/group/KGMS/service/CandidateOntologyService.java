@@ -28,4 +28,13 @@ public interface CandidateOntologyService extends IService<CandidateOntology> {
      * @return: com.group.KGMS.utils.JsonResult
      **/
     JsonResult structuredDataToOntology(String candidateOntoName);
+
+    /*
+     * @Description: 删除某个候选本体
+     * @Author: zt
+     * @Date: 2023/3/28 18:05
+     * @param: [candidateOntoId]
+     * @return: com.group.KGMS.utils.JsonResult
+     **/
+    JsonResult deleteCandidateOnto(Integer candidateOntoId);
 }

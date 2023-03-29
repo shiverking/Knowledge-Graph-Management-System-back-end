@@ -8,6 +8,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 @SpringBootTest
 class SpringboottestApplicationTests {
 //    @Autowired
@@ -46,4 +52,10 @@ class SpringboottestApplicationTests {
 //    void delete(){
 //        repository.deleteById(1);
 //    }
+
+    @Test
+    void testDeleteFile() throws IOException {
+        Path path = Paths.get("src/main/resources/owl/testdel.owl");
+        Files.delete(path);
+    }
 }
