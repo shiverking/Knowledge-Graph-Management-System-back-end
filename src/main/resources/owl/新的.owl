@@ -24,8 +24,8 @@
     </rdf:type>
     <rdf:type>
       <rdfs:Resource rdf:about="&rdfs;Datatype">
-        <rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
         <rdfs:subClassOf rdf:resource="&rdfs;Class"/>
+        <rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
         <rdfs:subClassOf rdf:resource="&rdfs;Datatype"/>
         <rdf:type rdf:resource="&rdfs;Class"/>
       </rdfs:Resource>
@@ -115,8 +115,8 @@
     <rdf:type rdf:resource="&rdf;Property"/>
   </rdfs:Resource>
   <rdfs:Resource rdf:about="&rdfs;ContainerMembershipProperty">
-    <rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
     <rdfs:subClassOf rdf:resource="&rdf;Property"/>
+    <rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
     <rdfs:subClassOf rdf:resource="&rdfs;ContainerMembershipProperty"/>
     <rdf:type rdf:resource="&rdfs;Class"/>
   </rdfs:Resource>

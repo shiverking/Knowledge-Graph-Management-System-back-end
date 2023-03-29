@@ -53,7 +53,7 @@ public class CrawlController {
     @GetMapping ("/list/{page}/{limit}")
     public JsonResult findAll(@PathVariable("page") Integer page, @PathVariable("limit") Integer limit) {
 //        return crawlerService.findAll(page,limit);
-        return null;
+        return JsonResult.error("啥也没干");
     }
 
     @GetMapping ("/findrecordbycid/{page}/{limit}/{cid}")
