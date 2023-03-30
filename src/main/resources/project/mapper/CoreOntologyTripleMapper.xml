@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.group.KGMS.mapper.CoreOntologyTripleMapper">
+    <resultMap id="CoreOntologyTripleResultMap" type="com.group.KGMS.entity.CoreOntologyTriple">
+        <result column="id" property="id" jdbcType="INTEGER"/>
+        <result column="head_class_id" property="headClassId" jdbcType="INTEGER"/>
+        <result column="head_class_name" property="headClassName" jdbcType="VARCHAR"/>
+        <result column="relation_name" property="relationName" jdbcType="VARCHAR"/>
+        <result column="tail_class_id" property="tailClassId" jdbcType="INTEGER"/>
+        <result column="tail_class_name" property="tailClassName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+</mapper>

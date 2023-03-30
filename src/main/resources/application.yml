@@ -40,6 +40,7 @@ spring:
 
 mybatis:
   mapper-locations: classpath:project/mapper/*.xml
+
 server:
   port: 12345
 #  pagehelper配置
@@ -48,3 +49,9 @@ pagehelper:
   reasonable: true
   support-methods-arguments: true
   params: countSql
+
+#开启mybatis-plus日志
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath:project/mapper/*.xml

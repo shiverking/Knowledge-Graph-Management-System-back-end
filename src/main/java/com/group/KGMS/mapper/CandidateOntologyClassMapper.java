@@ -1,5 +1,6 @@
 package com.group.KGMS.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.group.KGMS.entity.CandidateOntologyClass;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -15,7 +16,6 @@ import java.util.List;
  */
 
 @Mapper
-public interface CandidateOntologyClassMapper {
-    //根据候选本体的id获取所有的类别信息
-    List<CandidateOntologyClass> getClassByCandidateOntologyId(@Param("CandidateOntologyId") Integer CandidateOntologyId);
+public interface CandidateOntologyClassMapper extends BaseMapper<CandidateOntologyClass> {
+
 }
