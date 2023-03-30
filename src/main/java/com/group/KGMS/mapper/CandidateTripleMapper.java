@@ -28,4 +28,7 @@ public interface CandidateTripleMapper {
 
     //插入新的候选三元组
     int insertCandidateTriples(@Param("head") String head, @Param("relation") String relation, @Param("tail") String tail, @Param("head_category") String head_category, @Param("tail_category") String tail_category, @Param("status") String status, @Param("source") String source,@Param("time") Date time);
+
+    //插入新的属性三元组
+    int insertCandidateAttributes(@Param("head") String head, @Param("headCategory") String headCategory,@Param("attributeName") String attributeName, @Param("attributeValue") String attributeValue, @Param("source") String source, @Param("time") Date time);
 }

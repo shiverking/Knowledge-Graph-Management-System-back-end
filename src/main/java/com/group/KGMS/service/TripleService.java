@@ -32,9 +32,18 @@ public interface TripleService {
     //版本更新时,插入所有融合改动(不存在实体对齐的情况)
     int insertMergeChangeNoNameChange(List<Map<String, String>> triples);
 
+    //版本更新时,插入所有融合改动(存在实体对齐的情况)
+    int insertMergeChangeNameChange(List<Map<String, String>> triples);
+
     //版本更新时,插入所有融合改动(所有情况)
     int insertAllMergeChange(List<Map<String, Object>> triples);
 
     //版本更新时,插入所有补全改动
     int insertCompletionChange(List<Map<String, Object>> triples);
+
+    //版本更新时,插入所有质量评估改动
+    int insertEvaluationChange(List<Map<String, Object>> triples);
+
+    //修改核心图谱实体名称
+    int updateCoreKgEntityName(String oldName,String newName);
 }

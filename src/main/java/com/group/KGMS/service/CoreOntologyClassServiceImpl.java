@@ -3,14 +3,12 @@ package com.group.KGMS.service;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.group.KGMS.entity.CandidateOntologyClass;
-import com.group.KGMS.entity.CandidateOntologyTriple;
-import com.group.KGMS.entity.CoreOntologyClass;
-import com.group.KGMS.entity.CoreOntologyTriple;
+import com.group.KGMS.entity.*;
 import com.group.KGMS.mapper.CandidateOntologyClassMapper;
 import com.group.KGMS.mapper.CoreOntologyClassMapper;
 import com.group.KGMS.mapper.CoreOntologyTripleMapper;
 import com.group.KGMS.utils.CoreOWLUtil;
+import com.group.KGMS.utils.JsonResult;
 import com.group.KGMS.utils.OWLUtil;
 import com.group.KGMS.utils.TreeJsonCoreOntologyClass;
 import org.apache.jena.ontology.OntClass;
@@ -18,6 +16,7 @@ import org.apache.jena.ontology.OntModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -45,6 +44,10 @@ public class CoreOntologyClassServiceImpl extends ServiceImpl<CoreOntologyClassM
 
     @Autowired
     private CandidateOntologyClassMapper candidateOntologyClassMapper;
+
+    @Resource
+    private CoreOntologyAttributeService coreOntologyAttributeService;
+
 
     @Override
     public CoreOntologyClass getRootClass() {
@@ -76,6 +79,9 @@ public class CoreOntologyClassServiceImpl extends ServiceImpl<CoreOntologyClassM
 
     @Override
     public void remove(String className) throws Exception {
+        if("Thing".equals(className)){
+            throw new RuntimeException("不能删除根节点");
+        }
         LambdaQueryWrapper<CoreOntologyClass> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(CoreOntologyClass::getName, className);
         CoreOntologyClass delClass = coreOntologyClassMapper.selectOne(lambdaQueryWrapper);
@@ -100,6 +106,14 @@ public class CoreOntologyClassServiceImpl extends ServiceImpl<CoreOntologyClassM
         }
         coreOntologyTripleMapper.delete(lqw);
         CoreOWLUtil.removeClass(ontModel, className);
+        //找到要被删除的类拥有的属性
+        List<CoreOntologyAttribute> attributeList = coreOntologyAttributeService.query().eq("class_name", className).list();
+        //将这个类拥有的属性都进行删除
+        for (CoreOntologyAttribute attribute : attributeList){
+            OntClass ontClass1 = CoreOWLUtil.createClass(ontModel, className);
+            CoreOWLUtil.removeProperty(ontModel, ontClass1, attribute.getAttributeName());
+            coreOntologyAttributeService.removeById(attribute.getId());
+        }
     }
 
     @Override
@@ -260,4 +274,5 @@ public class CoreOntologyClassServiceImpl extends ServiceImpl<CoreOntologyClassM
 ////            }
 //        }
     }
+
 }

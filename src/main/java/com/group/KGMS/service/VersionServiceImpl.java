@@ -91,6 +91,8 @@ public class VersionServiceImpl implements VersionService {
     public void synchronizeVersion() {
         int res = 0;
         List<String> unsynchronized = versionMapper.getAllUnsynchronizedVersions();
+        //先清空neo4j数据库
+//        graphNodeRepository.deleteDatabase();
         //开始同步(目前只同步补全和链接预测两种)
         for (int i = 0; i < unsynchronized.size(); i++) {
             String versionId = unsynchronized.get(i);
@@ -105,8 +107,8 @@ public class VersionServiceImpl implements VersionService {
                     String tail = map.get("tail").toString();
                     String tailType = "";
                     //首先建立节点
-                    graphNodeRepository.creatNode(head, headType);
-                    graphNodeRepository.creatNode(tail, tailType);
+//                    graphNodeRepository.creatNode(head, headType);
+//                    graphNodeRepository.creatNode(tail, tailType);
                     //然后建立关系
                     graphNodeRepository.creatRelationByName(head, relation, tail);
                 }

@@ -113,7 +113,7 @@ public class CandidateKgServiceImpl implements CandidateKgService {
      * @return
      */
     @Override
-    public int getCandiateKGInfo(CandidateKGInfo info) {
+    public int insertCandiateKGInfo(CandidateKGInfo info) {
         return candidateKGInfoMapper.insertNewKGInfo(info);
     }
 
