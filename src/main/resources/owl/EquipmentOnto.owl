@@ -1,0 +1,579 @@
+<?xml version="1.0"?>
+<!DOCTYPE rdf:RDF [
+  <!ENTITY xsd 'http://www.w3.org/2001/XMLSchema#'>
+  <!ENTITY rdfs 'http://www.w3.org/2000/01/rdf-schema#'>
+  <!ENTITY owl 'http://www.w3.org/2002/07/owl#'>
+  <!ENTITY rdf 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'>]>
+<rdf:RDF
+    xmlns:rdf="&rdf;"
+    xmlns:owl="&owl;"
+    xmlns:rdfs="&rdfs;"
+    xmlns:xsd="&xsd;">
+  <rdfs:Class rdf:about="&rdf;XMLLiteral">
+    <rdf:type>
+      <rdfs:Resource rdf:about="&rdfs;Resource">
+        <rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
+        <rdf:type>
+          <rdfs:Resource rdf:about="&rdfs;Class">
+            <rdfs:subClassOf rdf:resource="&rdfs;Class"/>
+            <rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
+            <rdf:type rdf:resource="&rdfs;Class"/>
+          </rdfs:Resource>
+        </rdf:type>
+      </rdfs:Resource>
+    </rdf:type>
+    <rdf:type>
+      <rdfs:Resource rdf:about="&rdfs;Datatype">
+        <rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
+        <rdfs:subClassOf rdf:resource="&rdfs;Class"/>
+        <rdfs:subClassOf rdf:resource="&rdfs;Datatype"/>
+        <rdf:type rdf:resource="&rdfs;Class"/>
+      </rdfs:Resource>
+    </rdf:type>
+  </rdfs:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#Thing"/>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#主战坦克">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#坦克装甲车辆"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#运载火箭">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#太空装备"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#轰炸机">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#飞行器"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#宇宙飞船">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#太空装备"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#高射炮">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#火炮"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#多用途直升机">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#飞行器"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#装甲车载炮">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#火炮"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#干线">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#飞行器"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#榴弹炮">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#火炮"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#弹炮结合系统">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#火炮"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#预警机">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#飞行器"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#运输机">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#飞行器"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#巡洋舰">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#舰船舰艇"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#反弹道导弹">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#导弹武器"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#布/扫雷车">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#坦克装甲车辆"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#气垫艇/气垫船">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#舰船舰艇"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#加农炮">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#火炮"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#舰船舰艇">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#Thing"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#战列舰">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#舰船舰艇"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#越野车">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#坦克装甲车辆"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#护卫舰">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#舰船舰艇"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#潜舰导弹">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#导弹武器"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#坦克炮">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#火炮"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#特种坦克">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#坦克装甲车辆"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#手枪">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#枪械与单兵"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#航空母舰">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#舰船舰艇"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#其他">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#舰船舰艇"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#航天基地">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#太空装备"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#侦察机">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#飞行器"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#武装直升机">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#飞行器"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#装甲运兵车">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#坦克装甲车辆"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#反潜机">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#飞行器"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#枪械与单兵">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#Thing"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#巡逻舰/艇">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#舰船舰艇"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#附件">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#枪械与单兵"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#地雷">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#爆炸物"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#导弹武器">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#Thing"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#加农榴弹炮">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#火炮"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#火箭筒">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#枪械与单兵"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#教练机">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#飞行器"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#加油机">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#飞行器"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#舰炮">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#火炮"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#冲锋枪">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#枪械与单兵"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#空舰导弹">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#导弹武器"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#迷彩服">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#枪械与单兵"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#炸弹">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#爆炸物"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#飞艇">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#飞行器"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#通用飞机">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#飞行器"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#地地导弹">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#导弹武器"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#迫击炮">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#火炮"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#岸舰导弹">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#导弹武器"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#反坦克炮">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#火炮"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#其他特种装甲车辆">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#坦克装甲车辆"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#运输直升机">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#飞行器"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#火箭炮">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#火炮"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#驱逐舰">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#舰船舰艇"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#爆炸物">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#Thing"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#空空导弹">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#导弹武器"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#坦克装甲车辆">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#Thing"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#无人机">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#飞行器"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#步兵战车">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#坦克装甲车辆"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#火炮">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#Thing"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#电子战机">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#飞行器"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#技术试验卫星">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#太空装备"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#无后座炮">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#火炮"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#装甲侦察车">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#坦克装甲车辆"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#航天机构">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#太空装备"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#常规潜艇">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#舰船舰艇"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#非自动步枪">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#枪械与单兵"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#鱼雷">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#爆炸物"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#舰空导弹">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#导弹武器"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#狙击枪">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#枪械与单兵"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#工程抢修车">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#坦克装甲车辆"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#榴弹发射器">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#枪械与单兵"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#航天飞机">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#太空装备"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#刀具">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#枪械与单兵"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#中子弹">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#爆炸物"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#氢弹">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#爆炸物"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#装甲指挥车">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#坦克装甲车辆"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#导弹艇">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#舰船舰艇"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#火箭弹">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#爆炸物"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#试验机">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#飞行器"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#攻击机">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#飞行器"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#支线">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#飞行器"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#舰地（潜地）导弹">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#导弹武器"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#自动步枪">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#枪械与单兵"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#手榴弹">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#爆炸物"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#战斗机">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#飞行器"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#两栖作战舰艇">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#舰船舰艇"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#应用卫星">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#太空装备"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#空间探测器">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#太空装备"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#霰弹枪">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#枪械与单兵"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#太空装备">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#Thing"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#自行火炮">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#火炮"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#水雷战舰艇">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#舰船舰艇"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#核潜艇">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#舰船舰艇"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#飞行器">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#Thing"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#水雷">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#爆炸物"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#科学卫星">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#太空装备"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#军事卫星">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#太空装备"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#保障辅助舰艇">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#舰船舰艇"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#舰舰导弹">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#导弹武器"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#救护车">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#坦克装甲车辆"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#地空导弹">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#导弹武器"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#原子弹">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#爆炸物"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#机枪">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#枪械与单兵"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#航空炮">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#火炮"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#空地导弹">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#导弹武器"/>
+  </owl:Class>
+  <rdfs:Resource rdf:about="&rdfs;comment">
+    <rdfs:range>
+      <rdfs:Resource rdf:about="&rdfs;Literal">
+        <rdfs:subClassOf rdf:resource="&rdfs;Literal"/>
+        <rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
+        <rdf:type rdf:resource="&rdfs;Class"/>
+      </rdfs:Resource>
+    </rdfs:range>
+    <rdf:type>
+      <rdfs:Resource rdf:about="&rdf;Property">
+        <rdfs:subClassOf rdf:resource="&rdf;Property"/>
+        <rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
+        <rdf:type rdf:resource="&rdfs;Class"/>
+      </rdfs:Resource>
+    </rdf:type>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdfs;subClassOf">
+    <rdfs:range rdf:resource="&rdfs;Class"/>
+    <rdfs:domain rdf:resource="&rdfs;Class"/>
+    <rdf:type rdf:resource="&rdf;Property"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdf;type">
+    <rdfs:range rdf:resource="&rdfs;Class"/>
+    <rdf:type rdf:resource="&rdf;Property"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdfs;range">
+    <rdfs:range rdf:resource="&rdfs;Class"/>
+    <rdfs:domain rdf:resource="&rdf;Property"/>
+    <rdf:type rdf:resource="&rdf;Property"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdfs;domain">
+    <rdfs:range rdf:resource="&rdfs;Class"/>
+    <rdfs:domain rdf:resource="&rdf;Property"/>
+    <rdf:type rdf:resource="&rdf;Property"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdfs;subPropertyOf">
+    <rdfs:range rdf:resource="&rdf;Property"/>
+    <rdfs:domain rdf:resource="&rdf;Property"/>
+    <rdf:type rdf:resource="&rdf;Property"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdfs;label">
+    <rdfs:range rdf:resource="&rdfs;Literal"/>
+    <rdf:type rdf:resource="&rdf;Property"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdf;nil">
+    <rdf:type>
+      <rdfs:Resource rdf:about="&rdf;List">
+        <rdfs:subClassOf rdf:resource="&rdf;List"/>
+        <rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
+        <rdf:type rdf:resource="&rdfs;Class"/>
+      </rdfs:Resource>
+    </rdf:type>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdf;Statement">
+    <rdfs:subClassOf rdf:resource="&rdf;Statement"/>
+    <rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
+    <rdf:type rdf:resource="&rdfs;Class"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdfs;Container">
+    <rdfs:subClassOf rdf:resource="&rdfs;Container"/>
+    <rdf:type rdf:resource="&rdfs;Class"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdfs;seeAlso">
+    <rdfs:subPropertyOf rdf:resource="&rdfs;seeAlso"/>
+    <rdf:type rdf:resource="&rdf;Property"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdf;predicate">
+    <rdfs:subPropertyOf rdf:resource="&rdf;predicate"/>
+    <rdfs:domain rdf:resource="&rdf;Statement"/>
+    <rdf:type rdf:resource="&rdf;Property"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdfs;isDefinedBy">
+    <rdfs:subPropertyOf rdf:resource="&rdfs;seeAlso"/>
+    <rdfs:subPropertyOf rdf:resource="&rdfs;isDefinedBy"/>
+    <rdf:type rdf:resource="&rdf;Property"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdfs;ContainerMembershipProperty">
+    <rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
+    <rdfs:subClassOf rdf:resource="&rdf;Property"/>
+    <rdfs:subClassOf rdf:resource="&rdfs;ContainerMembershipProperty"/>
+    <rdf:type rdf:resource="&rdfs;Class"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdf;rest">
+    <rdfs:subPropertyOf rdf:resource="&rdf;rest"/>
+    <rdfs:range rdf:resource="&rdf;List"/>
+    <rdfs:domain rdf:resource="&rdf;List"/>
+    <rdf:type rdf:resource="&rdf;Property"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdf;subject">
+    <rdfs:subPropertyOf rdf:resource="&rdf;subject"/>
+    <rdfs:domain rdf:resource="&rdf;Statement"/>
+    <rdf:type rdf:resource="&rdf;Property"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdf;object">
+    <rdfs:subPropertyOf rdf:resource="&rdf;object"/>
+    <rdfs:domain rdf:resource="&rdf;Statement"/>
+    <rdf:type rdf:resource="&rdf;Property"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdf;Bag">
+    <rdfs:subClassOf rdf:resource="&rdfs;Container"/>
+    <rdfs:subClassOf rdf:resource="&rdf;Bag"/>
+    <rdf:type rdf:resource="&rdfs;Class"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdf;Seq">
+    <rdfs:subClassOf rdf:resource="&rdfs;Container"/>
+    <rdfs:subClassOf rdf:resource="&rdf;Seq"/>
+    <rdf:type rdf:resource="&rdfs;Class"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdf;Alt">
+    <rdfs:subClassOf rdf:resource="&rdfs;Container"/>
+    <rdfs:subClassOf rdf:resource="&rdf;Alt"/>
+    <rdf:type rdf:resource="&rdfs;Class"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdf;first">
+    <rdfs:subPropertyOf rdf:resource="&rdf;first"/>
+    <rdfs:domain rdf:resource="&rdf;List"/>
+    <rdf:type rdf:resource="&rdf;Property"/>
+  </rdfs:Resource>
+</rdf:RDF>

@@ -15,8 +15,10 @@ import java.util.Date;
 public class Triple {
     private Long id;
     private String head;
+    private String headCategory;
     private String relation;
     private String tail;
+    private String tailCategory;
     private Date time;
     private Long candidateId;
     private String status;

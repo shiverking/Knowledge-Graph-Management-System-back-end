@@ -1,6 +1,7 @@
 package com.group.KGMS.controller;
 
 import com.group.KGMS.entity.Record;
+import com.group.KGMS.entity.RuleForm;
 import com.group.KGMS.entity.T_crawler;
 import com.group.KGMS.service.CrawlerService;
 import com.group.KGMS.utils.JsonResult;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 
 import java.io.BufferedReader;
@@ -22,8 +24,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Field;
+import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -35,27 +39,45 @@ public class CrawlController {
     @Autowired
     private CrawlerService crawlerService;
 
+    //@GetMapping ("/list/{name}/{status}/{page}/{limit}")
+    @GetMapping ("/list")
+    public JsonResult findByCondition(String name, Integer status, Integer page, Integer limit) {
+        return crawlerService.findByCondition(name, status, page, limit);
+    }
+    
+    @GetMapping ("/findAllnopage")
+    public List<T_crawler> findAllnopage() {
+        return crawlerService.findAllnopage();
+    }
+    
     @GetMapping ("/list/{page}/{limit}")
     public JsonResult findAll(@PathVariable("page") Integer page, @PathVariable("limit") Integer limit) {
-        return crawlerService.findAll(page,limit);
+//        return crawlerService.findAll(page,limit);
+        return JsonResult.error("啥也没干");
     }
+
     @GetMapping ("/findrecordbycid/{page}/{limit}/{cid}")
     public JsonResult findrecordbycid(@PathVariable("page") Integer page, @PathVariable("limit") Integer limit,@PathVariable("cid") Integer cid) {
         return crawlerService.findrecordbycid(page,limit,cid);
-    }
-    @GetMapping ("/list/status/{status}")
-    public List<T_crawler> findByStatus(@PathVariable("status") Integer status) {
-        return crawlerService.findByStatus(status);
-    }
-
-    @GetMapping ("/list/name/{name}")
-    public List<T_crawler> findByName(@PathVariable("name") String name) {
-        return crawlerService.findByName(name);
     }
 
     @GetMapping ("/statistic")
     public Map<String, Long> statistic() {
         return crawlerService.statistic();
+    }
+
+    @PostMapping ("/addCrawler")
+    public int addCrawler(@RequestBody T_crawler crawler) {
+        return crawlerService.addCrawler(crawler);
+    }
+
+    @PostMapping ("/file")
+    public void uploadCrawlerFile(@RequestParam MultipartFile file) {
+        try {
+            crawlerService.uploadCrawlerFile(file);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @GetMapping ("/start/{cid}")

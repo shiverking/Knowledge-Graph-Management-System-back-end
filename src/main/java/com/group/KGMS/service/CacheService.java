@@ -27,12 +27,12 @@ public interface CacheService {
     //将融合缓存追加到版本表
     List<Map<String, Object>> appendNewMergeToVersion(String versionId);
 
-    //将融合缓存追加到版本表
+    //将补全缓存追加到版本表
     List<Map<String, Object>> appendNewCompletionToVersion(String versionId);
 
-    //将融合缓存追加到版本表
-    int appendNewEvaluationToVersion(String versionId);
+    //将质量评估缓存追加到版本表
+    List<Map<String, Object>> appendNewEvaluationToVersion(String versionId);
 
-    //将融合缓存追加到版本表
+    //删除所有缓存
     int deleteAll();
 }

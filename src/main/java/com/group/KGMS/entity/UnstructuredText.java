@@ -35,5 +35,5 @@ public class UnstructuredText {
     //抽取状态
     private String status;
     //爬虫cid
-    private String cid;
+    private Integer cid;
 }

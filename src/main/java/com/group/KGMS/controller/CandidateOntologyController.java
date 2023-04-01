@@ -1,17 +1,23 @@
 package com.group.KGMS.controller;
 
+import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import com.github.pagehelper.PageInfo;
 import com.group.KGMS.entity.CandidateOntology;
+import com.group.KGMS.entity.CandidateOntologyAttribute;
 import com.group.KGMS.entity.CandidateOntologyClass;
 import com.group.KGMS.entity.CandidateOntologyTriple;
+import com.group.KGMS.service.CandidateOntologyAttributeService;
 import com.group.KGMS.service.CandidateOntologyClassService;
 import com.group.KGMS.service.CandidateOntologyService;
 import com.group.KGMS.service.CandidateOntologyTripleService;
 import com.group.KGMS.utils.JsonResult;
+import org.hibernate.collection.internal.PersistentIdentifierBag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.List;
 
@@ -33,6 +39,22 @@ public class CandidateOntologyController {
     private CandidateOntologyClassService candidateOntologyClassService;
     @Autowired
     private CandidateOntologyTripleService candidateOntologyTripleService;
+
+    @Resource
+    private CandidateOntologyAttributeService candidateOntologyAttributeService;
+
+
+    /*
+     * @Description: 添加候选本体
+     * @Author: zt
+     * @Date: 2023/3/28 11:42
+     * @param: [newOnto]
+     * @return: com.group.KGMS.utils.JsonResult
+     **/
+    @PostMapping("/addCandidateOntology")
+    public JsonResult addCandidateOntology(@RequestBody CandidateOntology newOnto){
+        return candidateOntologyService.saveOnto(newOnto);
+    }
 
     /*
      * @Description: 分页获取候选本体
@@ -167,6 +189,52 @@ public class CandidateOntologyController {
             return JsonResult.error("删除关系失败，请联系管理员");
         }
         return JsonResult.success("success");
+    }
+
+    /*
+     * @Description: 获取某个某个候选本体中某个类的属性列表
+     * @Author: zt
+     * @Date: 2023/3/23 16:10
+     * @param: [classId, belongCandidateOntologyId]
+     * @return: com.group.KGMS.utils.JsonResult
+     **/
+    @GetMapping("/getAttribute/{classId}/{belongCandidateOntologyId}")
+    public JsonResult getAttribute(@PathVariable("classId") Integer classId, @PathVariable("belongCandidateOntologyId") Integer belongCandidateOntologyId){
+        return candidateOntologyAttributeService.getAttribute(classId, belongCandidateOntologyId);
+    }
+
+    @PostMapping("/addAttribute")
+    public JsonResult addAttribute(@RequestBody CandidateOntologyAttribute newAttribute){
+        return candidateOntologyAttributeService.addAttribute(newAttribute);
+    }
+
+    @DeleteMapping("/deleteAttribute/{attributeId}")
+    public JsonResult deleteAttribute(@PathVariable("attributeId") Integer attributeId){
+        return candidateOntologyAttributeService.deleteAttribute(attributeId);
+    }
+
+    /*
+     * @Description: 结构化数据生成候选本体
+     * @Author: zt
+     * @Date: 2023/3/28 13:15
+     * @param: []
+     * @return: com.group.KGMS.utils.JsonResult
+     **/
+    @GetMapping("/structuredDataToOntology/{candidateOntoName}")
+    public JsonResult structuredDataToOntology(@PathVariable("candidateOntoName") String candidateOntoName){
+        return candidateOntologyService.structuredDataToOntology(candidateOntoName);
+    }
+
+    /*
+     * @Description: 删除某个候选本体
+     * @Author: zt
+     * @Date: 2023/3/28 18:05
+     * @param: [candidateOntoId]
+     * @return: com.group.KGMS.utils.JsonResult
+     **/
+    @DeleteMapping("/deleteCandidateOnto/{candidateOntoId}")
+    public JsonResult deleteCandidateOnto(@PathVariable("candidateOntoId") Integer candidateOntoId){
+        return candidateOntologyService.deleteCandidateOnto(candidateOntoId);
     }
 
 }
