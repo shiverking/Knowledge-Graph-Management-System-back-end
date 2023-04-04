@@ -83,7 +83,7 @@ public class CrawlerServiceImpl implements CrawlerService {
     }
 
     @Override
-    public T_crawler findpathBycid(Integer cid) {
+    public T_crawler findcrawlBycid(Integer cid) {
         Query query = new Query(Criteria.where("cid").is(cid));
         return mongoTemplate.findOne(query, T_crawler.class);
     }
@@ -114,6 +114,13 @@ public class CrawlerServiceImpl implements CrawlerService {
         Query query = new Query(Criteria.where("cid").is(cid));
         Update update = new Update();
         update.set("status", status);
+        mongoTemplate.upsert(query,update, T_crawler.class);
+    }
+    @Override
+    public void setcrawpidBycid(Integer cid,Integer pid) {
+        Query query = new Query(Criteria.where("cid").is(cid));
+        Update update = new Update();
+        update.set("pid", pid);
         mongoTemplate.upsert(query,update, T_crawler.class);
     }
     @Override

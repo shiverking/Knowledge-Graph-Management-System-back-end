@@ -86,7 +86,7 @@ public class CrawlController {
         String line = "";
         int re=1;
         try {
-            T_crawler t_crawler = crawlerService.findpathBycid(cid);
+            T_crawler t_crawler = crawlerService.findcrawlBycid(cid);
             String path=t_crawler.getPath();
             String spidername=t_crawler.getSpider_name();
             crawlerService.setcrawlstatusBycid(cid,1);
@@ -94,6 +94,15 @@ public class CrawlController {
 //            proc = Runtime.getRuntime().exec("E:\\代码\\DataCleaning\\venv\\Scripts\\python E:\\代码\\DataCleaning\\DataCleaning.py"+" "+aircraft);
             String[] args1=new String[]{"E://Anaconda//python.exe","E:\\PycharmProjects\\FKFD专项\\Scenario\\main.py",path,spidername};
             proc = Runtime.getRuntime().exec(args1);
+            Field f = proc.getClass().getDeclaredField("handle");
+            f.setAccessible(true);
+            long handle = f.getLong(proc);
+            Kernel32 kernel = Kernel32.INSTANCE;
+            WinNT.HANDLE winntHandle = new WinNT.HANDLE();
+            winntHandle.setPointer(Pointer.createConstant(handle));
+            int pid = kernel.GetProcessId(winntHandle);
+            crawlerService.setcrawpidBycid(cid,pid);
+            System.out.println("进程id="+pid);
             re =proc.waitFor();
             BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream()));
             while ((line = in.readLine()) != null) {
@@ -129,18 +138,22 @@ public class CrawlController {
         }
     }
 
-    @GetMapping("/stop")
-    public int stop(){
+    @GetMapping("/stop/{cid}")
+    public int stop(@PathVariable("cid") Integer cid){
         try {
-            Field f = proc.getClass().getDeclaredField("handle");
-            f.setAccessible(true);
-            long handle = f.getLong(proc);
-            Kernel32 kernel = Kernel32.INSTANCE;
-            WinNT.HANDLE winntHandle = new WinNT.HANDLE();
-            winntHandle.setPointer(Pointer.createConstant(handle));
-            int pid = kernel.GetProcessId(winntHandle);
-            System.out.println("进程id="+pid);
+//            Field f = proc.getClass().getDeclaredField("handle");
+//            f.setAccessible(true);
+//            long handle = f.getLong(proc);
+//            Kernel32 kernel = Kernel32.INSTANCE;
+//            WinNT.HANDLE winntHandle = new WinNT.HANDLE();
+//            winntHandle.setPointer(Pointer.createConstant(handle));
+//            int pid = kernel.GetProcessId(winntHandle);
+//            System.out.println("进程id="+pid);
 //            String[] args1=new String[]{"cmd.exe /c taskkill /t /pid"+pid};
+            Integer pid =null;
+            T_crawler t_crawler = crawlerService.findcrawlBycid(cid);
+            pid=t_crawler.getPid();
+            System.out.println(pid);
             Runtime runtime = Runtime.getRuntime();
             // 打开任务管理器，exec方法调用后返回 Process 进程对象
             Process process = runtime.exec("cmd.exe /c taskkill /t /f /pid "+pid);
@@ -151,6 +164,8 @@ public class CrawlController {
             System.out.println("exitValue: " + exitValue);
             // 销毁process对象
             process.destroy();
+            crawlerService.setcrawlstatusBycid(cid,-1);
+//            crawlerService.setrecordstatusBycid(id,-1);
             return exitValue;
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();

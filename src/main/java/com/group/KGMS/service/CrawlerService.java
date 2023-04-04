@@ -14,11 +14,13 @@ public interface CrawlerService {
 
     Map<String, Long> statistic();
 
-    T_crawler findpathBycid(Integer cid);
+    T_crawler findcrawlBycid(Integer cid);
 
     void uploadCrawlerFile(MultipartFile file) throws Exception;
 
     void setcrawlstatusBycid(Integer cid,Integer status);
+
+    void setcrawpidBycid(Integer cid,Integer pid);
 
     void setrecordstatusBycid(String id,Integer status);
 
