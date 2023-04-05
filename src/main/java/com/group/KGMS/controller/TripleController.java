@@ -11,6 +11,8 @@ import com.group.KGMS.entity.Triple;
 import com.group.KGMS.service.*;
 import com.group.KGMS.utils.JsonResult;
 import com.mongodb.MongoSocketReadException;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -45,6 +47,7 @@ public class TripleController {
      * @param limit
      * @return
      */
+    @ApiOperation(value = "候选图谱Controller", tags = { "候选图谱访问接口" })
     @PostMapping("/triples/getAllCandidateTriples")
     @ResponseBody
     public JsonResult getCandidateTriples(@RequestParam("page") Integer page, @RequestParam("limit") Integer limit){
