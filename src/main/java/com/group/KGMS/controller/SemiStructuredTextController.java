@@ -16,8 +16,13 @@ public class SemiStructuredTextController {
     SemistructuredDataService semistructuredDataService;
 
     @GetMapping("/getSemistructuredDataBycid/{page}/{limit}/{cid}")
-    public JsonResult getCandidateTriples(@PathVariable("page") Integer page, @PathVariable("limit") Integer limit, @PathVariable("cid") Integer cid){
+    public JsonResult getSemistructuredDataBycid(@PathVariable("page") Integer page, @PathVariable("limit") Integer limit, @PathVariable("cid") Integer cid){
         return semistructuredDataService.getSemistructuredDataBycid(page,limit,cid);
+    }
+
+    @GetMapping("/getSemistructuredDataByname/{page}/{limit}/{name}")
+    public JsonResult getSemistructuredDataByname(@PathVariable("page") Integer page, @PathVariable("limit") Integer limit, @PathVariable("name") String name){
+        return semistructuredDataService.getSemistructuredDataByname(page,limit,name);
     }
 
 }

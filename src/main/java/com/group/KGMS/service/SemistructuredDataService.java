@@ -8,5 +8,5 @@ import java.util.List;
 public interface SemistructuredDataService {
     //获取爬虫对应原始半结构化数据
     JsonResult getSemistructuredDataBycid(Integer pageNum, Integer limitNum, Integer cid);
-
+    JsonResult getSemistructuredDataByname(Integer pageNum, Integer limitNum, String name);
 }
