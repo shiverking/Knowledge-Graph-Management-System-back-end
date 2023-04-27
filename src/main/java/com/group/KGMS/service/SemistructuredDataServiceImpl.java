@@ -35,4 +35,21 @@ public class SemistructuredDataServiceImpl implements SemistructuredDataService 
 
     }
 
+    public JsonResult getSemistructuredDataByname(Integer pageNum, Integer pageSize, String name){
+        //创建查询对象
+        Query query = new Query();
+        Criteria criteria= new Criteria();
+        //设置起始数
+        query.skip((pageNum - 1) * pageSize);
+        //设置查询条数
+        query.limit(pageSize);
+        if(name!=null){
+            query.addCriteria(
+                    Criteria.where("name").regex(name)
+            );
+        }
+        BasicQuery basicQuery = new BasicQuery(query.getQueryObject().toJson());
+        return JsonResult.success(mongoTemplate.find(query, SemistructuredDataOriginal.class),mongoTemplate.count(basicQuery,SemistructuredDataOriginal.class));
+    };
+
 }
