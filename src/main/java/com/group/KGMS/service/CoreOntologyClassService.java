@@ -50,4 +50,5 @@ public interface CoreOntologyClassService extends IService<CoreOntologyClass> {
     void merge(Integer beMergedClassId, Integer candidateOntologyId, Integer coreOntologyClassId) throws IOException;
 
 
+    JsonResult getOntologyData();
 }
