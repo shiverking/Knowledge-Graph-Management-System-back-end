@@ -36,4 +36,8 @@ public class UnstructuredTextController {
     public JsonResult getCandidateTriples(@PathVariable("page") Integer page, @PathVariable("limit") Integer limit, @PathVariable("cid") Integer cid){
         return untructuredTextService.getUnstructuredTextByPageandcid(page,limit,cid);
     }
+    @GetMapping("/unstructure/getAllTextBytitle/{page}/{limit}/{title}")
+    public JsonResult getAllTextBytitle(@PathVariable("page") Integer page, @PathVariable("limit") Integer limit, @PathVariable("title") String title){
+        return untructuredTextService.getAllTextBytitle(page,limit,title);
+    }
 }

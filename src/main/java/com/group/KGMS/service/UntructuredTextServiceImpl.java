@@ -67,6 +67,22 @@ public class UntructuredTextServiceImpl implements UntructuredTextService {
         return JsonResult.success(mongoTemplate.find(query, UnstructuredTextOriginal.class),mongoTemplate.count(basicQuery,UnstructuredTextOriginal.class));
     }
     @Override
+    public JsonResult getAllTextBytitle(Integer pageNum, Integer pageSize, String title) {
+        //创建查询对象
+        Query query = new Query();
+        if(title!=null){
+            query.addCriteria(
+                    Criteria.where("title").regex(title)
+            );
+        }
+        //设置起始数
+        query.skip((pageNum - 1) * pageSize);
+        //设置查询条数
+        query.limit(pageSize);
+        BasicQuery basicQuery = new BasicQuery(query.getQueryObject().toJson());
+        return JsonResult.success(mongoTemplate.find(query, UnstructuredTextOriginal.class),mongoTemplate.count(basicQuery,UnstructuredTextOriginal.class));
+    }
+    @Override
     public Long getSumOfUnstructuredText() {
         return unstructuredTextRepository.count();
     }

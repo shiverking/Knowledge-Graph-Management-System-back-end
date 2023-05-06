@@ -103,7 +103,9 @@ public class CrawlController {
             int pid = kernel.GetProcessId(winntHandle);
             crawlerService.setcrawpidBycid(cid,pid);
             System.out.println("进程id="+pid);
+            System.out.println(path);
             re =proc.waitFor();
+            System.out.println(re);
             BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream()));
             while ((line = in.readLine()) != null) {
                 System.out.println( line);

@@ -14,4 +14,6 @@ public interface UntructuredTextService {
     Long getSumOfUnstructuredText();
     //分页获取特定爬虫的非结构化文本
     JsonResult getUnstructuredTextByPageandcid(Integer pageNum, Integer limitNum, Integer cid);
+    //按标题搜索
+    JsonResult getAllTextBytitle(Integer pageNum, Integer limitNum, String title);
 }
