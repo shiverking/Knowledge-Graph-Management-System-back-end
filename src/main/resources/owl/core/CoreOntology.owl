@@ -255,6 +255,11 @@
       <owl:Class rdf:about="&this;枪械与单兵"/>
     </rdfs:subClassOf>
   </owl:Class>
+  <owl:Class rdf:about="&this;反导系统">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="&this;国防工程"/>
+    </rdfs:subClassOf>
+  </owl:Class>
   <owl:Class rdf:about="&this;宇宙飞船">
     <rdfs:subClassOf>
       <owl:Class rdf:about="&this;太空装备"/>
@@ -352,6 +357,11 @@
   </owl:Class>
   <owl:Class rdf:about="&this;多用途直升机">
     <rdfs:subClassOf rdf:resource="&this;飞行器"/>
+  </owl:Class>
+  <owl:Class rdf:about="&this;雷达">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="&this;装备物资"/>
+    </rdfs:subClassOf>
   </owl:Class>
   <owl:Class rdf:about="&this;能力">
     <rdfs:subClassOf rdf:resource="&this;Thing"/>
@@ -496,6 +506,9 @@
   <owl:Class rdf:about="&this;舰空导弹">
     <rdfs:subClassOf rdf:resource="&this;导弹武器"/>
   </owl:Class>
+  <owl:Class rdf:about="&this;预警雷达">
+    <rdfs:subClassOf rdf:resource="&this;雷达"/>
+  </owl:Class>
   <owl:Class rdf:about="&this;导弹艇">
     <rdfs:subClassOf rdf:resource="&this;舰船舰艇"/>
   </owl:Class>
@@ -563,6 +576,9 @@
   </owl:Class>
   <owl:Class rdf:about="&this;人员">
     <rdfs:subClassOf rdf:resource="&this;Thing"/>
+  </owl:Class>
+  <owl:Class rdf:about="&this;陆基中段反导系统">
+    <rdfs:subClassOf rdf:resource="&this;反导系统"/>
   </owl:Class>
   <owl:Class rdf:about="&this;任务">
     <rdfs:subClassOf rdf:resource="&this;Thing"/>
