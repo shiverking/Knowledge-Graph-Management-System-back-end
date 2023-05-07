@@ -220,7 +220,7 @@
   </owl:Class>
   <owl:Class rdf:about="&this;反导系统">
     <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;国防工程"/>
+      <owl:Class rdf:about="&this;武器系统"/>
     </rdfs:subClassOf>
   </owl:Class>
   <owl:Class rdf:about="&this;宇宙飞船">
@@ -384,6 +384,9 @@
     <rdfs:subClassOf>
       <owl:Class rdf:about="&this;爆炸物"/>
     </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="&this;武器系统">
+    <rdfs:subClassOf rdf:resource="&this;装备物资"/>
   </owl:Class>
   <owl:Class rdf:about="&this;装甲指挥车">
     <rdfs:subClassOf rdf:resource="&this;坦克装甲车辆"/>
@@ -713,11 +716,37 @@
   <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#789"/>
   <owl:DatatypeProperty rdf:about="&this;重量">
     <rdfs:domain rdf:resource="&this;装备物资"/>
+    <rdfs:domain rdf:resource="&this;陆基中段反导系统"/>
   </owl:DatatypeProperty>
   <owl:DatatypeProperty rdf:about="&this;体重"/>
+  <owl:DatatypeProperty rdf:about="&this;用途">
+    <rdfs:domain rdf:resource="&this;陆基中段反导系统"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="&this;年龄"/>
+  <owl:DatatypeProperty rdf:about="&this;雷达射程">
+    <rdfs:domain rdf:resource="&this;陆基中段反导系统"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="&this;生产国家">
+    <rdfs:domain rdf:resource="&this;陆基中段反导系统"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="&this;代号">
+    <rdfs:domain rdf:resource="&this;陆基中段反导系统"/>
+  </owl:DatatypeProperty>
   <owl:DatatypeProperty rdf:about="&this;就测试"/>
+  <owl:DatatypeProperty rdf:about="&this;速度">
+    <rdfs:domain rdf:resource="&this;陆基中段反导系统"/>
+  </owl:DatatypeProperty>
   <owl:DatatypeProperty rdf:about="&this;测试哈哈"/>
   <owl:DatatypeProperty rdf:about="&this;新的111"/>
+  <owl:DatatypeProperty rdf:about="&this;导弹长度">
+    <rdfs:domain rdf:resource="&this;陆基中段反导系统"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="&this;防御范围">
+    <rdfs:domain rdf:resource="&this;陆基中段反导系统"/>
+  </owl:DatatypeProperty>
   <owl:DatatypeProperty rdf:about="&this;长度"/>
-  <owl:DatatypeProperty rdf:about="&this;年龄"/>
+  <owl:DatatypeProperty rdf:about="&this;飞行距离"/>
+  <owl:DatatypeProperty rdf:about="&this;服役时间">
+    <rdfs:domain rdf:resource="&this;陆基中段反导系统"/>
+  </owl:DatatypeProperty>
 </rdf:RDF>
