@@ -89,4 +89,10 @@ public class CandidateTripleServiceImpl implements CandidateTripleService {
         }
         return result;
     }
+
+    @Override
+    public boolean updateCandidateTripleHeadCategoryByName(String name, String category) {
+        return candidateTripleMapper.updateCandidateTripleHeadCategoryByName(name,category)|| candidateTripleMapper.updateCandidateTripleTailCategoryByName(name,category);
+
+    }
 }

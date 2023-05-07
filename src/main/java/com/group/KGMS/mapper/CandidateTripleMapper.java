@@ -31,4 +31,7 @@ public interface CandidateTripleMapper {
 
     //插入新的属性三元组
     int insertCandidateAttributes(@Param("head") String head, @Param("headCategory") String headCategory,@Param("attributeName") String attributeName, @Param("attributeValue") String attributeValue, @Param("source") String source, @Param("time") Date time);
+
+    boolean updateCandidateTripleHeadCategoryByName(@Param("name") String name, @Param("category") String category);
+    boolean updateCandidateTripleTailCategoryByName(@Param("name") String name, @Param("category") String category);
 }
