@@ -27,4 +27,6 @@ public interface CandidateTripleService {
 
     //批量插入新的候选三元组
     int insertNewCandidateTriplesBatch(List<CandidateTriple> candidateTripleList);
+
+    boolean updateCandidateTripleHeadCategoryByName(String name,String category);
 }

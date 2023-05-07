@@ -10,7 +10,6 @@ import com.group.KGMS.service.CoreOntologyTripleService;
 import com.group.KGMS.utils.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import sun.net.idn.Punycode;
 
 import javax.annotation.Resource;
 import javax.persistence.criteria.CriteriaBuilder;
