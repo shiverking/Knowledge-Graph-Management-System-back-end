@@ -54,6 +54,11 @@ public class CoreOntologyController {
         return JsonResult.success("success", rootClass);
     }
 
+    @GetMapping("/getOntologyData")
+    public JsonResult getOntologyData(){
+        return coreOntologyClassService.getOntologyData();
+    }
+
 //    @GetMapping("/getTreeData")
 //    public JsonResult getTreeData(){
 //        List<CoreOntologyClass> classList = coreOntologyClassService.list();

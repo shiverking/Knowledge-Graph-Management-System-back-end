@@ -130,9 +130,6 @@
     </rdfs:domain>
     <rdf:type rdf:resource="&owl;ObjectProperty"/>
   </owl:Class>
-  <owl:Class rdf:about="&this;海">
-    <rdfs:subClassOf rdf:resource="&this;Thing"/>
-  </owl:Class>
   <owl:Class rdf:about="&this;国家">
     <rdfs:subClassOf>
       <owl:Class rdf:about="&this;位置"/>
@@ -187,9 +184,6 @@
     <rdfs:subClassOf>
       <owl:Class rdf:about="&this;导弹武器"/>
     </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;陆">
-    <rdfs:subClassOf rdf:resource="&this;Thing"/>
   </owl:Class>
   <owl:Class rdf:about="&this;水雷">
     <rdfs:subClassOf>
@@ -353,9 +347,6 @@
   <owl:Class rdf:about="&this;场景">
     <rdfs:subClassOf rdf:resource="&this;Thing"/>
   </owl:Class>
-  <owl:Class rdf:about="&this;空">
-    <rdfs:subClassOf rdf:resource="&this;Thing"/>
-  </owl:Class>
   <owl:Class rdf:about="&this;步兵战车">
     <rdfs:subClassOf rdf:resource="&this;坦克装甲车辆"/>
   </owl:Class>
@@ -468,9 +459,6 @@
   <owl:Class rdf:about="&this;攻击机">
     <rdfs:subClassOf rdf:resource="&this;飞行器"/>
   </owl:Class>
-  <owl:Class rdf:about="&this;天">
-    <rdfs:subClassOf rdf:resource="&this;Thing"/>
-  </owl:Class>
   <owl:Class rdf:about="&this;侦察机">
     <rdfs:subClassOf rdf:resource="&this;飞行器"/>
   </owl:Class>
@@ -573,7 +561,9 @@
   <owl:Class rdf:about="&this;使命">
     <rdfs:subClassOf rdf:resource="&this;Thing"/>
   </owl:Class>
-  <owl:Class rdf:about="&this;人员"/>
+  <owl:Class rdf:about="&this;人员">
+    <rdfs:subClassOf rdf:resource="&this;Thing"/>
+  </owl:Class>
   <owl:Class rdf:about="&this;任务">
     <rdfs:subClassOf rdf:resource="&this;Thing"/>
   </owl:Class>
@@ -722,12 +712,6 @@
   <owl:DatatypeProperty rdf:about="&this;就测试"/>
   <owl:DatatypeProperty rdf:about="&this;测试哈哈"/>
   <owl:DatatypeProperty rdf:about="&this;新的111"/>
-  <owl:DatatypeProperty rdf:about="&this;长度">
-    <rdfs:domain rdf:resource="&this;装备物资"/>
-  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="&this;长度"/>
   <owl:DatatypeProperty rdf:about="&this;年龄"/>
-  <owl:DatatypeProperty rdf:about="&this;新的">
-    <rdfs:subClassOf rdf:resource="&this;Thing"/>
-    <rdf:type rdf:resource="&owl;Class"/>
-  </owl:DatatypeProperty>
 </rdf:RDF>

@@ -275,4 +275,12 @@ public class CoreOntologyClassServiceImpl extends ServiceImpl<CoreOntologyClassM
 //        }
     }
 
+    @Override
+    public JsonResult getOntologyData() {
+        CoreOntologyClass rootClass = getRootClass();
+        List<CoreOntologyClass> coreOntologyClassList = new ArrayList<>();
+        coreOntologyClassList.add(rootClass);
+        return JsonResult.success(coreOntologyClassList);
+    }
+
 }
