@@ -113,6 +113,23 @@ public class CandidateKGController {
         return JsonResult.success("failure");
     }
     /**
+     * 根据name更新头尾实体的类别
+     * @param info
+     * @return
+     */
+    @PostMapping("/candidateKg/updateCategory")
+    @ResponseBody
+    public JsonResult updateCandidateTripleCategoryByName(@RequestBody Map<String, Object> info){
+        String name = String.valueOf(info.get("name"));
+        String category = String.valueOf(info.get("category"));
+        if(candidateTripleService.updateCandidateTripleHeadCategoryByName(name,category)){
+            //更新成功
+            return JsonResult.success("success");
+        }
+        //更新失败
+        return JsonResult.success("failure");
+    }
+    /**
      * 根据id删除某个候选图谱
      * @param info
      * @return

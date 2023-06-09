@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.group.KGMS.mapper.ThemeOntoClassMapper">
+    <resultMap id="ThemeOntoClassResultMap" type="com.group.KGMS.entity.ThemeOntoClass">
+        <result column="id" property="id" jdbcType="INTEGER"/>
+        <result column="theme_onto_id" property="themeOntoId" jdbcType="INTEGER"/>
+        <result column="class_id" property="classId" jdbcType="INTEGER"/>
+    </resultMap>
+</mapper>

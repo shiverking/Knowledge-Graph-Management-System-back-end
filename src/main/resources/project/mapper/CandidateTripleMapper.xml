@@ -29,6 +29,12 @@
             id=#{id}
         </where>
     </update>
+    <update id="updateCandidateTripleHeadCategoryByName">
+        update candidate_triples SET head_category = #{category} WHERE head = #{name}
+    </update>
+    <update id="updateCandidateTripleTailCategoryByName">
+        update candidate_triples SET tail_category = #{category} WHERE tail = #{name}
+    </update>
     <delete id="deleteCandidateTripleById">
         delete from candidate_triples where id = #{id}
     </delete>

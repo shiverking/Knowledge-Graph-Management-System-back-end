@@ -42,6 +42,11 @@
       <owl:Class rdf:about="&this;执行者"/>
     </rdfs:subClassOf>
   </owl:Class>
+  <owl:Class rdf:about="&this;雷达车">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="&this;坦克装甲车辆"/>
+    </rdfs:subClassOf>
+  </owl:Class>
   <owl:Class rdf:about="&this;保障辅助舰艇">
     <rdfs:subClassOf>
       <owl:Class rdf:about="&this;舰船舰艇"/>
@@ -56,16 +61,6 @@
     <rdfs:subClassOf>
       <owl:Class rdf:about="&this;导弹武器"/>
     </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;舰载机联队">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;执行者"/>
-    </rdfs:subClassOf>
-    <rdfs:range rdf:resource="&this;舰载机联队"/>
-    <rdfs:domain>
-      <owl:Class rdf:about="&this;航空母舰"/>
-    </rdfs:domain>
-    <rdf:type rdf:resource="&owl;ObjectProperty"/>
   </owl:Class>
   <owl:Class rdf:about="&this;运输机">
     <rdfs:subClassOf>
@@ -102,13 +97,13 @@
       <owl:Class rdf:about="&this;太空装备"/>
     </rdfs:subClassOf>
   </owl:Class>
-  <owl:Class rdf:about="&this;目标">
-    <rdfs:subClassOf rdf:resource="&this;Thing"/>
-  </owl:Class>
   <owl:Class rdf:about="&this;潜舰导弹">
     <rdfs:subClassOf>
       <owl:Class rdf:about="&this;导弹武器"/>
     </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="&this;目标">
+    <rdfs:subClassOf rdf:resource="&this;Thing"/>
   </owl:Class>
   <owl:Class rdf:about="&this;高射炮">
     <rdfs:subClassOf>
@@ -120,19 +115,12 @@
       <owl:Class rdf:about="&this;导弹武器"/>
     </rdfs:subClassOf>
   </owl:Class>
-  <owl:Class rdf:about="&this;航空母舰">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;舰船舰艇"/>
-    </rdfs:subClassOf>
-    <rdfs:range rdf:resource="&this;航空母舰"/>
-    <rdfs:domain>
-      <owl:Class rdf:about="&this;航母打击群"/>
-    </rdfs:domain>
-    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+  <owl:Class rdf:about="&this;海">
+    <rdfs:subClassOf rdf:resource="&this;Thing"/>
   </owl:Class>
   <owl:Class rdf:about="&this;国家">
     <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;位置"/>
+      <owl:ObjectProperty rdf:about="&this;位置"/>
     </rdfs:subClassOf>
   </owl:Class>
   <owl:Class rdf:about="&this;执行者">
@@ -149,23 +137,6 @@
     <rdfs:subClassOf>
       <owl:Class rdf:about="&this;坦克装甲车辆"/>
     </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;制造厂">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;国防工程"/>
-    </rdfs:subClassOf>
-    <rdfs:range rdf:resource="&this;制造厂"/>
-    <rdfs:domain>
-      <owl:Class rdf:about="&this;驱逐舰"/>
-    </rdfs:domain>
-    <rdfs:domain>
-      <owl:Class rdf:about="&this;补给舰"/>
-    </rdfs:domain>
-    <rdfs:domain rdf:resource="&this;航空母舰"/>
-    <rdfs:domain>
-      <owl:Class rdf:about="&this;巡洋舰"/>
-    </rdfs:domain>
-    <rdf:type rdf:resource="&owl;ObjectProperty"/>
   </owl:Class>
   <owl:Class rdf:about="&this;榴弹炮">
     <rdfs:subClassOf>
@@ -184,6 +155,9 @@
     <rdfs:subClassOf>
       <owl:Class rdf:about="&this;导弹武器"/>
     </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="&this;陆">
+    <rdfs:subClassOf rdf:resource="&this;Thing"/>
   </owl:Class>
   <owl:Class rdf:about="&this;水雷">
     <rdfs:subClassOf>
@@ -255,6 +229,11 @@
       <owl:Class rdf:about="&this;枪械与单兵"/>
     </rdfs:subClassOf>
   </owl:Class>
+  <owl:Class rdf:about="&this;反导系统">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="&this;武器系统"/>
+    </rdfs:subClassOf>
+  </owl:Class>
   <owl:Class rdf:about="&this;宇宙飞船">
     <rdfs:subClassOf>
       <owl:Class rdf:about="&this;太空装备"/>
@@ -283,16 +262,6 @@
       <owl:Class rdf:about="&this;导弹武器"/>
     </rdfs:subClassOf>
   </owl:Class>
-  <owl:Class rdf:about="&this;位置">
-    <rdfs:subClassOf rdf:resource="&this;Thing"/>
-    <rdfs:range>
-      <owl:Class rdf:about="&this;州"/>
-    </rdfs:range>
-    <rdfs:domain>
-      <owl:Class rdf:about="&this;海军基地"/>
-    </rdfs:domain>
-    <rdf:type rdf:resource="&owl;ObjectProperty"/>
-  </owl:Class>
   <owl:Class rdf:about="&this;无后坐炮">
     <rdfs:subClassOf>
       <owl:Class rdf:about="&this;火炮"/>
@@ -313,12 +282,12 @@
       <owl:Class rdf:about="&this;国防工程"/>
     </rdfs:subClassOf>
   </owl:Class>
-  <owl:Class rdf:about="&this;导弹武器">
+  <owl:Class rdf:about="&this;火炮">
     <rdfs:subClassOf>
       <owl:Class rdf:about="&this;装备物资"/>
     </rdfs:subClassOf>
   </owl:Class>
-  <owl:Class rdf:about="&this;火炮">
+  <owl:Class rdf:about="&this;导弹武器">
     <rdfs:subClassOf>
       <owl:Class rdf:about="&this;装备物资"/>
     </rdfs:subClassOf>
@@ -347,11 +316,22 @@
   <owl:Class rdf:about="&this;场景">
     <rdfs:subClassOf rdf:resource="&this;Thing"/>
   </owl:Class>
+  <owl:Class rdf:about="&this;空">
+    <rdfs:subClassOf rdf:resource="&this;Thing"/>
+  </owl:Class>
   <owl:Class rdf:about="&this;步兵战车">
+    <rdfs:subClassOf rdf:resource="&this;坦克装甲车辆"/>
+  </owl:Class>
+  <owl:Class rdf:about="&this;导弹发射车">
     <rdfs:subClassOf rdf:resource="&this;坦克装甲车辆"/>
   </owl:Class>
   <owl:Class rdf:about="&this;多用途直升机">
     <rdfs:subClassOf rdf:resource="&this;飞行器"/>
+  </owl:Class>
+  <owl:Class rdf:about="&this;雷达">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="&this;装备物资"/>
+    </rdfs:subClassOf>
   </owl:Class>
   <owl:Class rdf:about="&this;能力">
     <rdfs:subClassOf rdf:resource="&this;Thing"/>
@@ -390,14 +370,6 @@
       <owl:Class rdf:about="&this;爆炸物"/>
     </rdfs:subClassOf>
   </owl:Class>
-  <owl:Class rdf:about="&this;驱逐舰中队">
-    <rdfs:subClassOf rdf:resource="&this;执行者"/>
-    <rdfs:range rdf:resource="&this;驱逐舰中队"/>
-    <rdfs:domain>
-      <owl:Class rdf:about="&this;航母打击群"/>
-    </rdfs:domain>
-    <rdf:type rdf:resource="&owl;ObjectProperty"/>
-  </owl:Class>
   <owl:Class rdf:about="&this;弹炮结合系统">
     <rdfs:subClassOf rdf:resource="&this;火炮"/>
   </owl:Class>
@@ -405,12 +377,6 @@
     <rdfs:subClassOf>
       <owl:Class rdf:about="&this;资源"/>
     </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;补给舰">
-    <rdfs:subClassOf rdf:resource="&this;舰船舰艇"/>
-    <rdfs:range rdf:resource="&this;补给舰"/>
-    <rdfs:domain rdf:resource="&this;驱逐舰中队"/>
-    <rdf:type rdf:resource="&owl;ObjectProperty"/>
   </owl:Class>
   <owl:Class rdf:about="&this;地区">
     <rdfs:subClassOf rdf:resource="&this;国家"/>
@@ -436,6 +402,9 @@
       <owl:Class rdf:about="&this;爆炸物"/>
     </rdfs:subClassOf>
   </owl:Class>
+  <owl:Class rdf:about="&this;武器系统">
+    <rdfs:subClassOf rdf:resource="&this;装备物资"/>
+  </owl:Class>
   <owl:Class rdf:about="&this;装甲指挥车">
     <rdfs:subClassOf rdf:resource="&this;坦克装甲车辆"/>
   </owl:Class>
@@ -459,15 +428,18 @@
   <owl:Class rdf:about="&this;攻击机">
     <rdfs:subClassOf rdf:resource="&this;飞行器"/>
   </owl:Class>
+  <owl:Class rdf:about="&this;天">
+    <rdfs:subClassOf rdf:resource="&this;Thing"/>
+  </owl:Class>
   <owl:Class rdf:about="&this;侦察机">
     <rdfs:subClassOf rdf:resource="&this;飞行器"/>
   </owl:Class>
-  <owl:Class rdf:about="&this;附件">
+  <owl:Class rdf:about="&this;狙击枪">
     <rdfs:subClassOf>
       <owl:Class rdf:about="&this;枪械与单兵"/>
     </rdfs:subClassOf>
   </owl:Class>
-  <owl:Class rdf:about="&this;狙击枪">
+  <owl:Class rdf:about="&this;附件">
     <rdfs:subClassOf>
       <owl:Class rdf:about="&this;枪械与单兵"/>
     </rdfs:subClassOf>
@@ -496,6 +468,9 @@
   <owl:Class rdf:about="&this;舰空导弹">
     <rdfs:subClassOf rdf:resource="&this;导弹武器"/>
   </owl:Class>
+  <owl:Class rdf:about="&this;预警雷达">
+    <rdfs:subClassOf rdf:resource="&this;雷达"/>
+  </owl:Class>
   <owl:Class rdf:about="&this;导弹艇">
     <rdfs:subClassOf rdf:resource="&this;舰船舰艇"/>
   </owl:Class>
@@ -510,6 +485,9 @@
   </owl:Class>
   <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#气垫艇/气垫船">
     <rdfs:subClassOf rdf:resource="&this;舰船舰艇"/>
+  </owl:Class>
+  <owl:Class rdf:about="&this;新的">
+    <rdfs:subClassOf rdf:resource="&this;Thing"/>
   </owl:Class>
   <owl:Class rdf:about="&this;火箭炮">
     <rdfs:subClassOf rdf:resource="&this;火炮"/>
@@ -531,23 +509,11 @@
   <owl:Class rdf:about="&this;舰船">
     <rdfs:subClassOf rdf:resource="&this;Thing"/>
   </owl:Class>
-  <owl:Class rdf:about="&this;巡洋舰">
-    <rdfs:subClassOf rdf:resource="&this;舰船舰艇"/>
-    <rdfs:range rdf:resource="&this;巡洋舰"/>
-    <rdfs:domain rdf:resource="&this;驱逐舰中队"/>
-    <rdf:type rdf:resource="&owl;ObjectProperty"/>
-  </owl:Class>
   <owl:Class rdf:about="&this;电子战机">
     <rdfs:subClassOf rdf:resource="&this;飞行器"/>
   </owl:Class>
   <owl:Class rdf:about="&this;资源">
     <rdfs:subClassOf rdf:resource="&this;Thing"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;作战中队">
-    <rdfs:subClassOf rdf:resource="&this;执行者"/>
-    <rdfs:range rdf:resource="&this;作战中队"/>
-    <rdfs:domain rdf:resource="&this;舰载机联队"/>
-    <rdf:type rdf:resource="&owl;ObjectProperty"/>
   </owl:Class>
   <owl:Class rdf:about="&this;反潜机">
     <rdfs:subClassOf rdf:resource="&this;飞行器"/>
@@ -555,14 +521,17 @@
   <owl:Class rdf:about="&this;结果">
     <rdfs:subClassOf rdf:resource="&this;Thing"/>
   </owl:Class>
-  <owl:Class rdf:about="&this;运载火箭">
-    <rdfs:subClassOf rdf:resource="&this;太空装备"/>
-  </owl:Class>
   <owl:Class rdf:about="&this;使命">
     <rdfs:subClassOf rdf:resource="&this;Thing"/>
   </owl:Class>
+  <owl:Class rdf:about="&this;运载火箭">
+    <rdfs:subClassOf rdf:resource="&this;太空装备"/>
+  </owl:Class>
   <owl:Class rdf:about="&this;人员">
     <rdfs:subClassOf rdf:resource="&this;Thing"/>
+  </owl:Class>
+  <owl:Class rdf:about="&this;陆基中段反导系统">
+    <rdfs:subClassOf rdf:resource="&this;反导系统"/>
   </owl:Class>
   <owl:Class rdf:about="&this;任务">
     <rdfs:subClassOf rdf:resource="&this;Thing"/>
@@ -575,13 +544,13 @@
       <owl:Class rdf:about="&this;枪械与单兵"/>
     </rdfs:subClassOf>
   </owl:Class>
-  <owl:Class rdf:about="&this;教练机">
-    <rdfs:subClassOf rdf:resource="&this;飞行器"/>
-  </owl:Class>
   <owl:Class rdf:about="&this;机枪">
     <rdfs:subClassOf>
       <owl:Class rdf:about="&this;枪械与单兵"/>
     </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="&this;教练机">
+    <rdfs:subClassOf rdf:resource="&this;飞行器"/>
   </owl:Class>
   <owl:Class rdf:about="&this;迫击炮">
     <rdfs:subClassOf rdf:resource="&this;火炮"/>
@@ -604,12 +573,6 @@
   <owl:Class rdf:about="&this;加油机">
     <rdfs:subClassOf rdf:resource="&this;飞行器"/>
   </owl:Class>
-  <owl:Class rdf:about="&this;驱逐舰">
-    <rdfs:subClassOf rdf:resource="&this;舰船舰艇"/>
-    <rdfs:range rdf:resource="&this;驱逐舰"/>
-    <rdfs:domain rdf:resource="&this;驱逐舰中队"/>
-    <rdf:type rdf:resource="&owl;ObjectProperty"/>
-  </owl:Class>
   <owl:Class rdf:about="&this;航母打击群">
     <rdfs:subClassOf rdf:resource="&this;舰船舰艇"/>
   </owl:Class>
@@ -623,95 +586,202 @@
     <rdfs:subClassOf rdf:resource="&this;坦克装甲车辆"/>
   </owl:Class>
   <owl:ObjectProperty rdf:about="&this;总舰长">
+    <rdfs:domain>
+      <owl:ObjectProperty rdf:about="&this;舰载机联队"/>
+    </rdfs:domain>
     <rdfs:range rdf:resource="&this;海军将领"/>
-    <rdfs:domain rdf:resource="&this;舰载机联队"/>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#5165"/>
+  <owl:ObjectProperty rdf:about="&this;测试">
+    <rdfs:domain rdf:resource="&this;装备物资"/>
+    <rdf:type rdf:resource="&owl;DatatypeProperty"/>
+  </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="&this;参谋长">
-    <rdfs:range rdf:resource="&this;海军将领"/>
     <rdfs:domain rdf:resource="&this;航母打击群"/>
+    <rdfs:range rdf:resource="&this;海军将领"/>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="&this;指挥官">
-    <rdfs:range rdf:resource="&this;海军将领"/>
-    <rdfs:domain rdf:resource="&this;驱逐舰中队"/>
-    <rdfs:domain rdf:resource="&this;驱逐舰"/>
-    <rdfs:domain rdf:resource="&this;舰载机联队"/>
-    <rdfs:domain rdf:resource="&this;航空母舰"/>
+  <owl:ObjectProperty rdf:about="&this;驱逐舰中队">
     <rdfs:domain rdf:resource="&this;航母打击群"/>
-    <rdfs:domain rdf:resource="&this;巡洋舰"/>
-    <rdfs:domain rdf:resource="&this;作战中队"/>
+    <rdfs:range rdf:resource="&this;驱逐舰中队"/>
+    <rdfs:subClassOf rdf:resource="&this;执行者"/>
+    <rdf:type rdf:resource="&owl;Class"/>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="&this;指挥军士长">
-    <rdfs:range rdf:resource="&this;海军将领"/>
+  <owl:ObjectProperty rdf:about="&this;巡洋舰">
     <rdfs:domain rdf:resource="&this;驱逐舰中队"/>
-    <rdfs:domain rdf:resource="&this;驱逐舰"/>
-    <rdfs:domain rdf:resource="&this;航空母舰"/>
-    <rdfs:domain rdf:resource="&this;航母打击群"/>
-    <rdfs:domain rdf:resource="&this;巡洋舰"/>
-    <rdfs:domain rdf:resource="&this;作战中队"/>
+    <rdfs:range rdf:resource="&this;巡洋舰"/>
+    <rdfs:subClassOf rdf:resource="&this;舰船舰艇"/>
+    <rdf:type rdf:resource="&owl;Class"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="&this;挂载">
+    <rdfs:domain rdf:resource="&this;反导系统"/>
+    <rdfs:range rdf:resource="&this;附件"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#1414"/>
-  <owl:ObjectProperty rdf:about="&this;国籍">
-    <rdfs:range rdf:resource="&this;国家"/>
-    <rdfs:domain rdf:resource="&this;海军将领"/>
+  <owl:ObjectProperty rdf:about="&this;舰载机联队">
+    <rdfs:domain>
+      <owl:ObjectProperty rdf:about="&this;航空母舰"/>
+    </rdfs:domain>
+    <rdfs:range rdf:resource="&this;舰载机联队"/>
+    <rdfs:subClassOf rdf:resource="&this;执行者"/>
+    <rdf:type rdf:resource="&owl;Class"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="&this;补给舰">
+    <rdfs:domain rdf:resource="&this;驱逐舰中队"/>
+    <rdfs:range rdf:resource="&this;补给舰"/>
+    <rdfs:subClassOf rdf:resource="&this;舰船舰艇"/>
+    <rdf:type rdf:resource="&owl;Class"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="&this;同事">
-    <rdfs:range rdf:resource="&this;海军将领"/>
     <rdfs:domain rdf:resource="&this;海军将领"/>
-  </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="&this;执行官">
     <rdfs:range rdf:resource="&this;海军将领"/>
-    <rdfs:domain rdf:resource="&this;驱逐舰中队"/>
-    <rdfs:domain rdf:resource="&this;驱逐舰"/>
-    <rdfs:domain rdf:resource="&this;航空母舰"/>
-    <rdfs:domain rdf:resource="&this;巡洋舰"/>
-    <rdfs:domain rdf:resource="&this;作战中队"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#78*99551">
-    <rdfs:range rdf:resource="&this;Thing"/>
     <rdfs:domain rdf:resource="&this;Thing"/>
+    <rdfs:range rdf:resource="&this;Thing"/>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="&this;指挥军事长">
-    <rdfs:range rdf:resource="&this;海军将领"/>
+  <owl:ObjectProperty rdf:about="&this;作战中队">
     <rdfs:domain rdf:resource="&this;舰载机联队"/>
-  </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="&this;产国">
-    <rdfs:range rdf:resource="&this;国家"/>
-    <rdfs:domain rdf:resource="&this;驱逐舰"/>
-    <rdfs:domain rdf:resource="&this;补给舰"/>
-    <rdfs:domain rdf:resource="&this;巡洋舰"/>
-    <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+    <rdfs:range rdf:resource="&this;作战中队"/>
+    <rdfs:subClassOf rdf:resource="&this;执行者"/>
+    <rdf:type rdf:resource="&owl;Class"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="&this;母港">
-    <rdfs:range rdf:resource="&this;海军基地"/>
     <rdfs:domain rdf:resource="&this;航母打击群"/>
+    <rdfs:range rdf:resource="&this;海军基地"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="&this;r_b"/>
+  <owl:ObjectProperty rdf:about="&this;r_d"/>
+  <owl:ObjectProperty rdf:about="&this;航空母舰">
+    <rdfs:domain rdf:resource="&this;航母打击群"/>
+    <rdfs:range rdf:resource="&this;航空母舰"/>
+    <rdfs:subClassOf rdf:resource="&this;舰船舰艇"/>
+    <rdf:type rdf:resource="&owl;Class"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="&this;家庭信息">
+    <rdfs:domain rdf:resource="&this;海军将领"/>
+    <rdfs:range rdf:resource="&this;地区"/>
+    <rdfs:range rdf:resource="&this;州"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="&this;位置">
+    <rdfs:domain rdf:resource="&this;海军基地"/>
+    <rdfs:range rdf:resource="&this;州"/>
+    <rdfs:subClassOf rdf:resource="&this;Thing"/>
+    <rdf:type rdf:resource="&owl;Class"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#5165"/>
+  <owl:ObjectProperty rdf:about="&this;指挥官">
+    <rdfs:domain rdf:resource="&this;作战中队"/>
+    <rdfs:domain rdf:resource="&this;巡洋舰"/>
+    <rdfs:domain rdf:resource="&this;航母打击群"/>
+    <rdfs:domain rdf:resource="&this;航空母舰"/>
+    <rdfs:domain rdf:resource="&this;舰载机联队"/>
+    <rdfs:domain>
+      <owl:ObjectProperty rdf:about="&this;驱逐舰"/>
+    </rdfs:domain>
+    <rdfs:domain rdf:resource="&this;驱逐舰中队"/>
+    <rdfs:range rdf:resource="&this;海军将领"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="&this;指挥军士长">
+    <rdfs:domain rdf:resource="&this;作战中队"/>
+    <rdfs:domain rdf:resource="&this;巡洋舰"/>
+    <rdfs:domain rdf:resource="&this;航母打击群"/>
+    <rdfs:domain rdf:resource="&this;航空母舰"/>
+    <rdfs:domain>
+      <owl:ObjectProperty rdf:about="&this;驱逐舰"/>
+    </rdfs:domain>
+    <rdfs:domain rdf:resource="&this;驱逐舰中队"/>
+    <rdfs:range rdf:resource="&this;海军将领"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="&this;制造厂">
+    <rdfs:domain rdf:resource="&this;巡洋舰"/>
+    <rdfs:domain rdf:resource="&this;航空母舰"/>
+    <rdfs:domain rdf:resource="&this;补给舰"/>
+    <rdfs:domain>
+      <owl:ObjectProperty rdf:about="&this;驱逐舰"/>
+    </rdfs:domain>
+    <rdfs:range rdf:resource="&this;制造厂"/>
+    <rdfs:subClassOf rdf:resource="&this;国防工程"/>
+    <rdf:type rdf:resource="&owl;Class"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="&this;国籍">
+    <rdfs:domain rdf:resource="&this;海军将领"/>
+    <rdfs:range rdf:resource="&this;国家"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="&this;执行官">
+    <rdfs:domain rdf:resource="&this;作战中队"/>
+    <rdfs:domain rdf:resource="&this;巡洋舰"/>
+    <rdfs:domain rdf:resource="&this;航空母舰"/>
+    <rdfs:domain>
+      <owl:ObjectProperty rdf:about="&this;驱逐舰"/>
+    </rdfs:domain>
+    <rdfs:domain rdf:resource="&this;驱逐舰中队"/>
+    <rdfs:range rdf:resource="&this;海军将领"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="&this;指挥军事长">
+    <rdfs:domain rdf:resource="&this;舰载机联队"/>
+    <rdfs:range rdf:resource="&this;海军将领"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="&this;驱逐舰">
+    <rdfs:domain rdf:resource="&this;驱逐舰中队"/>
+    <rdfs:range rdf:resource="&this;驱逐舰"/>
+    <rdfs:subClassOf rdf:resource="&this;舰船舰艇"/>
+    <rdf:type rdf:resource="&owl;Class"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="&this;产国">
+    <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+    <rdfs:domain rdf:resource="&this;巡洋舰"/>
+    <rdfs:domain rdf:resource="&this;补给舰"/>
+    <rdfs:domain rdf:resource="&this;驱逐舰"/>
+    <rdfs:range rdf:resource="&this;国家"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="&this;控制">
+    <rdfs:range rdf:resource="&this;反导系统"/>
+    <rdfs:domain rdf:resource="&this;人员"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="&this;r_c"/>
-  <owl:ObjectProperty rdf:about="&this;r_b"/>
   <owl:ObjectProperty rdf:about="&this;r_e"/>
   <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#123">
-    <rdfs:range rdf:resource="&this;Thing"/>
     <rdfs:domain rdf:resource="&this;Thing"/>
+    <rdfs:range rdf:resource="&this;Thing"/>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="&this;r_d"/>
-  <owl:ObjectProperty rdf:about="&this;家庭信息">
-    <rdfs:range rdf:resource="&this;州"/>
-    <rdfs:range rdf:resource="&this;地区"/>
-    <rdfs:domain rdf:resource="&this;海军将领"/>
+  <owl:ObjectProperty rdf:about="&this;属于">
+    <rdfs:domain rdf:resource="&this;导弹武器"/>
+    <rdfs:range rdf:resource="&this;反导系统"/>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="&this;r_a"/>
   <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#789"/>
+  <owl:ObjectProperty rdf:about="&this;r_a"/>
   <owl:DatatypeProperty rdf:about="&this;重量">
     <rdfs:domain rdf:resource="&this;装备物资"/>
+    <rdfs:domain rdf:resource="&this;陆基中段反导系统"/>
   </owl:DatatypeProperty>
   <owl:DatatypeProperty rdf:about="&this;体重"/>
-  <owl:DatatypeProperty rdf:about="&this;测试">
-    <rdfs:domain rdf:resource="&this;装备物资"/>
-    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+  <owl:DatatypeProperty rdf:about="&this;用途">
+    <rdfs:domain rdf:resource="&this;陆基中段反导系统"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="&this;年龄"/>
+  <owl:DatatypeProperty rdf:about="&this;雷达射程">
+    <rdfs:domain rdf:resource="&this;陆基中段反导系统"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="&this;生产国家">
+    <rdfs:domain rdf:resource="&this;陆基中段反导系统"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="&this;代号">
+    <rdfs:domain rdf:resource="&this;陆基中段反导系统"/>
   </owl:DatatypeProperty>
   <owl:DatatypeProperty rdf:about="&this;就测试"/>
+  <owl:DatatypeProperty rdf:about="&this;速度">
+    <rdfs:domain rdf:resource="&this;陆基中段反导系统"/>
+  </owl:DatatypeProperty>
   <owl:DatatypeProperty rdf:about="&this;测试哈哈"/>
   <owl:DatatypeProperty rdf:about="&this;新的111"/>
+  <owl:DatatypeProperty rdf:about="&this;导弹长度">
+    <rdfs:domain rdf:resource="&this;陆基中段反导系统"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="&this;防御范围">
+    <rdfs:domain rdf:resource="&this;陆基中段反导系统"/>
+  </owl:DatatypeProperty>
   <owl:DatatypeProperty rdf:about="&this;长度"/>
-  <owl:DatatypeProperty rdf:about="&this;年龄"/>
+  <owl:DatatypeProperty rdf:about="&this;飞行距离"/>
+  <owl:DatatypeProperty rdf:about="&this;服役时间">
+    <rdfs:domain rdf:resource="&this;陆基中段反导系统"/>
+  </owl:DatatypeProperty>
 </rdf:RDF>
