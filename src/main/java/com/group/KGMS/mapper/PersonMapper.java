@@ -48,5 +48,5 @@ public interface PersonMapper {
 
     int updateplan(@Param("plan_id") int plan_id, @Param("id") int id);
 
-    int saveTaskid(@Param("task_id") int task_id, @Param("id") int id);
+    int saveTaskid(@Param("task_id") int task_id, @Param("plan_id") int plan_id,@Param("id") int id);
 }

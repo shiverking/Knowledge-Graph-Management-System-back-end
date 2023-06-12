@@ -46,5 +46,5 @@ public interface PersonService {
 
     int updateplan(int plan_id, int id);
 
-    int saveTaskid(int task_id, int id);
+    int saveTaskid(int task_id, int plan_id,int id);
 }

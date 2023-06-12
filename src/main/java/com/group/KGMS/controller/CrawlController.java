@@ -102,15 +102,18 @@ public class CrawlController {
             winntHandle.setPointer(Pointer.createConstant(handle));
             int pid = kernel.GetProcessId(winntHandle);
             crawlerService.setcrawpidBycid(cid,pid);
+            System.out.println(id);
             System.out.println("进程id="+pid);
             System.out.println(path);
-            re =proc.waitFor();
             System.out.println(re);
-            BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream()));
-            while ((line = in.readLine()) != null) {
-                System.out.println( line);
-            }
-            in.close();
+//            BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream()));
+//            while ((line = in.readLine()) != null) {
+//                System.out.println( line);
+//            }
+//            in.close();
+            clearStream(proc.getInputStream());
+            clearStream(proc.getErrorStream());
+            re =proc.waitFor();
             proc.destroy();
             if (re==0){
                 crawlerService.setcrawlstatusBycid(cid,0);

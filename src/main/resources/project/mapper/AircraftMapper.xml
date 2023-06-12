@@ -1,7 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.group.KGMS.mapper.AircraftMapper">
+<!--    <resultMap id="aircraftMap" type="com.group.KGMS.entity.T_aircraft">-->
+<!--        <id property="id" column="id"/>-->
+<!--        <result property="aircraft_name" column="aircraft_name"/>-->
+<!--        <result property="picture" column="picture"/>-->
+<!--        <result property="description" column="description"/>-->
+<!--        <result property="fist_flight" column="fist_flight"/>-->
+<!--        <result property="rd_company" column="rd_company"/>-->
+<!--        <result property="engines_num" column="engines_num"/>-->
+<!--        <result property="crew_num" column="crew_num"/>-->
+<!--        <result property="length" column="length"/>-->
+<!--        <result property="winspan" column="winspan"/>-->
+<!--        <result property="height" column="height"/>-->
+<!--        <result property="engine" column="engine"/>-->
+<!--        <result property="max_speed" column="max_speed"/>-->
+<!--        <result property="empty_wgt" column="empty_wgt"/>-->
+<!--        <result property="type" column="type"/>-->
+<!--    </resultMap>-->
     <select id="findAllAircraft" resultType="com.group.KGMS.entity.T_aircraft">
         select * from t_aircraft
     </select>
