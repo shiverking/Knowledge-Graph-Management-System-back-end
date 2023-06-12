@@ -69,6 +69,7 @@
         update t_person
         <set>
             task_id = null
+            plan_id = null
         </set>
         where task_id = #{task_id}
     </update>
@@ -76,6 +77,7 @@
         update t_person
         <set>
             task_id = #{task_id}
+            plan_id = #{plan_id}
         </set>
         where id = #{id}
     </update>

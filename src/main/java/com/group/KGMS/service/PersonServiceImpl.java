@@ -116,7 +116,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public int saveTaskid(int task_id, int id) {
-        return personMapper.saveTaskid(task_id, id);
+    public int saveTaskid(int task_id,int plan_id, int id) {
+        return personMapper.saveTaskid(task_id,plan_id, id);
     }
 }

@@ -42,6 +42,8 @@ spring:
 
 mybatis:
   mapper-locations: classpath:project/mapper/*.xml
+  configuration:
+    mapUnderscoreToCamelCase: false #关闭驼峰命名转换
 
 server:
   port: 12345
@@ -60,3 +62,5 @@ mybatis-plus:
 #  configuration:
 #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   mapper-locations: classpath:project/mapper/*.xml
+  configuration:
+    mapUnderscoreToCamelCase: false #关闭驼峰命名转换
