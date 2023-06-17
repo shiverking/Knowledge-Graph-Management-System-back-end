@@ -92,15 +92,16 @@ public class TaskController {
 //        List<T_person> person_old = objectMapper.convertValue(po, new TypeReference<List<T_person>>() {});
 //        List<T_vessel> vo =(List<T_vessel>) map.get("deletevessel");
 //        List<T_vessel> vessel_old = objectMapper.convertValue(vo, new TypeReference<List<T_vessel>>() {} );
-        List<T_resume> pn =(List<T_resume>) map.get("person_new");
+        List<T_person> pn =(List<T_person>) map.get("person_new");
         List<T_person> person_new = objectMapper.convertValue(pn, new TypeReference<List<T_person>>() {});
-        List<T_resume> vn =(List<T_resume>) map.get("vessel_new");
+        List<T_vessel> vn =(List<T_vessel>) map.get("vessel_new");
         List<T_vessel> vessel_new = objectMapper.convertValue(vn, new TypeReference<List<T_vessel>>() {});
         int task_id = person_new.get(0).getTask_id();
+        int plan_id = person_new.get(0).getPlan_id();
         personService.deleteTaskid(task_id);
         vesselService.deleteTaskid(task_id);
         for(int i =0;i< person_new.size();i++){
-                personService.saveTaskid(task_id,person_new.get(i).getId());
+                personService.saveTaskid(task_id,plan_id,person_new.get(i).getId());
         }
         for(int i =0;i< vessel_new.size();i++){
                 vesselService.saveTaskid(task_id,vessel_new.get(i).getId());
