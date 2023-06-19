@@ -3,6 +3,7 @@ package com.group.KGMS.service;
 import com.group.KGMS.entity.UnstructuredText;
 import com.group.KGMS.entity.UnstructuredTextOriginal;
 import com.group.KGMS.mapper.UnstructuredTextMapper;
+import com.group.KGMS.repository.OriginalUnstructuredTextRepository;
 import com.group.KGMS.repository.UnstructuredTextRepository;
 import com.group.KGMS.utils.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,8 @@ public class UntructuredTextServiceImpl implements UntructuredTextService {
     private MongoTemplate mongoTemplate;
     @Autowired
     UnstructuredTextRepository unstructuredTextRepository;
-
+    @Autowired
+    OriginalUnstructuredTextRepository originalUnstructuredTextRepository;
     @Override
     public void updateUnstructuredTextStatusById(List<String> idList) {
         for (String id : idList) {
@@ -34,6 +36,12 @@ public class UntructuredTextServiceImpl implements UntructuredTextService {
         }
     }
 
+    /**
+     * 查找演示数据
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     @Override
     public List<UnstructuredText> getUnstructuredTextByPage(Integer pageNum, Integer pageSize) {
         //创建查询对象
@@ -50,6 +58,30 @@ public class UntructuredTextServiceImpl implements UntructuredTextService {
 //        }
         return mongoTemplate.find(query, UnstructuredText.class);
     }
+
+    /**
+     * 查找原始数据
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public List<UnstructuredTextOriginal> getTrueUnstructuredTextByPage(Integer pageNum, Integer pageSize) {
+        //创建查询对象
+        Query query = new Query();
+        //设置起始数
+        query.skip((pageNum - 1) * pageSize);
+        //设置查询条数
+        query.limit(pageSize);
+//        如果有条件的话
+//        if (conditions != null) {
+//            for (String field: conditions.keySet()) {
+//                query.addCriteria(new Criteria(field).is(conditions.get(field)));
+//            }
+//        }
+        return mongoTemplate.find(query, UnstructuredTextOriginal.class);
+    }
+
     @Override
     public JsonResult getUnstructuredTextByPageandcid(Integer pageNum, Integer pageSize, Integer cid) {
         //创建查询对象
@@ -85,5 +117,10 @@ public class UntructuredTextServiceImpl implements UntructuredTextService {
     @Override
     public Long getSumOfUnstructuredText() {
         return unstructuredTextRepository.count();
+    }
+
+    @Override
+    public Long getSumOfTrueUnstructuredText() {
+        return originalUnstructuredTextRepository.count();
     }
 }

@@ -2,6 +2,7 @@ package com.group.KGMS.scheduled;
 
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
+import com.group.KGMS.entity.CommonSelection;
 import com.group.KGMS.entity.RequestInfo;
 import com.group.KGMS.mapper.CandidateTripleMapper;
 import com.group.KGMS.mapper.RequestMapper;
@@ -22,7 +23,8 @@ import java.util.UUID;
  */
 @Component
 public class TripleSearchTask implements Runnable{
-
+    @Autowired
+    CommonSelection commonSelection;
     /**
      * 在Runnable @Autowired注入会null  所以需要手动注入
      */
@@ -31,7 +33,8 @@ public class TripleSearchTask implements Runnable{
         RestTemplate restTemplate = SpringContextUtils.getApplicationContext().getBean(RestTemplate.class);
         CandidateTripleMapper candidateTripleMapper = SpringContextUtils.getApplicationContext().getBean(CandidateTripleMapper.class);
         RequestMapper requestMapper = SpringContextUtils.getApplicationContext().getBean(RequestMapper.class);
-        String url = "http://192.168.1.10:8888/ontology-model/getInstance";
+        String url = "http://"+commonSelection.getIp()+":"+commonSelection.getPort()+"/"+commonSelection.getKgInterface();
+        //String url = "http://192.168.1.10:8888/ontology-model/getInstance";
         Date latestTime = requestMapper.getLatestTime();
         if(latestTime == null){
             Calendar calendar=Calendar.getInstance();
