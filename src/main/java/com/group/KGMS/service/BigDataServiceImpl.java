@@ -36,6 +36,11 @@ public class BigDataServiceImpl implements BigDataService{
 
     @Override
     public JsonResult saveOnto(OntologyDto ontologyDto) {
+        //先清空原有的数据
+        classDtoMapper.delete(null);
+        relationDtoMapper.delete(null);
+        attributeDtoMapper.delete(null);
+        //保存新的数据
         List<ClassDto> classDtos = ontologyDto.getClassDtos();
         for(ClassDto classDto: classDtos){
             classDtoMapper.insert(classDto);
