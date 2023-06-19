@@ -75,9 +75,6 @@ public class CandidateOntologyClassServiceImpl extends ServiceImpl<CandidateOnto
 
     @Override
     public void remove(String className, Integer belongCandidateId) throws Exception {
-        if("Thing".equals(className)){
-            throw new RuntimeException("不能删除根节点");
-        }
         //根据传入的类别名称在数据库中查询出对应的这个类的记录
         LambdaQueryWrapper<CandidateOntologyClass> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(CandidateOntologyClass::getName, className)
