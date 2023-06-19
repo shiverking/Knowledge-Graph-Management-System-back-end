@@ -1,6 +1,7 @@
 package com.group.KGMS.controller;
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
+import com.group.KGMS.entity.CommonSelection;
 import com.group.KGMS.entity.RequestInfo;
 import com.group.KGMS.mapper.CandidateTripleMapper;
 import com.group.KGMS.mapper.RequestMapper;
@@ -33,7 +34,8 @@ public class TaskSchedulerController {
     CandidateTripleMapper candidateTripleMapper;
     @Autowired
     RequestMapper requestMapper;
-
+    @Autowired
+    CommonSelection commonSelection;
     @ResponseBody
     @PostMapping("/startTask")
     public JsonResult startTask(@RequestParam("interval")int interval){
@@ -68,7 +70,8 @@ public class TaskSchedulerController {
     @PostMapping("/manualUpdate")
     public JsonResult manualUpdate() {
         //修改时，TripleSearchTask中的路径也要同时修改
-        String url = "http://192.168.1.10:8888/ontology-model/getInstance";
+        String url = "http://"+commonSelection.getIp()+":"+commonSelection.getPort()+"/"+commonSelection.getKgInterface();
+        //String url = "http://192.168.1.10:8888/ontology-model/getInstance";
         Date latestTime = requestMapper.getLatestTime();
         if(latestTime == null){
             Calendar calendar=Calendar.getInstance();

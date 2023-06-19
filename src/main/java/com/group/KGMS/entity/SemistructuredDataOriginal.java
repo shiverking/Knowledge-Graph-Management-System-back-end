@@ -14,6 +14,7 @@ public class SemistructuredDataOriginal {
     @Id
     private String _id;
     private String name;
+    private String status;
     private String type;
     private String max_speed;
     private String weight;

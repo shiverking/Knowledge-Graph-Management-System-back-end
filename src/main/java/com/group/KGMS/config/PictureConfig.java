@@ -11,7 +11,10 @@ public class PictureConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/picture/**")
-                .addResourceLocations("file:"+"D://FKFDPicture/");
+
+        registry.addResourceHandler("/images/**").addResourceLocations("classpath:/static/");
+//        registry.addResourceHandler("/picture/**")
+//                .addResourceLocations("file:"+"D://FKFDPicture/");
+
     }
 }

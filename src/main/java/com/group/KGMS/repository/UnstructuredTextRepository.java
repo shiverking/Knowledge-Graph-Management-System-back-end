@@ -1,6 +1,7 @@
 package com.group.KGMS.repository;
 
 import com.group.KGMS.entity.UnstructuredText;
+import com.group.KGMS.entity.UnstructuredTextOriginal;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 import java.util.List;
