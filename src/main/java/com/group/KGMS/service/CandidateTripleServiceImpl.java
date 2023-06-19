@@ -78,7 +78,7 @@ public class CandidateTripleServiceImpl implements CandidateTripleService {
             SqlSession openSession = sqlSessionFactory.openSession(ExecutorType.BATCH);
             CandidateTripleMapper candidateTripleMapper = openSession.getMapper(CandidateTripleMapper.class);
             for (CandidateTriple triple : candidateTripleList) {
-                candidateTripleMapper.insertCandidateTriples(triple.getHead(),triple.getRelation(),triple.getTail(),triple.getHeadCategory(),triple.getTail(),triple.getStatus(),triple.getSource(),triple.getTime());
+                candidateTripleMapper.insertCandidateTriples(triple.getHead(),triple.getRelation(),triple.getTail(),triple.getHeadCategory(),triple.getTailCategory(),triple.getStatus(),triple.getSource(),triple.getTime());
             }
             openSession.commit();
             openSession.clearCache();

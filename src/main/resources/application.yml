@@ -40,6 +40,7 @@ spring:
       database: kgms
 
 
+
 mybatis:
   mapper-locations: classpath:project/mapper/*.xml
   configuration:
