@@ -119,6 +119,9 @@ public class CandidateOntologyController {
     @DeleteMapping("/deleteClass")
     public JsonResult deleteClass(@RequestBody CandidateOntologyClass delClass){
         System.out.println("delClass = " + delClass);
+        if("Thing".equals(delClass.getName())){
+            return JsonResult.error("不能删除根节点");
+        }
         try {
             candidateOntologyClassService.remove(delClass.getName(), delClass.getBelongCandidateId());
         } catch (Exception e) {

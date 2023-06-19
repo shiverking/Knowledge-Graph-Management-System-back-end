@@ -93,6 +93,9 @@ public class CoreOntologyController {
      **/
     @DeleteMapping("/deleteClass")
     public JsonResult deleteClass(@RequestBody CoreOntologyClass coreOntologyClass){
+        if("Thing".equals(coreOntologyClass.getName())){
+            return JsonResult.error("不能删除根节点");
+        }
         try {
             coreOntologyClassService.remove(coreOntologyClass.getName());
         } catch (Exception e) {
