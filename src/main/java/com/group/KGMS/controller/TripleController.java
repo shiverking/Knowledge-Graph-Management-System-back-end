@@ -622,4 +622,28 @@ public class TripleController {
         }
         return JsonResult.error("failure");
     }
+
+    @PostMapping("/candidate/savesemidataExtraction")
+    @ResponseBody
+    public JsonResult savesemidataExtraction(@RequestBody Map<String, Object> info){
+        List<Map<String, Object>> extractResult = (List<Map<String, Object>>) info.get("data");
+        List<CandidateTriple> candidateTripleList = new ArrayList<>();
+        for(int i=0;i<extractResult.size();i++){
+            CandidateTriple candidateTriple = new CandidateTriple();
+            candidateTriple.setHead((String) extractResult.get(i).get("head"));
+//            candidateTriple.setHeadCategory((String) extractResult.get(i).get("head_typ"));
+            candidateTriple.setRelation((String) extractResult.get(i).get("relation"));
+            candidateTriple.setTail((String) extractResult.get(i).get("tail"));
+//            candidateTriple.setTailCategory((String) extractResult.get(i).get("tail_typ"));
+            candidateTriple.setSource((String) extractResult.get(i).get("source"));
+            candidateTriple.setTime(new Date());
+            candidateTriple.setStatus("未入库");
+            candidateTriple.setTailCategory("value");
+            candidateTripleList.add(candidateTriple);
+        }
+        if(candidateTripleService.insertNewCandidateTriplesBatch(candidateTripleList)==1){
+            return JsonResult.success("success");
+        }
+        return JsonResult.success("failure");
+    }
 }
