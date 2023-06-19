@@ -14,7 +14,7 @@ public interface VersionService {
     PageInfo<Map<String, Object>> getVersionByPage(Integer pageNum, Integer limitNum);
 
     //时间降序分页获取所有版本信息
-    PageInfo<Map<String, Object>> getVersionByPageByTimeDesc(Integer pageNum, Integer limitNum);
+    List<Map<String, Object>> getVersionByPageByTimeDesc();
 
     //根据id删除版本信息
     int deleteVersionById(String versionId);

@@ -37,6 +37,8 @@ public interface VersionMapper {
     //获取版本号的个数
     Date getLatestTimeOfVersion();
 
-    //按照时间降序查找所有版本
+    //按照时间降序查找最近版本版本十条
     List<Map<String, Object>> getAllVersionByTimeDesc();
+    //查找提交记录
+    List<Map<Object, Object>> getVersionRecords();
 }
