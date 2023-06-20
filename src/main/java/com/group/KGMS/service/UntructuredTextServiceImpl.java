@@ -33,6 +33,7 @@ public class UntructuredTextServiceImpl implements UntructuredTextService {
             Query query = new Query(Criteria.where("_id").is(id));
             Update update = new Update().set("status", "已抽取");
             mongoTemplate.updateFirst(query, update, "unstructured_text_translate");
+            mongoTemplate.updateFirst(query, update, "unstructured_text_original");
         }
     }
 
