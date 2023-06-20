@@ -43,6 +43,8 @@ public class TripleController {
     UntructuredTextService untructuredTextService;
     @Autowired
     CandidateKGInfoMapper candidateKGInfoMapper;
+    @Autowired
+    SemistructuredDataService semistructuredDataService;
 
     @Autowired
     VersionMapper versionMapper;
@@ -632,7 +634,12 @@ public class TripleController {
     @ResponseBody
     public JsonResult savesemidataExtraction(@RequestBody Map<String, Object> info){
         List<Map<String, Object>> extractResult = (List<Map<String, Object>>) info.get("data");
+        List<String> idList = (List<String>) info.get("ids");
         List<CandidateTriple> candidateTripleList = new ArrayList<>();
+        if(extractResult.size()==0){
+            semistructuredDataService.updateSemistructuredDataStatusById(idList);
+            return JsonResult.success("success");
+        }
         for(int i=0;i<extractResult.size();i++){
             CandidateTriple candidateTriple = new CandidateTriple();
             candidateTriple.setHead((String) extractResult.get(i).get("head"));
@@ -640,17 +647,33 @@ public class TripleController {
             candidateTriple.setRelation((String) extractResult.get(i).get("relation"));
             candidateTriple.setTail((String) extractResult.get(i).get("tail"));
 //            candidateTriple.setTailCategory((String) extractResult.get(i).get("tail_typ"));
-            candidateTriple.setSource((String) extractResult.get(i).get("source"));
+            candidateTriple.setSource("文本抽取");
             candidateTriple.setTime(new Date());
             candidateTriple.setStatus("未入库");
             candidateTriple.setTailCategory("value");
             candidateTripleList.add(candidateTriple);
         }
         if(candidateTripleService.insertNewCandidateTriplesBatch(candidateTripleList)==1){
-            return JsonResult.success("success");
+            int maxRetryTimes = 4;
+            //重试4次
+            for (int retry = 1; retry <= maxRetryTimes; retry++) {
+                try {
+                    semistructuredDataService.updateSemistructuredDataStatusById(idList);
+                    return JsonResult.success("success");
+                } catch(MongoSocketReadException e){
+                    System.out.println("出错,将在1秒后重试");
+                }
+                // 延时一秒
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
         }
-        return JsonResult.success("failure");
+        return JsonResult.error("failure");
     }
+
     @PostMapping("/coreKg/submitRecord")
     @ResponseBody
     public List<Map<Object,Object>> submitRecord(){
