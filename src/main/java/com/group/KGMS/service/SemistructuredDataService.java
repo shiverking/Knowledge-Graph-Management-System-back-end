@@ -12,4 +12,5 @@ public interface SemistructuredDataService {
     JsonResult getSemistructuredDataBycid(Integer pageNum, Integer limitNum, Integer cid);
     JsonResult getSemistructuredDataByname(Integer pageNum, Integer limitNum, String name);
     List<CandidateTriple> converttotriples(Map<String, Object> semidata);
+    void updateSemistructuredDataStatusById(List<String> idList);
 }
