@@ -50,11 +50,9 @@ public class VersionServiceImpl implements VersionService {
     }
 
     @Override
-    public PageInfo<Map<String, Object>> getVersionByPageByTimeDesc(Integer pageNum, Integer limitNum) {
-        PageHelper.startPage(pageNum, limitNum);
+    public List<Map<String, Object>> getVersionByPageByTimeDesc() {
         List<Map<String, Object>> versionList = versionMapper.getAllVersionByTimeDesc();
-        PageInfo<Map<String, Object>> info = new PageInfo<Map<String, Object>>(versionList);
-        return info;
+        return versionList;
     }
 
     @Override

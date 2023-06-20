@@ -1,0 +1,251 @@
+<?xml version="1.0"?>
+<!DOCTYPE rdf:RDF [
+  <!ENTITY xsd 'http://www.w3.org/2001/XMLSchema#'>
+  <!ENTITY rdfs 'http://www.w3.org/2000/01/rdf-schema#'>
+  <!ENTITY owl 'http://www.w3.org/2002/07/owl#'>
+  <!ENTITY rdf 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'>]>
+<rdf:RDF
+    xmlns:rdf="&rdf;"
+    xmlns:owl="&owl;"
+    xmlns:rdfs="&rdfs;"
+    xmlns:xsd="&xsd;">
+  <rdfs:Class rdf:about="&rdf;XMLLiteral">
+    <rdf:type>
+      <rdfs:Resource rdf:about="&rdfs;Resource">
+        <rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
+        <rdf:type>
+          <rdfs:Resource rdf:about="&rdfs;Class">
+            <rdfs:subClassOf rdf:resource="&rdfs;Class"/>
+            <rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
+            <rdf:type rdf:resource="&rdfs;Class"/>
+          </rdfs:Resource>
+        </rdf:type>
+      </rdfs:Resource>
+    </rdf:type>
+    <rdf:type>
+      <rdfs:Resource rdf:about="&rdfs;Datatype">
+        <rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
+        <rdfs:subClassOf rdf:resource="&rdfs;Class"/>
+        <rdfs:subClassOf rdf:resource="&rdfs;Datatype"/>
+        <rdf:type rdf:resource="&rdfs;Class"/>
+      </rdfs:Resource>
+    </rdf:type>
+  </rdfs:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#Thing"/>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#舰船">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#Thing"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#计划">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#Thing"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#人员">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#Thing"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#任务">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#Thing"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#国家">
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#Thing"/>
+  </owl:Class>
+  <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#国籍">
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#人员"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#国家"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#属于">
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#任务"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#计划"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#包括">
+    <rdfs:range rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#人员"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#舰船"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#执行">
+    <rdfs:range rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#任务"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#舰船"/>
+  </owl:ObjectProperty>
+  <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#速度">
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#舰船"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#船员人少">
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#舰船"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#任务状态">
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#任务"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#登陆日期">
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#舰船"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#性别">
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#人员"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#状态">
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#舰船"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#计划状态">
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#计划"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#子类型">
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#舰船"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#类型">
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#舰船"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#英文名称">
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#国家"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#人员"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#图片">
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#人员"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#舰船"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#生产日期">
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#舰船"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#地址">
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#人员"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#开始时间">
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#任务"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#计划"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#长度">
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#舰船"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#结束时间">
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#任务"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#计划"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#制造商">
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#舰船"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#缩写">
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#国家"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#宽度">
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#舰船"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#满载排水">
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#舰船"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#服务时间">
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2022/8/fkfddb#舰船"/>
+  </owl:DatatypeProperty>
+  <rdfs:Resource rdf:about="&rdfs;comment">
+    <rdfs:range>
+      <rdfs:Resource rdf:about="&rdfs;Literal">
+        <rdfs:subClassOf rdf:resource="&rdfs;Literal"/>
+        <rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
+        <rdf:type rdf:resource="&rdfs;Class"/>
+      </rdfs:Resource>
+    </rdfs:range>
+    <rdf:type>
+      <rdfs:Resource rdf:about="&rdf;Property">
+        <rdfs:subClassOf rdf:resource="&rdf;Property"/>
+        <rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
+        <rdf:type rdf:resource="&rdfs;Class"/>
+      </rdfs:Resource>
+    </rdf:type>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdfs;subClassOf">
+    <rdfs:range rdf:resource="&rdfs;Class"/>
+    <rdfs:domain rdf:resource="&rdfs;Class"/>
+    <rdf:type rdf:resource="&rdf;Property"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdf;type">
+    <rdfs:range rdf:resource="&rdfs;Class"/>
+    <rdf:type rdf:resource="&rdf;Property"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdfs;range">
+    <rdfs:range rdf:resource="&rdfs;Class"/>
+    <rdfs:domain rdf:resource="&rdf;Property"/>
+    <rdf:type rdf:resource="&rdf;Property"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdfs;label">
+    <rdfs:range rdf:resource="&rdfs;Literal"/>
+    <rdf:type rdf:resource="&rdf;Property"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdf;nil">
+    <rdf:type>
+      <rdfs:Resource rdf:about="&rdf;List">
+        <rdfs:subClassOf rdf:resource="&rdf;List"/>
+        <rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
+        <rdf:type rdf:resource="&rdfs;Class"/>
+      </rdfs:Resource>
+    </rdf:type>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdfs;domain">
+    <rdfs:range rdf:resource="&rdfs;Class"/>
+    <rdfs:domain rdf:resource="&rdf;Property"/>
+    <rdf:type rdf:resource="&rdf;Property"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdfs;subPropertyOf">
+    <rdfs:range rdf:resource="&rdf;Property"/>
+    <rdfs:domain rdf:resource="&rdf;Property"/>
+    <rdf:type rdf:resource="&rdf;Property"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdf;Statement">
+    <rdfs:subClassOf rdf:resource="&rdf;Statement"/>
+    <rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
+    <rdf:type rdf:resource="&rdfs;Class"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdfs;Container">
+    <rdfs:subClassOf rdf:resource="&rdfs;Container"/>
+    <rdf:type rdf:resource="&rdfs;Class"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdfs;seeAlso">
+    <rdfs:subPropertyOf rdf:resource="&rdfs;seeAlso"/>
+    <rdf:type rdf:resource="&rdf;Property"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdf;predicate">
+    <rdfs:subPropertyOf rdf:resource="&rdf;predicate"/>
+    <rdfs:domain rdf:resource="&rdf;Statement"/>
+    <rdf:type rdf:resource="&rdf;Property"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdfs;isDefinedBy">
+    <rdfs:subPropertyOf rdf:resource="&rdfs;seeAlso"/>
+    <rdfs:subPropertyOf rdf:resource="&rdfs;isDefinedBy"/>
+    <rdf:type rdf:resource="&rdf;Property"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdfs;ContainerMembershipProperty">
+    <rdfs:subClassOf rdf:resource="&rdf;Property"/>
+    <rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
+    <rdfs:subClassOf rdf:resource="&rdfs;ContainerMembershipProperty"/>
+    <rdf:type rdf:resource="&rdfs;Class"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdf;rest">
+    <rdfs:subPropertyOf rdf:resource="&rdf;rest"/>
+    <rdfs:range rdf:resource="&rdf;List"/>
+    <rdfs:domain rdf:resource="&rdf;List"/>
+    <rdf:type rdf:resource="&rdf;Property"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdf;subject">
+    <rdfs:subPropertyOf rdf:resource="&rdf;subject"/>
+    <rdfs:domain rdf:resource="&rdf;Statement"/>
+    <rdf:type rdf:resource="&rdf;Property"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdf;object">
+    <rdfs:subPropertyOf rdf:resource="&rdf;object"/>
+    <rdfs:domain rdf:resource="&rdf;Statement"/>
+    <rdf:type rdf:resource="&rdf;Property"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdf;Bag">
+    <rdfs:subClassOf rdf:resource="&rdfs;Container"/>
+    <rdfs:subClassOf rdf:resource="&rdf;Bag"/>
+    <rdf:type rdf:resource="&rdfs;Class"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdf;Seq">
+    <rdfs:subClassOf rdf:resource="&rdfs;Container"/>
+    <rdfs:subClassOf rdf:resource="&rdf;Seq"/>
+    <rdf:type rdf:resource="&rdfs;Class"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdf;Alt">
+    <rdfs:subClassOf rdf:resource="&rdfs;Container"/>
+    <rdfs:subClassOf rdf:resource="&rdf;Alt"/>
+    <rdf:type rdf:resource="&rdfs;Class"/>
+  </rdfs:Resource>
+  <rdfs:Resource rdf:about="&rdf;first">
+    <rdfs:subPropertyOf rdf:resource="&rdf;first"/>
+    <rdfs:domain rdf:resource="&rdf;List"/>
+    <rdf:type rdf:resource="&rdf;Property"/>
+  </rdfs:Resource>
+</rdf:RDF>

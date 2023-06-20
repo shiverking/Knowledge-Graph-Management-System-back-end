@@ -5,6 +5,7 @@ import com.alibaba.fastjson2.JSONObject;
 import com.github.pagehelper.PageInfo;
 import com.group.KGMS.entity.CandidateKGInfo;
 import com.group.KGMS.mapper.CandidateKGInfoMapper;
+import com.group.KGMS.mapper.VersionMapper;
 import com.group.KGMS.repository.GraphNodeRepository;
 import com.group.KGMS.entity.CandidateTriple;
 import com.group.KGMS.entity.Triple;
@@ -13,6 +14,7 @@ import com.group.KGMS.utils.JsonResult;
 import com.mongodb.MongoSocketReadException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import javafx.beans.binding.ObjectExpression;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -41,6 +43,9 @@ public class TripleController {
     UntructuredTextService untructuredTextService;
     @Autowired
     CandidateKGInfoMapper candidateKGInfoMapper;
+
+    @Autowired
+    VersionMapper versionMapper;
     /**
      * 分页获取候选三元组
      * @param page
@@ -483,10 +488,10 @@ public class TripleController {
      */
     @PostMapping("/version/getVersionByPageByTimeDesc")
     @ResponseBody
-    public JsonResult getVersionByPageByTimeDesc(@RequestParam("page") Integer page, @RequestParam("limit") Integer limit){
-        PageInfo<Map<String,Object>> pageInfo = versionService.getVersionByPageByTimeDesc(page,limit);
+    public JsonResult getVersionByPageByTimeDesc(){
+        List<Map<String, Object>> pageInfo = versionService.getVersionByPageByTimeDesc();
         //第一个是结果列表，第二个是总数
-        return JsonResult.success("success",pageInfo.getList(),pageInfo.getTotal());
+        return JsonResult.success("success",pageInfo);
     }
     /**
      * 分页查找version_merge
@@ -645,5 +650,20 @@ public class TripleController {
             return JsonResult.success("success");
         }
         return JsonResult.success("failure");
+    }
+    @PostMapping("/coreKg/submitRecord")
+    @ResponseBody
+    public List<Map<Object,Object>> submitRecord(){
+        List<Map<Object,Object>> res = versionMapper.getVersionRecords();
+        List<Map<Object,Object>> newRes =  new ArrayList<>();
+        for(Map<Object,Object> map:res){
+            //只取最新的50条记录
+            if(newRes.size()==50){
+                break;
+            }
+            newRes.add(map);
+        }
+        Collections.reverse(newRes);
+        return newRes;
     }
 }
