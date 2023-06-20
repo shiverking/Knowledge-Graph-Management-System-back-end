@@ -45,9 +45,9 @@
         select * from candidate_triples where time &gt;= #{startTime} and time &lt;= #{endTime}
     </select>
     <select id="getTriplesListWithSourceLimit" resultType="com.group.KGMS.entity.CandidateTriple" resultMap="CandidateTripleResultMap">
-        select * from candidate_triples where source = #{source}
+        select * from candidate_triples where source like '%${source}%'
     </select>
     <select id="getTriplesListWithSourceAndTimeLimit" resultType="com.group.KGMS.entity.CandidateTriple" resultMap="CandidateTripleResultMap">
-        select * from candidate_triples where time &gt;= #{startTime} and time &lt;= #{endTime} and source = #{source}
+        select * from candidate_triples where time &gt;= #{startTime} and time &lt;= #{endTime} and source like '%${source}%'
     </select>
 </mapper>

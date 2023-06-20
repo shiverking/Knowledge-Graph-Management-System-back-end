@@ -19,7 +19,7 @@ public class UnstructuredTextController {
     @Autowired
     UntructuredTextService untructuredTextService;
     /**
-     * 分页获取所有非结构文本
+     * 分页获取所有非结构文本(演示)
      * @param page
      * @param limit
      * @return
@@ -30,6 +30,20 @@ public class UnstructuredTextController {
         List<UnstructuredText> pageInfo = untructuredTextService.getUnstructuredTextByPage(page,limit);
         //第一个是结果列表，第二个是总数
         return JsonResult.success("success",pageInfo,untructuredTextService.getSumOfUnstructuredText());
+    }
+
+    /**
+     * 分页获取所有非结构文本
+     * @param page
+     * @param limit
+     * @return
+     */
+    @PostMapping("/unstructure/getAllTrueTextByPage")
+    @ResponseBody
+    public JsonResult getTrueCandidateTriples(@RequestParam("page") Integer page, @RequestParam("limit") Integer limit){
+        List<UnstructuredTextOriginal> pageInfo = untructuredTextService.getTrueUnstructuredTextByPage(page,limit);
+        //第一个是结果列表，第二个是总数
+        return JsonResult.success("success",pageInfo,untructuredTextService.getSumOfTrueUnstructuredText());
     }
 
     @GetMapping("/unstructure/getAllTextByPageandcid/{page}/{limit}/{cid}")

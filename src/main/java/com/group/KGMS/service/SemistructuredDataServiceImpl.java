@@ -14,6 +14,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.BasicQuery;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Field;
@@ -109,5 +110,14 @@ public class SemistructuredDataServiceImpl implements SemistructuredDataService 
         }
         return triples;
     };
+    @Override
+    public void updateSemistructuredDataStatusById(List<String> idList) {
+        for (String id : idList) {
+            Query query = new Query(Criteria.where("_id").is(id));
+            Update update = new Update().set("status", "已抽取");
+            mongoTemplate.updateFirst(query, update, "semistructured_data_original");
+//            mongoTemplate.updateFirst(query, update, "unstructured_text_original");
+        }
+    }
 
 }

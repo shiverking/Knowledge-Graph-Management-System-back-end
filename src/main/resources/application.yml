@@ -65,3 +65,9 @@ mybatis-plus:
   mapper-locations: classpath:project/mapper/*.xml
   configuration:
     mapUnderscoreToCamelCase: false #关闭驼峰命名转换
+
+#对接数据治理系统端口号和接口
+common:
+  ip: "192.168.1.10"
+  port: 8888
+  kg-interface: "/ontology-model/getInstance"
