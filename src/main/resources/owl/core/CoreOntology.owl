@@ -1,636 +1,339 @@
 <?xml version="1.0"?>
-<!DOCTYPE rdf:RDF [
-  <!ENTITY xsd 'http://www.w3.org/2001/XMLSchema#'>
-  <!ENTITY this 'http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#'>
-  <!ENTITY rdfs 'http://www.w3.org/2000/01/rdf-schema#'>
-  <!ENTITY owl 'http://www.w3.org/2002/07/owl#'>
-  <!ENTITY rdf 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'>]>
-<rdf:RDF
-    xmlns:this="&this;"
-    xmlns:rdf="&rdf;"
-    xmlns:owl="&owl;"
-    xmlns:rdfs="&rdfs;"
-    xmlns:xsd="&xsd;">
-  <owl:Ontology rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore"/>
-  <owl:Class rdf:about="&this;坦克炮">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;火炮"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;预警机">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;飞行器"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;救护车">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;坦克装甲车辆"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;科学卫星">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;太空装备"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;迷彩服">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;枪械与单兵"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;雷达车">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;坦克装甲车辆"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;保障辅助舰艇">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;舰船舰艇"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;军事卫星">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;太空装备"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#舰地（潜地）导弹">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;导弹武器"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;运输机">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;飞行器"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#布/扫雷车">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;坦克装甲车辆"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;通用飞机">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;飞行器"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;特种坦克">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;坦克装甲车辆"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;冲锋枪">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;枪械与单兵"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;空间探测器">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;太空装备"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;目标">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;Thing"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;潜舰导弹">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;导弹武器"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;高射炮">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;火炮"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;空地导弹">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;导弹武器"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;岸舰导弹">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;导弹武器"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;主战坦克">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;坦克装甲车辆"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;榴弹炮">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;火炮"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;自动步枪">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;枪械与单兵"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;指导">
-    <rdfs:subClassOf rdf:resource="&this;Thing"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;地地导弹">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;导弹武器"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;水雷">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;爆炸物"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;越野车">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;坦克装甲车辆"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;装甲车载炮">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;火炮"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;战斗机">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;飞行器"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;作战车辆">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;装备物资"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;舰炮">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;火炮"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;加农炮">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;火炮"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;飞行器">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;装备物资"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;试验机">
-    <rdfs:subClassOf rdf:resource="&this;飞行器"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;飞艇">
-    <rdfs:subClassOf rdf:resource="&this;飞行器"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;反坦克炮">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;火炮"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;舰船舰艇">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;装备物资"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;手枪">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;枪械与单兵"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;常规潜艇">
-    <rdfs:subClassOf rdf:resource="&this;舰船舰艇"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;干线">
-    <rdfs:subClassOf rdf:resource="&this;飞行器"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;护卫舰">
-    <rdfs:subClassOf rdf:resource="&this;舰船舰艇"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;刀具">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;枪械与单兵"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;反导系统">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;武器系统"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;宇宙飞船">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;太空装备"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;手榴弹">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;爆炸物"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;核潜艇">
-    <rdfs:subClassOf rdf:resource="&this;舰船舰艇"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;装甲运兵车">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;坦克装甲车辆"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;霰弹枪">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;枪械与单兵"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;反弹道导弹">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;导弹武器"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;无后坐炮">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;火炮"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;坦克装甲车辆">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;装备物资"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;航空炮">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;火炮"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;导弹武器">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;装备物资"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;火炮">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;装备物资"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;环境">
-    <rdfs:subClassOf rdf:resource="&this;Thing"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;技术试验卫星">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;太空装备"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;航天基地">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;太空装备"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;非自动步枪">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;枪械与单兵"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;水雷战舰艇">
-    <rdfs:subClassOf rdf:resource="&this;舰船舰艇"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;步兵战车">
-    <rdfs:subClassOf rdf:resource="&this;坦克装甲车辆"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;导弹发射车">
-    <rdfs:subClassOf rdf:resource="&this;坦克装甲车辆"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;多用途直升机">
-    <rdfs:subClassOf rdf:resource="&this;飞行器"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;雷达">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;装备物资"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;能力">
-    <rdfs:subClassOf rdf:resource="&this;Thing"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;活动">
-    <rdfs:subClassOf rdf:resource="&this;Thing"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;地雷">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;爆炸物"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;原子弹">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;爆炸物"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;地空导弹">
-    <rdfs:subClassOf rdf:resource="&this;导弹武器"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;氢弹">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;爆炸物"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;空空导弹">
-    <rdfs:subClassOf rdf:resource="&this;导弹武器"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;中子弹">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;爆炸物"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;炸弹">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;爆炸物"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;弹炮结合系统">
-    <rdfs:subClassOf rdf:resource="&this;火炮"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;空舰导弹">
-    <rdfs:subClassOf rdf:resource="&this;导弹武器"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;装备物资">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;资源"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;航天飞机">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;太空装备"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;火箭弹">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;爆炸物"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;武器系统">
-    <rdfs:subClassOf rdf:resource="&this;装备物资"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;装甲指挥车">
-    <rdfs:subClassOf rdf:resource="&this;坦克装甲车辆"/>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#巡逻舰/艇">
-    <rdfs:subClassOf rdf:resource="&this;舰船舰艇"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;无人机">
-    <rdfs:subClassOf rdf:resource="&this;飞行器"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;鱼雷">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;爆炸物"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;支线">
-    <rdfs:subClassOf rdf:resource="&this;飞行器"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;两栖作战舰艇">
-    <rdfs:subClassOf rdf:resource="&this;舰船舰艇"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;攻击机">
-    <rdfs:subClassOf rdf:resource="&this;飞行器"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;侦察机">
-    <rdfs:subClassOf rdf:resource="&this;飞行器"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;附件">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;枪械与单兵"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;狙击枪">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;枪械与单兵"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;航天机构">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;太空装备"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;度量">
-    <rdfs:subClassOf rdf:resource="&this;Thing"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;舰舰导弹">
-    <rdfs:subClassOf rdf:resource="&this;导弹武器"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;舰空导弹">
-    <rdfs:subClassOf rdf:resource="&this;导弹武器"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;预警雷达">
-    <rdfs:subClassOf rdf:resource="&this;雷达"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;导弹艇">
-    <rdfs:subClassOf rdf:resource="&this;舰船舰艇"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;太空装备">
-    <rdfs:subClassOf rdf:resource="&this;装备物资"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;战列舰">
-    <rdfs:subClassOf rdf:resource="&this;舰船舰艇"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;加农榴弹炮">
-    <rdfs:subClassOf rdf:resource="&this;火炮"/>
-  </owl:Class>
-  <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#气垫艇/气垫船">
-    <rdfs:subClassOf rdf:resource="&this;舰船舰艇"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;火箭炮">
-    <rdfs:subClassOf rdf:resource="&this;火炮"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;其他">
-    <rdfs:subClassOf rdf:resource="&this;舰船舰艇"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;其他特种装甲车辆">
-    <rdfs:subClassOf rdf:resource="&this;坦克装甲车辆"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;榴弹发射器">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;枪械与单兵"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;运输直升机">
-    <rdfs:subClassOf rdf:resource="&this;飞行器"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;电子战机">
-    <rdfs:subClassOf rdf:resource="&this;飞行器"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;资源">
-    <rdfs:subClassOf rdf:resource="&this;Thing"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;反潜机">
-    <rdfs:subClassOf rdf:resource="&this;飞行器"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;结果">
-    <rdfs:subClassOf rdf:resource="&this;Thing"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;巡航导弹">
-    <rdfs:subClassOf rdf:resource="&this;导弹武器"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;运载火箭">
-    <rdfs:subClassOf rdf:resource="&this;太空装备"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;陆基中段反导系统">
-    <rdfs:subClassOf rdf:resource="&this;反导系统"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;武装直升机">
-    <rdfs:subClassOf rdf:resource="&this;飞行器"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;火箭筒">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;枪械与单兵"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;教练机">
-    <rdfs:subClassOf rdf:resource="&this;飞行器"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;机枪">
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="&this;枪械与单兵"/>
-    </rdfs:subClassOf>
-  </owl:Class>
-  <owl:Class rdf:about="&this;迫击炮">
-    <rdfs:subClassOf rdf:resource="&this;火炮"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;轰炸机">
-    <rdfs:subClassOf rdf:resource="&this;飞行器"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;枪械与单兵">
-    <rdfs:subClassOf rdf:resource="&this;装备物资"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;应用卫星">
-    <rdfs:subClassOf rdf:resource="&this;太空装备"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;无后座炮">
-    <rdfs:subClassOf rdf:resource="&this;火炮"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;爆炸物">
-    <rdfs:subClassOf rdf:resource="&this;装备物资"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;加油机">
-    <rdfs:subClassOf rdf:resource="&this;飞行器"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;航母打击群">
-    <rdfs:subClassOf rdf:resource="&this;舰船舰艇"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;自行火炮">
-    <rdfs:subClassOf rdf:resource="&this;火炮"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;装甲侦察车">
-    <rdfs:subClassOf rdf:resource="&this;坦克装甲车辆"/>
-  </owl:Class>
-  <owl:Class rdf:about="&this;工程抢修车">
-    <rdfs:subClassOf rdf:resource="&this;坦克装甲车辆"/>
-  </owl:Class>
-  <owl:ObjectProperty rdf:about="&this;总舰长"/>
-  <owl:ObjectProperty rdf:about="&this;测试">
-    <rdfs:domain rdf:resource="&this;装备物资"/>
-    <rdf:type rdf:resource="&owl;DatatypeProperty"/>
-  </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="&this;参谋长"/>
-  <owl:ObjectProperty rdf:about="&this;巡洋舰">
-    <rdfs:range rdf:resource="&this;巡洋舰"/>
-    <rdfs:subClassOf rdf:resource="&this;舰船舰艇"/>
-    <rdf:type rdf:resource="&owl;Class"/>
-  </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="&this;挂载">
-    <rdfs:domain rdf:resource="&this;反导系统"/>
-    <rdfs:range rdf:resource="&this;附件"/>
-  </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#1414"/>
-  <owl:ObjectProperty rdf:about="&this;补给舰">
-    <rdfs:range rdf:resource="&this;补给舰"/>
-    <rdfs:subClassOf rdf:resource="&this;舰船舰艇"/>
-    <rdf:type rdf:resource="&owl;Class"/>
-  </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="&this;同事"/>
-  <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#78*99551">
-    <rdfs:domain rdf:resource="&this;Thing"/>
-    <rdfs:range rdf:resource="&this;Thing"/>
-  </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="&this;母港">
-    <rdfs:domain rdf:resource="&this;航母打击群"/>
-  </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="&this;r_b"/>
-  <owl:ObjectProperty rdf:about="&this;航空母舰">
-    <rdfs:domain rdf:resource="&this;航母打击群"/>
-    <rdfs:range rdf:resource="&this;航空母舰"/>
-    <rdfs:subClassOf rdf:resource="&this;舰船舰艇"/>
-    <rdf:type rdf:resource="&owl;Class"/>
-  </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="&this;r_d"/>
-  <owl:ObjectProperty rdf:about="&this;家庭信息"/>
-  <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#5165"/>
-  <owl:ObjectProperty rdf:about="&this;指挥官">
-    <rdfs:domain>
-      <owl:ObjectProperty rdf:about="&this;驱逐舰"/>
-    </rdfs:domain>
-    <rdfs:domain rdf:resource="&this;巡洋舰"/>
-  </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="&this;指挥军士长">
-    <rdfs:domain rdf:resource="&this;航母打击群"/>
-  </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="&this;国籍"/>
-  <owl:ObjectProperty rdf:about="&this;执行官">
-    <rdfs:domain rdf:resource="&this;航空母舰"/>
-  </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="&this;指挥军事长"/>
-  <owl:ObjectProperty rdf:about="&this;驱逐舰">
-    <rdfs:range rdf:resource="&this;驱逐舰"/>
-    <rdfs:subClassOf rdf:resource="&this;舰船舰艇"/>
-    <rdf:type rdf:resource="&owl;Class"/>
-  </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="&this;产国">
-    <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
-    <rdfs:domain rdf:resource="&this;巡洋舰"/>
-    <rdfs:domain rdf:resource="&this;补给舰"/>
-    <rdfs:domain rdf:resource="&this;驱逐舰"/>
-  </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="&this;控制">
-    <rdfs:range rdf:resource="&this;反导系统"/>
-  </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="&this;r_c"/>
-  <owl:ObjectProperty rdf:about="&this;r_e"/>
-  <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#123">
-    <rdfs:domain rdf:resource="&this;Thing"/>
-    <rdfs:range rdf:resource="&this;Thing"/>
-  </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="&this;属于">
-    <rdfs:domain rdf:resource="&this;导弹武器"/>
-    <rdfs:range rdf:resource="&this;反导系统"/>
-  </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="&this;r_a"/>
-  <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#789"/>
-  <owl:DatatypeProperty rdf:about="&this;重量">
-    <rdfs:domain rdf:resource="&this;装备物资"/>
-    <rdfs:domain rdf:resource="&this;陆基中段反导系统"/>
-  </owl:DatatypeProperty>
-  <owl:DatatypeProperty rdf:about="&this;体重"/>
-  <owl:DatatypeProperty rdf:about="&this;用途">
-    <rdfs:domain rdf:resource="&this;陆基中段反导系统"/>
-  </owl:DatatypeProperty>
-  <owl:DatatypeProperty rdf:about="&this;年龄"/>
-  <owl:DatatypeProperty rdf:about="&this;雷达射程">
-    <rdfs:domain rdf:resource="&this;陆基中段反导系统"/>
-  </owl:DatatypeProperty>
-  <owl:DatatypeProperty rdf:about="&this;生产国家">
-    <rdfs:domain rdf:resource="&this;陆基中段反导系统"/>
-  </owl:DatatypeProperty>
-  <owl:DatatypeProperty rdf:about="&this;代号">
-    <rdfs:domain rdf:resource="&this;陆基中段反导系统"/>
-  </owl:DatatypeProperty>
-  <owl:DatatypeProperty rdf:about="&this;就测试"/>
-  <owl:DatatypeProperty rdf:about="&this;速度">
-    <rdfs:domain rdf:resource="&this;陆基中段反导系统"/>
-  </owl:DatatypeProperty>
-  <owl:DatatypeProperty rdf:about="&this;测试哈哈"/>
-  <owl:DatatypeProperty rdf:about="&this;新的111"/>
-  <owl:DatatypeProperty rdf:about="&this;导弹长度">
-    <rdfs:domain rdf:resource="&this;陆基中段反导系统"/>
-  </owl:DatatypeProperty>
-  <owl:DatatypeProperty rdf:about="&this;防御范围">
-    <rdfs:domain rdf:resource="&this;陆基中段反导系统"/>
-  </owl:DatatypeProperty>
-  <owl:DatatypeProperty rdf:about="&this;长度"/>
-  <owl:DatatypeProperty rdf:about="&this;飞行距离"/>
-  <owl:DatatypeProperty rdf:about="&this;服役时间">
-    <rdfs:domain rdf:resource="&this;陆基中段反导系统"/>
-  </owl:DatatypeProperty>
+<rdf:RDF xmlns="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#"
+     xml:base="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:this="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#r_a -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#r_a"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#r_b -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#r_b"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#r_c -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#r_c"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#r_d -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#r_d"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#r_e -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#r_e"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#产国 -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#产国">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#参谋长 -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#参谋长"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#同事 -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#同事"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#国籍 -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#国籍"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#家庭信息 -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#家庭信息"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#属于 -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#属于"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#巡洋舰 -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#巡洋舰"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#总舰长 -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#总舰长"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#执行官 -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#执行官"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#挂载 -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#挂载"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#指挥军事长 -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#指挥军事长"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#指挥军士长 -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#指挥军士长"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#指挥官 -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#指挥官"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#控制 -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#控制"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#母港 -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#母港"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#测试 -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#测试"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#航空母舰 -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#航空母舰"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#补给舰 -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#补给舰"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#驱逐舰 -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#驱逐舰"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#123 -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#123">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#Thing"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#Thing"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#1414 -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#1414"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#5165 -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#5165"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#78*99551 -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#78*99551">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#Thing"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#Thing"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#789 -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#789"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#代号 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#代号"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#体重 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#体重"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#导弹长度 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#导弹长度"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#就测试 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#就测试"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#年龄 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#年龄"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#新的111 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#新的111"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#服役时间 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#服役时间"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#测试 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#测试"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#测试哈哈 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#测试哈哈"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#生产国家 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#生产国家"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#用途 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#用途"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#速度 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#速度"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#重量 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#重量"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#长度 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#长度"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#防御范围 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#防御范围"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#雷达射程 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#雷达射程"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#飞行距离 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#飞行距离"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#Thing -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/ztyt/ontologies/2023/2/fkfdcore#Thing"/>
 </rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+
